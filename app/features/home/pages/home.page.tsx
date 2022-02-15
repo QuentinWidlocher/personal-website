@@ -13,18 +13,18 @@ export default function HomePage() {
         <p>
           I'm a web developper, an amateur game developper and a learning
           enthusiast !
-        </p>{" "}
+        </p>
         <br />
         <p>
-          I'm very passionate about development and especially open source.{" "}
-          <br /> I love to{" "}
+          I'm very passionate about development and especially open source.
+          <br /> I love to
           <Link
             to="/stars"
             className="font-semibold text-white underline-offset-4 hover:underline"
           >
             learn new things all the time
-          </Link>{" "}
-          and I also happen to{" "}
+          </Link>
+          and I also happen to
           <Link
             to="/blog"
             className="font-semibold text-white underline-offset-4 hover:underline"
@@ -32,7 +32,7 @@ export default function HomePage() {
             teach some people too
           </Link>
           .
-        </p>{" "}
+        </p>
         <br />
         <p>I really love the web, UI/UX design and video games.</p>
         <div className="mt-20 flex text-xl text-white">

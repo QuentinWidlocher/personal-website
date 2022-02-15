@@ -13,6 +13,7 @@
   "dependencies": {
     "@remix-run/react": "^1.1.3",
     "@remix-run/serve": "^1.1.3",
+    "github-api": "^3.4.0",
     "iconoir-react": "^2.1.0",
     "postcss": "^8.4.6",
     "react": "^17.0.2",
