@@ -6,16 +6,16 @@ interface RepoCardProps {
 }
 
 function getIcon(repo: ReposLoaderPayload["repos"][number]) {
-  if (repo.isFork) {
-    return (
-      <div title="This repo is a fork">
-        <GitMerge />
-      </div>
-    );
-  } else if (repo.isTemplate) {
+  if (repo.isTemplate) {
     return (
       <div title="This repo is a template">
         <Map />
+      </div>
+    );
+  } else if (repo.isFork) {
+    return (
+      <div title="This repo is a fork">
+        <GitMerge />
       </div>
     );
   } else {
@@ -25,7 +25,6 @@ function getIcon(repo: ReposLoaderPayload["repos"][number]) {
 
 function titleCase(str: string) {
   return str
-    .toLowerCase()
     .split(" ")
     .map((word) => word.replace(word[0], word[0].toUpperCase()))
     .join(" ");
@@ -53,11 +52,15 @@ export default function RepoCard({ repo }: RepoCardProps) {
           {repo.description}
         </p>
         <div className="flex flex-wrap items-center justify-between">
-          <div className="mt-5 flex space-x-2">
-            <StarOutline />
-            <span>{repo.stars}</span>
-          </div>
-          <div className="mx-2" role="separator"></div>
+          {repo.stars > 0 ? (
+            <>
+              <div className="mt-5 flex space-x-2">
+                <StarOutline />
+                <span>{repo.stars}</span>
+              </div>
+              <div className="mx-2" role="separator"></div>
+            </>
+          ) : null}
           <ul
             className="relative mt-5 -mr-5 flex space-x-2 overflow-x-hidden pr-10"
             style={fadingInlineStyle}

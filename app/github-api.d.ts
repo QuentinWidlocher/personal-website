@@ -700,7 +700,7 @@ declare module "github-api" {
         until: Date | string;
       },
       cb?: Requestable.callback
-    ): axios.AxiosPromise;
+    ): axios.AxiosPromise<Commit[]>;
 
     /**
      * Gets a single commit information for a repository
@@ -1659,7 +1659,7 @@ declare module "github-api" {
     createRepo(options: Object, cb?: Requestable.callback): axios.AxiosPromise;
   }
 
-  export class Repo {
+  export interface Repo {
     id: number;
     node_id: string;
     name: string;
@@ -1713,7 +1713,7 @@ declare module "github-api" {
     ssh_url: string;
     clone_url: string;
     svn_url: string;
-    homepage: null;
+    homepage: unknown | null;
     size: number;
     stargazers_count: number;
     watchers_count: number;
@@ -1724,11 +1724,11 @@ declare module "github-api" {
     has_wiki: boolean;
     has_pages: boolean;
     forks_count: number;
-    mirror_url: null;
+    mirror_url: unknown | null;
     archived: boolean;
     disabled: boolean;
     open_issues_count: number;
-    license: null;
+    license: unknown | null;
     allow_forking: boolean;
     is_template: boolean;
     topics: string[];
@@ -1737,5 +1737,101 @@ declare module "github-api" {
     open_issues: number;
     watchers: number;
     default_branch: string;
+  }
+
+  export interface Commit {
+    url: string;
+    sha: string;
+    node_id: string;
+    html_url: string;
+    comments_url: string;
+    commit: {
+      url: string;
+      author: {
+        name: string;
+        email: string;
+        date: string;
+      };
+      committer: {
+        name: string;
+        email: string;
+        date: string;
+      };
+      message: string;
+      tree: {
+        url: string;
+        sha: string;
+      };
+      comment_count: number;
+      verification: {
+        verified: boolean;
+        reason: string;
+        signature: unknown | null;
+        payload: unknown | null;
+      };
+    };
+    author: {
+      login: string;
+      id: number;
+      node_id: string;
+      avatar_url: string;
+      gravatar_id: string;
+      url: string;
+      html_url: string;
+      followers_url: string;
+      following_url: string;
+      gists_url: string;
+      starred_url: string;
+      subscriptions_url: string;
+      organizations_url: string;
+      repos_url: string;
+      events_url: string;
+      received_events_url: string;
+      type: string;
+      site_admin: boolean;
+    };
+    committer: {
+      login: string;
+      id: number;
+      node_id: string;
+      avatar_url: string;
+      gravatar_id: string;
+      url: string;
+      html_url: string;
+      followers_url: string;
+      following_url: string;
+      gists_url: string;
+      starred_url: string;
+      subscriptions_url: string;
+      organizations_url: string;
+      repos_url: string;
+      events_url: string;
+      received_events_url: string;
+      type: string;
+      site_admin: boolean;
+    };
+    parents: [
+      {
+        url: string;
+        sha: string;
+      }
+    ];
+    stats: {
+      additions: number;
+      deletions: number;
+      total: number;
+    };
+    files: [
+      {
+        filename: string;
+        additions: number;
+        deletions: number;
+        changes: number;
+        status: string;
+        raw_url: string;
+        blob_url: string;
+        patch: string;
+      }
+    ];
   }
 }

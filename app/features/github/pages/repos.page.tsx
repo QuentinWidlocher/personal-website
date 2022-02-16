@@ -17,7 +17,9 @@ export default function ReposPage({ repos }: ReposPageProps) {
           My Repositories
         </a>
       </h1>
-      <h2 className="mb-10 text-slate-400">Sorted by last updated</h2>
+      <h2 className="mb-10 text-slate-400">
+        Sorted by last updated (not everything is here, only my main work)
+      </h2>
       <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
         {repos.map((repo) => (
           <li key={repo.id}>

@@ -1,4 +1,4 @@
-import GitHub, { Repo } from "github-api";
+import GitHub, { Repo, Repository, Commit } from "github-api";
 import { Cache } from "es-cache";
 
 let cache: Cache<string, unknown>;
@@ -33,12 +33,39 @@ export async function listRepos() {
       .listRepos()
       .then((r) => Object.values(r.data))) as Repo[];
 
-    cache.put("repos", repos, Number(process.env.GITHUB_CACHE_MS), async () =>
-      console.log("Repos cache expired")
-    );
+    console.log("Repo fetched, next is caching");
+
+    cache.put("repos", repos, Number(process.env.GITHUB_CACHE_MS), async () => {
+      console.log("Repos cache expired, fetching again");
+      listRepos();
+    });
   } else {
     console.log("Repos fetched from cache");
   }
 
   return repos;
+}
+
+export async function getLastCommitFromRepo(repoName: string): Promise<Commit> {
+  let commit = (await cache.get(`${repoName}-lastcommit`)) as Commit | null;
+
+  if (commit == null) {
+    let repo: Repository = gh.getRepo(process.env.GITHUB_USERNAME!, repoName);
+
+    commit = (await repo
+      .listCommits()
+      .then((req) => req.data)
+      .then((commits) => commits[0])) as Commit;
+
+    cache.put(
+      `${repoName}-lastcommit`,
+      commit,
+      Number(process.env.GITHUB_CACHE_MS),
+      async () => {
+        getLastCommitFromRepo(repoName);
+      }
+    );
+  }
+
+  return commit;
 }
