@@ -17,18 +17,20 @@ export default function HomePage() {
         <br />
         <p>
           I'm very passionate about development and especially open source.
-          <br /> I love to
+          <br /> I love to{" "}
           <Link
             to="/stars"
             className="font-semibold text-white underline-offset-4 hover:underline"
           >
-            learn new things all the time
+            {" "}
+            learn new things all the time{" "}
           </Link>
-          and I also happen to
+          and I also happen to{" "}
           <Link
             to="/blog"
             className="font-semibold text-white underline-offset-4 hover:underline"
           >
+            {" "}
             teach some people too
           </Link>
           .

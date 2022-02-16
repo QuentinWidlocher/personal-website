@@ -18,8 +18,6 @@ export interface ReposLoaderPayload {
 export let loader: LoaderFunction = async () => {
   let repos = await listRepos();
 
-  console.debug("repos[0]", repos[0]);
-
   let payload: ReposLoaderPayload = {
     repos: repos
       .filter((r) => !r.private && !r.archived && !r.disabled)

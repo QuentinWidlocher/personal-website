@@ -36,15 +36,15 @@ function formatTitle(title: string) {
 }
 
 // This piece of magical css is used to fade a div in its last 20%
-const fadingInlineStyle = {
-  "-webkit-mask-image":
-    "-webkit-gradient(linear, left center, right center, from(rgba(0,0,0,1)), color-stop(0.75, rgba(0,0,0,1)), to(rgba(0,0,0,0)));",
-} as React.CSSProperties;
+const fadingInlineStyle: React.CSSProperties = {
+  WebkitMaskImage:
+    "-webkit-gradient(linear, left center, right center, from(rgba(0,0,0,1)), color-stop(0.75, rgba(0,0,0,1)), to(rgba(0,0,0,0)))",
+};
 
 export default function RepoCard({ repo }: RepoCardProps) {
   return (
     <a target="_blank" className="block h-full" href={repo.url}>
-      <article className="group flex h-full flex-col justify-center rounded-lg bg-slate-500/20 p-5 hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20">
+      <article className="group flex h-full flex-col justify-center rounded-lg bg-slate-500/20 p-5 transition-transform hover:scale-105 hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20">
         <div className="mb-2 flex items-center space-x-2">
           {getIcon(repo)}
           <h1 className="text-xl font-bold">{formatTitle(repo.name)}</h1>
