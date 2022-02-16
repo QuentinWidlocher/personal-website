@@ -1,5 +1,5 @@
 import { Link } from "remix";
-import { GitMerge } from "iconoir-react";
+import { GitBranch } from "iconoir-react";
 
 export default function HomePage() {
   return (
@@ -40,7 +40,7 @@ export default function HomePage() {
             to="/repos"
             className="flex space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20"
           >
-            <GitMerge /> <span>See my work</span>
+            <GitBranch /> <span>See my work</span>
           </Link>
         </div>
       </article>

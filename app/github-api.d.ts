@@ -134,7 +134,7 @@ declare module "github-api" {
   /**
    * GitHub encapsulates the functionality to create various API wrapper objects.
    */
-  class GitHub {
+  export default class GitHub {
     /**
      * GitHub encapsulates the functionality to create various API wrapper objects.
      */
@@ -1659,7 +1659,7 @@ declare module "github-api" {
     createRepo(options: Object, cb?: Requestable.callback): axios.AxiosPromise;
   }
 
-  class Repo {
+  export class Repo {
     id: number;
     node_id: string;
     name: string;
@@ -1738,5 +1738,4 @@ declare module "github-api" {
     watchers: number;
     default_branch: string;
   }
-  export = GitHub;
 }
