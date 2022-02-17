@@ -22,7 +22,7 @@ function getNavLinkStyle({ isActive }: { isActive: boolean }) {
 
 export default function NavBar({}: NavBarProps) {
 	return (
-		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-800/80 py-10 text-white shadow-lg shadow-sky-900/20 sm:shadow-xl sm:shadow-sky-900/30 lg:shadow-2xl lg:shadow-sky-900/50">
+		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-800/80 py-10 text-white shadow-lg shadow-slate-800/20 backdrop-blur-md sm:shadow-xl sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-800/50">
 			<ul className="flex h-full w-full flex-col">
 				<li className="flex flex-col items-center space-x-0 p-2 pb-10 sm:flex-row sm:space-x-5 sm:p-5">
 					<img
