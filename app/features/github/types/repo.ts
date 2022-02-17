@@ -1,5 +1,6 @@
 export interface Repo {
   id: number;
+  organization?: string;
   name: string;
   description?: string;
   url: string;
@@ -7,5 +8,5 @@ export interface Repo {
   tags: string[];
   isFork: boolean;
   isTemplate: boolean;
-  updatedAt: Date;
+  updatedAt?: Date;
 }

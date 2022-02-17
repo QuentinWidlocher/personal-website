@@ -1,5 +1,6 @@
 import { MetaFunction } from "@remix-run/react/routeModules";
 import { HeadersFunction, useLoaderData } from "remix";
+import { ReposLoaderPayload } from "~/features/github/loaders/repos.loader";
 import ReposPage from "~/features/github/pages/repos.page";
 
 export { loader } from "~/features/github/loaders/repos.loader";
@@ -14,7 +15,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function ReposRoute() {
-  let { repos } = useLoaderData();
+  let { repos } = useLoaderData<ReposLoaderPayload>();
 
   return <ReposPage repos={repos} />;
 }

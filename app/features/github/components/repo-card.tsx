@@ -46,7 +46,14 @@ export default function RepoCard({ repo }: RepoCardProps) {
       <article className="group flex h-full flex-col justify-center rounded-lg bg-slate-500/20 p-5 transition-transform hover:scale-105 hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20">
         <div className="mb-2 flex items-center space-x-2">
           {getIcon(repo)}
-          <h1 className="text-xl font-bold">{formatTitle(repo.name)}</h1>
+          <h1 className="text-xl">
+            {repo.organization ? (
+              <span className="mr-2 text-lg text-slate-400 group-hover:text-sky-200">
+                {repo.organization} /
+              </span>
+            ) : null}
+            <span className="font-bold">{formatTitle(repo.name)}</span>
+          </h1>
         </div>
         <p className="text-md text-slate-400 group-hover:text-sky-200">
           {repo.description}

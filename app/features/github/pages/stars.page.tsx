@@ -1,25 +1,27 @@
 import RepoCard from "../components/repo-card";
-import { ReposLoaderPayload } from "../loaders/repos.loader";
+import { Repo } from "../types/repo";
 
-interface ReposPageProps {
-  repos: ReposLoaderPayload["repos"];
+interface StarsPageProps {
+  repos: Repo[];
 }
 
-export default function ReposPage({ repos }: ReposPageProps) {
+export default function StarsPage({ repos }: StarsPageProps) {
   return (
     <div className="p-10">
       <h1 className="my-5 text-4xl font-bold">
         <a
           target="_blank"
           className="underline-offset-4 hover:underline"
-          href="https://github.com/QuentinWidlocher?tab=repositories"
+          href="https://github.com/QuentinWidlocher?tab=stars"
         >
-          My repositories
+          My stars ⭐️
         </a>
       </h1>
-      <h2 className="mb-10 text-xl text-slate-400">
-        Sorted by last updated (not everything is here, only my main work)
-      </h2>
+      <p className="mb-10 text-xl text-slate-400">
+        I spent a lot of my free time, looking around to find cool new stuff to
+        try and learn. <br />
+        Here is the list of the nice things I've starred on github.
+      </p>
       <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
         {repos.map((repo) => (
           <li key={repo.id}>

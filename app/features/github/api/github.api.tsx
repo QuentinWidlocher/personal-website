@@ -46,6 +46,30 @@ export async function listRepos() {
   return repos;
 }
 
+export async function listStars() {
+  let stars = (await cache.get("stars")) as Repo[] | null;
+
+  if (stars == null) {
+    console.log("Fetching stars from GitHub...");
+
+    stars = (await gh
+      .getUser(process.env.GITHUB_USERNAME)
+      .listStarredRepos()
+      .then((r) => Object.values(r.data))) as Repo[];
+
+    console.log("Stars fetched, next is caching");
+
+    cache.put("stars", stars, Number(process.env.GITHUB_CACHE_MS), async () => {
+      console.log("Stars cache expired, fetching again");
+      listStars();
+    });
+  } else {
+    console.log("Stars fetched from cache");
+  }
+
+  return stars;
+}
+
 export async function getLastCommitFromRepo(repoName: string): Promise<Commit> {
   let commit = (await cache.get(`${repoName}-lastcommit`)) as Commit | null;
 

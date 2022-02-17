@@ -6,12 +6,13 @@ import {
   Medium,
   Home,
   GitBranch,
+  StarOutline,
 } from "iconoir-react";
 
 interface NavBarProps {}
 
 function getNavLinkStyle({ isActive }: { isActive: boolean }) {
-  let baseStyle = `flex space-x-5 w-full py-4 px-5 pr-0 rounded-l-xl hover:bg-white/10`;
+  let baseStyle = `flex space-x-5 w-full py-4 px-5 pr-0 rounded-l-xl hover:bg-white/10 transition-colors`;
   if (isActive) {
     return `${baseStyle} font-bold border-r-2 border-white`;
   } else {
@@ -36,7 +37,7 @@ export default function NavBar({}: NavBarProps) {
                 title="My Github"
                 href="https://github.com/QuentinWidlocher"
                 target="_blank"
-                className="text-slate-400 hover:text-white"
+                className="text-slate-400 transition-colors hover:text-white"
               >
                 <GitHub />
               </a>
@@ -44,7 +45,7 @@ export default function NavBar({}: NavBarProps) {
                 title="My Telegram"
                 href="https://t.me/lazard_channel"
                 target="_blank"
-                className="text-slate-400 hover:text-blue-500"
+                className="text-slate-400 transition-colors hover:text-blue-500"
               >
                 <Telegram />
               </a>
@@ -52,7 +53,7 @@ export default function NavBar({}: NavBarProps) {
                 title="My Twitter"
                 href="https://twitter.com/Lazard_"
                 target="_blank"
-                className="text-slate-400  hover:text-sky-500"
+                className="text-slate-400 transition-colors  hover:text-sky-500"
               >
                 <Twitter />
               </a>
@@ -60,7 +61,7 @@ export default function NavBar({}: NavBarProps) {
                 title="My Medium"
                 href="https://medium.com/@QuentinWidlocher"
                 target="_blank"
-                className="text-slate-400  hover:text-green-500"
+                className="text-slate-400 transition-colors  hover:text-green-500"
               >
                 <Medium />
               </a>
@@ -77,6 +78,12 @@ export default function NavBar({}: NavBarProps) {
           <NavLink prefetch="intent" to="/repos" className={getNavLinkStyle}>
             <GitBranch />
             <span>My repositories</span>
+          </NavLink>
+        </li>
+        <li className="mt-5 pl-5">
+          <NavLink prefetch="intent" to="/stars" className={getNavLinkStyle}>
+            <StarOutline />
+            <span>My stars</span>
           </NavLink>
         </li>
         <li className="mt-auto mb-5 text-center text-slate-400 underline-offset-4 hover:underline">
