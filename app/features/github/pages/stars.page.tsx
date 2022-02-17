@@ -11,6 +11,7 @@ export default function StarsPage({ repos }: StarsPageProps) {
 			<h1 className="my-5 text-4xl font-bold">
 				<a
 					target="_blank"
+					rel="noopener"
 					className="underline-offset-4 hover:underline"
 					href="https://github.com/QuentinWidlocher?tab=stars"
 				>

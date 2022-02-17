@@ -1,0 +1,20 @@
+{
+    "name": "Quentin Widlocher",
+    "short_name": "Quentin Widlocher",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "assets/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#0EA5E9",
+    "background_color": "#1E293B",
+    "display": "standalone"
+}

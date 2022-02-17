@@ -40,33 +40,41 @@ export default function NavBar({}: NavBarProps) {
 						</Link>
 						<div className="flex flex-col justify-around space-y-3 lg:flex-row lg:space-y-0">
 							<a
-								title="My Github"
+								title="My Github page"
+								aria-label="Link to my Github page"
 								href="https://github.com/QuentinWidlocher"
 								target="_blank"
+								rel="noopener"
 								className="text-slate-400 transition-colors hover:text-white"
 							>
 								<GitHub />
 							</a>
 							<a
-								title="My Telegram"
+								title="My Telegram channel"
+								aria-label="Link to my Telegram channel"
 								href="https://t.me/lazard_channel"
 								target="_blank"
+								rel="noopener"
 								className="text-slate-400 transition-colors hover:text-blue-500"
 							>
 								<Telegram />
 							</a>
 							<a
-								title="My Twitter"
+								title="My Twitter account"
+								aria-label="Link to my Twitter account"
 								href="https://twitter.com/Lazard_"
 								target="_blank"
+								rel="noopener"
 								className="text-slate-400 transition-colors  hover:text-sky-500"
 							>
 								<Twitter />
 							</a>
 							<a
-								title="My Medium"
+								title="My Medium page"
+								aria-label="Link to my Medium page"
 								href="https://medium.com/@QuentinWidlocher"
 								target="_blank"
+								rel="noopener"
 								className="text-slate-400 transition-colors  hover:text-green-500"
 							>
 								<Medium />
@@ -96,6 +104,7 @@ export default function NavBar({}: NavBarProps) {
 					<a
 						href="https://github.com/QuentinWidlocher/personal-website"
 						target="_blank"
+						rel="noopener"
 					>
 						See this website on github
 					</a>
