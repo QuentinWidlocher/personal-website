@@ -22,7 +22,7 @@ const headers = {
 
 // TODO: Paginate
 function listRepoFromUser(username: string): Promise<GithubRepo[]> {
-	return fetch(`${baseUrl}/users/${username}/repos?per_page=100`, {
+	return fetch(`${baseUrl}/users/${username}/repos?per_page=30`, {
 		method: "GET",
 		headers,
 	}).then((res) => res.json());
@@ -30,7 +30,7 @@ function listRepoFromUser(username: string): Promise<GithubRepo[]> {
 
 // TODO: Paginate
 function listStarredRepos(): Promise<GithubRepo[]> {
-	return fetch(`${baseUrl}/user/starred?per_page=100&sort=created`, {
+	return fetch(`${baseUrl}/user/starred?per_page=30&sort=created`, {
 		method: "GET",
 		headers,
 	}).then((res) => res.json());

@@ -1,4 +1,4 @@
-import { NavLink } from "remix";
+import { Link, NavLink } from "remix";
 import {
 	GitHub,
 	Telegram,
@@ -25,15 +25,19 @@ export default function NavBar({}: NavBarProps) {
 		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-800/80 py-10 text-white shadow-lg shadow-slate-800/20 backdrop-blur-md sm:shadow-xl sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-800/50">
 			<ul className="flex h-full w-full flex-col">
 				<li className="flex flex-col items-center space-x-0 p-2 pb-10 sm:flex-row sm:space-x-5 sm:p-5">
-					<img
-						src="/assets/images/profil.jpg"
-						alt="A simplistic rendition of Quentin's face"
-						className="mb-5 aspect-square h-8 w-8 rounded-full sm:mb-0 sm:h-16 sm:w-16"
-					/>
+					<Link to="/" prefetch="intent">
+						<img
+							src="/assets/images/profil.webp"
+							alt="A simplistic rendition of Quentin's face"
+							className="mb-5 aspect-square h-8 w-8 rounded-full sm:mb-0 sm:h-16 sm:w-16"
+						/>
+					</Link>
 					<section className="flex flex-col space-y-2">
-						<h1 className="hidden text-lg font-bold lg:block">
-							Quentin Widlocher
-						</h1>
+						<Link to="/" prefetch="intent">
+							<h1 className="hidden text-lg font-bold underline-offset-4 hover:underline lg:block">
+								Quentin Widlocher
+							</h1>
+						</Link>
 						<div className="flex flex-col justify-around space-y-3 lg:flex-row lg:space-y-0">
 							<a
 								title="My Github"

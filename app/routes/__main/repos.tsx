@@ -6,16 +6,18 @@ import ReposPage from "~/features/github/pages/repos.page";
 export { loader } from "~/features/github/loaders/repos.loader";
 
 export let headers: HeadersFunction = () => ({
-  // Cache for 30min, revalidate for 30min
-  "Cache-Control": "max-age=1800, stale-while-revalidate=1800",
+	// Cache for 30min, revalidate for 30min
+	"Cache-Control": "max-age=1800, stale-while-revalidate=1800",
 });
 
 export const meta: MetaFunction = () => {
-  return { title: "My Repositories - Quentin Widlocher" };
+	return { title: "My Repositories - Quentin Widlocher" };
 };
 
-export default function ReposRoute() {
-  let { repos } = useLoaderData<ReposLoaderPayload>();
+export const handle = { hydrate: true };
 
-  return <ReposPage repos={repos} />;
+export default function ReposRoute() {
+	let { repos } = useLoaderData<ReposLoaderPayload>();
+
+	return <ReposPage repos={repos} />;
 }

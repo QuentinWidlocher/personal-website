@@ -6,16 +6,18 @@ import StarsPage from "~/features/github/pages/stars.page";
 export { loader } from "~/features/github/loaders/stars.loader";
 
 export let headers: HeadersFunction = () => ({
-  // Cache for 30min, revalidate for 30min
-  "Cache-Control": "max-age=1800, stale-while-revalidate=1800",
+	// Cache for 30min, revalidate for 30min
+	"Cache-Control": "max-age=1800, stale-while-revalidate=1800",
 });
 
 export const meta: MetaFunction = () => {
-  return { title: "My Stars - Quentin Widlocher" };
+	return { title: "My Stars - Quentin Widlocher" };
 };
 
-export default function StarsRoute() {
-  let { repos } = useLoaderData<StarsLoaderPayload>();
+export const handle = { hydrate: true };
 
-  return <StarsPage repos={repos} />;
+export default function StarsRoute() {
+	let { repos } = useLoaderData<StarsLoaderPayload>();
+
+	return <StarsPage repos={repos} />;
 }

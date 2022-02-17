@@ -6,6 +6,7 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useMatches,
 } from "remix";
 import type { MetaFunction } from "remix";
 
@@ -18,6 +19,11 @@ export const links: LinksFunction = () => {
 };
 
 export default function App() {
+	const matches = useMatches();
+
+	// If at least one route wants to hydrate, this will return true
+	const includeScripts = matches.some((match) => match.handle?.hydrate);
+
 	return (
 		<html className="h-full" lang="en">
 			<head>
@@ -39,7 +45,7 @@ export default function App() {
 			<body className="h-full">
 				<Outlet />
 				<ScrollRestoration />
-				<Scripts />
+				{includeScripts ? <Scripts /> : null}
 				{process.env.NODE_ENV === "development" && <LiveReload />}
 			</body>
 		</html>
