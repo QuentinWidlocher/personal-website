@@ -43,7 +43,7 @@ const fadingInlineStyle: React.CSSProperties = {
 export default function RepoCard({ repo }: RepoCardProps) {
 	return (
 		<a target="_blank" className="block h-full text-base" href={repo.url}>
-			<article className="group flex h-full flex-col justify-center rounded-lg bg-slate-500/20 p-5 transition-transform hover:scale-105 hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20">
+			<article className="group flex h-full flex-col justify-center rounded-lg bg-slate-500/20 p-5 transition-transform hover:scale-105 hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 ">
 				<div className="mb-2 flex items-center space-x-2">
 					{getIcon(repo)}
 					<h1 className="text-xl">

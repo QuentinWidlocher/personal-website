@@ -3,7 +3,7 @@ import { GitBranch } from "iconoir-react";
 
 export default function HomePage() {
 	return (
-		<div className="p-5 text-lg sm:p-10 sm:text-2xl lg:p-20 lg:text-3xl">
+		<div className="p-5 text-lg sm:p-10 sm:text-xl lg:p-20 lg:text-2xl">
 			<h2 className="text-2xl leading-relaxed sm:text-3xl lg:text-5xl">
 				Hi there !
 			</h2>
@@ -11,7 +11,7 @@ export default function HomePage() {
 				I'm <strong>Quentin Widlocher</strong>
 			</h3>
 
-			<article className="mt-20 leading-relaxed text-slate-300">
+			<article className="mt-10 leading-relaxed text-slate-300 lg:mt-20">
 				<p>
 					I'm a web developper, an amateur game developper and a learning
 					enthusiast !
@@ -38,7 +38,7 @@ export default function HomePage() {
 					.
 				</p>
 				<br />
-				<p>I really love the web, UI/UX design and video games.</p>
+				<p>I really love the web, UI & UX design and video games.</p>
 				<div className="mt-20 flex flex-col text-xl text-white sm:flex-row">
 					<Link
 						to="/repos"
