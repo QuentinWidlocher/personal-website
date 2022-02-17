@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	-webkit-tap-highlight-color: transparent;
+}
+
+[data-tooltip] {
+	--tooltip-background: theme("colors.slate.700");
+	--tooltip-padding: theme("spacing.2") theme("spacing.3");
+	--tooltip-text-color: white;
+	--tooltip-fontsize: theme("fontSize.sm");
+	--tooltip-radius: theme("borderRadius.DEFAULT");
+}
+
+.navbar-link[data-tooltip]:hover::after,
+.navbar-link[data-tooltip]:focus::after {
+	content: attr(title);
+	left: 0%;
+	transform: none;
+}
+
+/* Hide the tooltip while it's not active to prevent */
+/* displaying it when hovering the non visible tooltip */
+[data-tooltip]:not(:hover)::after,
+[data-tooltip]:not(:hover)::before,
+[data-tooltip]:not(:focus)::after,
+[data-tooltip]:not(:focus)::before {
+	display: none;
+}
+
+/* When the data-tooltip is hovered, force its style */
+/* the body selector is here to make this higher priority */
+body [data-tooltip]:hover::after,
+body [data-tooltip]:hover::before,
+body [data-tooltip]:focus::after,
+body [data-tooltip]:focus::before {
+	display: inline-block;
+}

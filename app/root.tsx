@@ -9,13 +9,19 @@ import {
 	useMatches,
 } from "remix";
 import type { MetaFunction } from "remix";
+import cssuiCore from "css-ui-lib/cssui.css";
+import cssuiTooltip from "css-ui-lib/tooltip/tooltip.css";
 
 export const meta: MetaFunction = () => {
 	return { title: "Quentin Widlocher" };
 };
 
 export const links: LinksFunction = () => {
-	return [{ rel: "stylesheet", href: "/tailwindcss" }];
+	return [
+		{ rel: "stylesheet", href: cssuiCore },
+		{ rel: "stylesheet", href: cssuiTooltip },
+		{ rel: "stylesheet", href: "/tailwindcss" },
+	];
 };
 
 export default function App() {

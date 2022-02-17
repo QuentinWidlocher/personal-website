@@ -12,7 +12,7 @@ import {
 interface NavBarProps {}
 
 function getNavLinkStyle({ isActive }: { isActive: boolean }) {
-	let baseStyle = `flex space-x-5 w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-white/10 transition-colors border-r-2`;
+	let baseStyle = `navbar-link flex space-x-5 w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-white/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`;
 	if (isActive) {
 		return `${baseStyle} font-bold border-white`;
 	} else {
@@ -45,7 +45,9 @@ export default function NavBar({}: NavBarProps) {
 								href="https://github.com/QuentinWidlocher"
 								target="_blank"
 								rel="noopener"
-								className="text-slate-400 transition-colors hover:text-white"
+								data-tooltip
+								role="tooltip"
+								className="navbar-link text-slate-400 transition-colors hover:text-white"
 							>
 								<GitHub />
 							</a>
@@ -55,7 +57,9 @@ export default function NavBar({}: NavBarProps) {
 								href="https://t.me/lazard_channel"
 								target="_blank"
 								rel="noopener"
-								className="text-slate-400 transition-colors hover:text-blue-500"
+								data-tooltip
+								role="tooltip"
+								className="navbar-link text-slate-400 transition-colors hover:text-blue-500"
 							>
 								<Telegram />
 							</a>
@@ -65,7 +69,9 @@ export default function NavBar({}: NavBarProps) {
 								href="https://twitter.com/Lazard_"
 								target="_blank"
 								rel="noopener"
-								className="text-slate-400 transition-colors  hover:text-sky-500"
+								data-tooltip
+								role="tooltip"
+								className="navbar-link text-slate-400 transition-colors  hover:text-sky-500"
 							>
 								<Twitter />
 							</a>
@@ -75,7 +81,9 @@ export default function NavBar({}: NavBarProps) {
 								href="https://medium.com/@QuentinWidlocher"
 								target="_blank"
 								rel="noopener"
-								className="text-slate-400 transition-colors  hover:text-green-500"
+								data-tooltip
+								role="tooltip"
+								className="navbar-link text-slate-400 transition-colors  hover:text-green-500"
 							>
 								<Medium />
 							</a>
@@ -83,20 +91,44 @@ export default function NavBar({}: NavBarProps) {
 					</section>
 				</li>
 				<li className="ml-auto mt-12 sm:mt-5 lg:ml-5">
-					<NavLink prefetch="intent" to="/" className={getNavLinkStyle}>
-						<Home aria-label="Home" />
+					<NavLink
+						prefetch="intent"
+						to="/"
+						className={getNavLinkStyle}
+						aria-label="Home"
+						title="Home"
+						data-tooltip
+						role="tooltip"
+					>
+						<Home />
 						<span className="hidden lg:block">Home</span>
 					</NavLink>
 				</li>
 				<li className="ml-auto mt-12 sm:mt-5 lg:ml-5">
-					<NavLink prefetch="intent" to="/repos" className={getNavLinkStyle}>
-						<GitBranch aria-label="My repositories" />
+					<NavLink
+						prefetch="intent"
+						to="/repos"
+						className={getNavLinkStyle}
+						aria-label="My repositories"
+						title="My repositories"
+						data-tooltip
+						role="tooltip"
+					>
+						<GitBranch />
 						<span className="hidden lg:block">My repositories</span>
 					</NavLink>
 				</li>
 				<li className="ml-auto mt-12 sm:mt-5 lg:ml-5">
-					<NavLink prefetch="intent" to="/stars" className={getNavLinkStyle}>
-						<StarOutline aria-label="My stars" />
+					<NavLink
+						prefetch="intent"
+						to="/stars"
+						className={getNavLinkStyle}
+						aria-label="My stars"
+						title="My stars"
+						data-tooltip
+						role="tooltip"
+					>
+						<StarOutline />
 						<span className="hidden lg:block">My stars</span>
 					</NavLink>
 				</li>

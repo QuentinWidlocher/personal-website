@@ -865,6 +865,11 @@ cosmiconfig@^7.0.1:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
+css-ui-lib@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/css-ui-lib/-/css-ui-lib-0.2.0.tgz#da33154bc1f4f15c01616db90242667d2c7a371c"
+  integrity sha512-33a/JoRMw2pKu3ezULxnZREroKsALVcr0LUpwn4/5kMSzKkf/GVNMHH5L6LfAqK9KEVPwv/JxGYmONr23Dc6ag==
+
 cssesc@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
