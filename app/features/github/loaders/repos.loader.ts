@@ -8,10 +8,6 @@ export interface ReposLoaderPayload {
 
 export let loader: LoaderFunction = async () => {
   let repos = await listRepos();
-  console.log(
-    "🚀 ~ file: repos.loader.ts ~ line 11 ~ letloader:LoaderFunction= ~ repos",
-    repos
-  );
 
   let onlyMainRepos = repos.filter(
     (r) => !r.private && !r.archived && !r.disabled && r.topics?.length > 0
