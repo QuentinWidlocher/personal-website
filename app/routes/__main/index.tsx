@@ -6,8 +6,6 @@ export let headers: HeadersFunction = () => ({
 	"Cache-Control": "max-age=3600, stale-while-revalidate=86400",
 });
 
-export const handle = { hydrate: false };
-
 export default function IndexRoute() {
 	return <HomePage />;
 }

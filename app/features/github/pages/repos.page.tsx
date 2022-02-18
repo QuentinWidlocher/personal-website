@@ -8,7 +8,7 @@ interface ReposPageProps {
 export default function ReposPage({ repos }: ReposPageProps) {
 	return (
 		<div className="p-5 text-lg sm:p-10 sm:text-2xl lg:p-16 lg:text-4xl">
-			<h1 className="my-5 text-4xl font-bold">
+			<h1 className="my-5 text-2xl font-bold sm:text-3xl lg:text-5xl">
 				<a
 					target="_blank"
 					rel="noopener"

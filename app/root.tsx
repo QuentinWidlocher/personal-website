@@ -25,11 +25,6 @@ export const links: LinksFunction = () => {
 };
 
 export default function App() {
-	const matches = useMatches();
-
-	// If at least one route wants to hydrate, this will return true
-	const includeScripts = matches.some((match) => match.handle?.hydrate);
-
 	return (
 		<html className="h-full" lang="en" prefix="og: https://ogp.me/ns#">
 			<head>
@@ -105,8 +100,10 @@ export default function App() {
 			<body className="h-full">
 				<Outlet />
 				<ScrollRestoration />
-				{includeScripts ? <Scripts /> : null}
-				<script src="/sw_launcher.js" />
+				<Scripts />
+				{process.env.NODE_ENV != "development" ? (
+					<script src="/sw_launcher.js" />
+				) : null}
 				{process.env.NODE_ENV === "development" && <LiveReload />}
 			</body>
 		</html>

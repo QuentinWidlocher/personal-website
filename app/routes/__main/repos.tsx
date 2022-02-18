@@ -14,8 +14,6 @@ export const meta: MetaFunction = () => {
 	return { title: "My Repositories - Quentin Widlocher" };
 };
 
-export const handle = { hydrate: true };
-
 export default function ReposRoute() {
 	let { repos } = useLoaderData<ReposLoaderPayload>();
 

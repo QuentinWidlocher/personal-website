@@ -14,8 +14,6 @@ export const meta: MetaFunction = () => {
 	return { title: "My Stars - Quentin Widlocher" };
 };
 
-export const handle = { hydrate: true };
-
 export default function StarsRoute() {
 	let { repos } = useLoaderData<StarsLoaderPayload>();
 
