@@ -4,112 +4,112 @@ import { GithubCommit, GithubRepo } from "../types/github";
 let cache: Cache<string, unknown>;
 
 declare global {
-	var __cache: Cache<string, unknown> | undefined;
+  var __cache: Cache<string, unknown> | undefined;
 }
 
 if (!global.__cache) {
-	global.__cache = new Cache();
+  global.__cache = new Cache();
 }
 
 cache = global.__cache;
 
 const baseUrl = "https://api.github.com";
 const headers = {
-	"Content-Type": "application/json",
-	Accept: "application/vnd.github.v3+json",
-	Authorization: `token ${process.env.GITHUB_TOKEN}`,
+  "Content-Type": "application/json",
+  Accept: "application/vnd.github.v3+json",
+  Authorization: `token ${process.env.GITHUB_TOKEN}`,
 };
 
 // TODO: Paginate
-function listRepoFromUser(username: string): Promise<GithubRepo[]> {
-	return fetch(`${baseUrl}/users/${username}/repos?per_page=30`, {
-		method: "GET",
-		headers,
-	}).then((res) => res.json());
+function listRepoFromCurrentUser(): Promise<GithubRepo[]> {
+  return fetch(`${baseUrl}/user/repos?per_page=30&sort=pushed`, {
+    method: "GET",
+    headers,
+  }).then((res) => res.json());
 }
 
 // TODO: Paginate
 function listStarredRepos(): Promise<GithubRepo[]> {
-	return fetch(`${baseUrl}/user/starred?per_page=30&sort=created`, {
-		method: "GET",
-		headers,
-	}).then((res) => res.json());
+  return fetch(`${baseUrl}/user/starred?per_page=50&sort=created`, {
+    method: "GET",
+    headers,
+  }).then((res) => res.json());
 }
 
 function getLastCommitFromRepo(
-	username: string,
-	repoName: string
+  username: string,
+  repoName: string
 ): Promise<GithubCommit> {
-	return fetch(`${baseUrl}/repos/${username}/${repoName}/commits?per_page=1`, {
-		method: "GET",
-		headers,
-	})
-		.then((res) => res.json())
-		.then((commits) => commits[0]);
+  return fetch(`${baseUrl}/repos/${username}/${repoName}/commits?per_page=1`, {
+    method: "GET",
+    headers,
+  })
+    .then((res) => res.json())
+    .then((commits) => commits[0]);
 }
 
 export async function listRepos() {
-	let repos = (await cache.get("repos")) as GithubRepo[] | null;
+  let repos = (await cache.get("repos")) as GithubRepo[] | null;
 
-	if (repos == null) {
-		console.log("Fetching repos from GitHub...");
+  if (repos == null) {
+    console.log("Fetching repos from GitHub...");
 
-		repos = await listRepoFromUser(process.env.GITHUB_USERNAME!);
+    repos = await listRepoFromCurrentUser();
 
-		console.log("Repo fetched, next is caching");
+    console.log("Repo fetched, next is caching");
 
-		cache.put("repos", repos, Number(process.env.GITHUB_CACHE_MS), async () => {
-			console.log("Repos cache expired, fetching again");
-			listRepos();
-		});
-	} else {
-		console.log("Repos fetched from cache");
-	}
+    cache.put("repos", repos, Number(process.env.GITHUB_CACHE_MS), async () => {
+      console.log("Repos cache expired, fetching again");
+      listRepos();
+    });
+  } else {
+    console.log("Repos fetched from cache");
+  }
 
-	return repos;
+  return repos;
 }
 
 export async function listStars() {
-	let stars = (await cache.get("stars")) as GithubRepo[] | null;
+  let stars = (await cache.get("stars")) as GithubRepo[] | null;
 
-	if (stars == null) {
-		console.log("Fetching stars from GitHub...");
+  if (stars == null) {
+    console.log("Fetching stars from GitHub...");
 
-		stars = await listStarredRepos();
+    stars = await listStarredRepos();
 
-		console.log("Stars fetched, next is caching");
+    console.log("Stars fetched, next is caching");
 
-		cache.put("stars", stars, Number(process.env.GITHUB_CACHE_MS), async () => {
-			console.log("Stars cache expired, fetching again");
-			listStars();
-		});
-	} else {
-		console.log("Stars fetched from cache");
-	}
+    cache.put("stars", stars, Number(process.env.GITHUB_CACHE_MS), async () => {
+      console.log("Stars cache expired, fetching again");
+      listStars();
+    });
+  } else {
+    console.log("Stars fetched from cache");
+  }
 
-	return stars;
+  return stars;
 }
 
 export async function getLastCommit(repoName: string): Promise<GithubCommit> {
-	let commit = (await cache.get(
-		`${repoName}-lastcommit`
-	)) as GithubCommit | null;
+  let commit = (await cache.get(
+    `${repoName}-lastcommit`
+  )) as GithubCommit | null;
 
-	if (commit == null) {
-		commit = await getLastCommitFromRepo(
-			process.env.GITHUB_USERNAME!,
-			repoName
-		);
+  if (commit == null) {
+    commit = await getLastCommitFromRepo(
+      process.env.GITHUB_USERNAME!,
+      repoName
+    );
 
-		cache.put(
-			`${repoName}-lastcommit`,
-			commit,
-			Number(process.env.GITHUB_CACHE_MS),
-			async () => {
-				getLastCommit(repoName);
-			}
-		);
-	}
+    cache.put(
+      `${repoName}-lastcommit`,
+      commit,
+      Number(process.env.GITHUB_CACHE_MS),
+      async () => {
+        getLastCommit(repoName);
+      }
+    );
+  }
 
-	return commit;
+  return commit;
 }
