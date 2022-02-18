@@ -1,36 +1,25 @@
-import { Link } from "remix";
-import { GitBranch } from "iconoir-react";
+import { Link } from "remix"
+import { GitBranch } from "iconoir-react"
 
 export default function HomePage() {
 	return (
 		<div className="p-5 text-lg sm:p-10 sm:text-xl lg:p-20 lg:text-2xl">
-			<h2 className="text-2xl leading-relaxed sm:text-3xl lg:text-5xl">
-				Hi there !
-			</h2>
+			<h2 className="text-2xl leading-relaxed sm:text-3xl lg:text-5xl">Hi there !</h2>
 			<h3 className="text-2xl leading-relaxed sm:text-4xl lg:text-6xl">
 				I'm <strong>Quentin Widlocher</strong>
 			</h3>
 
 			<article className="mt-10 leading-relaxed text-slate-300 lg:mt-20">
-				<p>
-					I'm a 🇫🇷 french web developer, an amateur game developer and a
-					learning enthusiast !
-				</p>
+				<p>I'm a 🇫🇷 french web developer, an amateur game developer and a learning enthusiast !</p>
 				<br />
 				<p>
 					I'm very passionate about development and especially open source.
 					<br /> I love to{" "}
-					<Link
-						to="/stars"
-						className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline"
-					>
+					<Link to="/stars" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
 						learn new things all the time
 					</Link>{" "}
 					and I also happen to{" "}
-					<Link
-						to="/blog"
-						className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline"
-					>
+					<Link to="/blog" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
 						teach some people too
 					</Link>
 					.
@@ -48,5 +37,5 @@ export default function HomePage() {
 				</div>
 			</article>
 		</div>
-	);
+	)
 }
