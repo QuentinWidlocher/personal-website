@@ -13,8 +13,8 @@ export default function HomePage() {
 
       <article className="mt-10 leading-relaxed text-slate-300 lg:mt-20">
         <p>
-          I'm a web developper, an amateur game developper and a learning
-          enthusiast !
+          I'm a 🇫🇷 french web developer, an amateur game developer and a
+          learning enthusiast !
         </p>
         <br />
         <p>
