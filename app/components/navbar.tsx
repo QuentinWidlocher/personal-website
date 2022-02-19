@@ -89,9 +89,9 @@ export default function NavBar({}: NavBarProps) {
 					</NavLink>
 				</li>
 				<li className="ml-auto mt-12 sm:mt-5 lg:ml-5">
-					<NavLink prefetch="intent" to="/stars" className={getNavLinkStyle} aria-label="My stars" title="My stars" data-tooltip role="tooltip">
+					<NavLink prefetch="intent" to="/stars" className={getNavLinkStyle} aria-label="My starred repos" title="My starred repos" data-tooltip role="tooltip">
 						<StarOutline />
-						<span className="hidden lg:block">My stars</span>
+						<span className="hidden lg:block">My starred repos</span>
 					</NavLink>
 				</li>
 				<li className="mt-auto mb-5 hidden text-center text-slate-400 underline-offset-4 hover:underline lg:block">

@@ -10,11 +10,11 @@ export default function StarsPage({ repos }: StarsPageProps) {
 		<div className="p-5 text-lg sm:p-10 sm:text-2xl lg:p-16 lg:text-4xl">
 			<h1 className="my-5 text-2xl font-bold sm:text-3xl lg:text-5xl">
 				<a target="_blank" rel="noopener" className="underline-offset-4 hover:underline" href="https://github.com/QuentinWidlocher?tab=stars">
-					My stars ⭐️
+					My starred repositories ⭐️
 				</a>
 			</h1>
 			<p className="mb-10 text-xl text-slate-400">
-				I spent a lot of my free time, looking around to find cool new stuff to try and learn. <br />
+				I spent a lot of my free time looking around to find cool new stuff to try and learn. <br />
 				Here is the list of the nice things I've starred on github.
 			</p>
 			<ul className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">

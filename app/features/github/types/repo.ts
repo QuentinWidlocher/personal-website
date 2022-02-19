@@ -8,5 +8,5 @@ export interface Repo {
 	tags: string[]
 	isFork: boolean
 	isTemplate: boolean
-	updatedAt?: Date
+	updatedAt: Date
 }

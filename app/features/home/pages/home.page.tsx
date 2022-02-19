@@ -15,13 +15,20 @@ export default function HomePage() {
 				<p>
 					I'm very passionate about development and especially open source.
 					<br /> I love to{" "}
-					<Link to="/stars" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
+					<Link role="tooltip" data-tooltip title="See my starred repos" to="/stars" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
 						learn new things all the time
 					</Link>{" "}
-					and I also happen to{" "}
-					<Link to="/blog" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
+					and I also happen to {/* TODO: Change this to a link to the blog */}
+					<a
+						role="tooltip"
+						data-tooltip
+						title="See my Medium blog page"
+						target="_blank"
+						href="https://medium.com/@QuentinWidlocher"
+						className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline"
+					>
 						teach some people too
-					</Link>
+					</a>
 					.
 				</p>
 				<br />
@@ -30,7 +37,7 @@ export default function HomePage() {
 					<Link
 						to="/repos"
 						prefetch="render"
-						className="flex space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20"
+						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
 						<GitBranch /> <span>See my work</span>
 					</Link>

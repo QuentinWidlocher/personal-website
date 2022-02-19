@@ -21,6 +21,7 @@ export let loader: LoaderFunction = async () => {
 				tags: repo.topics ?? [],
 				isFork: repo.fork,
 				isTemplate: repo.is_template,
+				updatedAt: new Date(repo.created_at),
 			}
 		}),
 	)
