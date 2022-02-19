@@ -1,17 +1,31 @@
-import { Cache } from "es-cache"
 import { GithubCommit, GithubRepo } from "../types/github"
 
-let cache: Cache<string, unknown>
+type Cache = Partial<{
+	repos: GithubRepo[]
+	stars: GithubRepo[]
+	[key: `${string}-lastcommit`]: GithubCommit
+	[key: string]: unknown
+}>
+
+let cache: Cache
 
 declare global {
-	var __cache: Cache<string, unknown> | undefined
+	var __cache: Cache | undefined
 }
 
 if (!global.__cache) {
-	global.__cache = new Cache()
+	global.__cache = {}
 }
 
 cache = global.__cache
+
+function setCache<K extends keyof Cache>(key: K, value: Cache[K], timeout: number, callback: () => void) {
+	cache[key] = value
+	setTimeout(() => {
+		delete cache[key]
+		callback()
+	}, timeout)
+}
 
 const baseUrl = "https://api.github.com"
 const headers = {
@@ -46,7 +60,7 @@ function getLastCommitFromRepo(username: string, repoName: string): Promise<Gith
 }
 
 export async function listRepos(pageSize = 20) {
-	let repos = (await cache.get("repos")) as GithubRepo[] | null
+	let repos = cache.repos
 
 	if (repos == null) {
 		console.log("Fetching repos from GitHub...")
@@ -55,7 +69,7 @@ export async function listRepos(pageSize = 20) {
 
 		console.log("Repo fetched, next is caching")
 
-		cache.put("repos", repos, Number(process.env.GITHUB_CACHE_MS), async () => {
+		setCache("repos", repos, Number(process.env.GITHUB_CACHE_MS), async () => {
 			console.log("Repos cache expired, fetching again")
 			listRepos()
 		})
@@ -67,7 +81,7 @@ export async function listRepos(pageSize = 20) {
 }
 
 export async function listStars(pageSize = 20) {
-	let stars = (await cache.get("stars")) as GithubRepo[] | null
+	let stars = cache.stars
 
 	if (stars == null) {
 		console.log("Fetching stars from GitHub...")
@@ -76,7 +90,7 @@ export async function listStars(pageSize = 20) {
 
 		console.log("Stars fetched, next is caching")
 
-		cache.put("stars", stars, Number(process.env.GITHUB_CACHE_MS), async () => {
+		setCache("stars", stars, Number(process.env.GITHUB_CACHE_MS), async () => {
 			console.log("Stars cache expired, fetching again")
 			listStars()
 		})
@@ -88,12 +102,12 @@ export async function listStars(pageSize = 20) {
 }
 
 export async function getLastCommit(repoName: string): Promise<GithubCommit> {
-	let commit = (await cache.get(`${repoName}-lastcommit`)) as GithubCommit | null
+	let commit = cache[`${repoName}-lastcommit`]
 
 	if (commit == null) {
 		commit = await getLastCommitFromRepo(process.env.GITHUB_USERNAME!, repoName)
 
-		cache.put(`${repoName}-lastcommit`, commit, Number(process.env.GITHUB_CACHE_MS), async () => {
+		setCache(`${repoName}-lastcommit`, commit, Number(process.env.GITHUB_CACHE_MS), async () => {
 			getLastCommit(repoName)
 		})
 	}
