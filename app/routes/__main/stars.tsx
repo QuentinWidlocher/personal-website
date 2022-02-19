@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 }
 
 export default function StarsRoute() {
-	let { repos } = useLoaderData<StarsLoaderPayload>()
+	let { repos, total } = useLoaderData<StarsLoaderPayload>()
 
-	return <StarsPage repos={repos} />
+	return <StarsPage repos={repos} total={total} />
 }

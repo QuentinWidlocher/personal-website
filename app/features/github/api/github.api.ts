@@ -22,7 +22,7 @@ const headers = {
 
 // TODO: Paginate
 function listRepoFromCurrentUser(): Promise<GithubRepo[]> {
-	return fetch(`${baseUrl}/user/repos?per_page=30&sort=pushed`, {
+	return fetch(`${baseUrl}/user/repos?per_page=100&sort=pushed`, {
 		method: "GET",
 		headers,
 	}).then((res) => res.json())
@@ -30,7 +30,7 @@ function listRepoFromCurrentUser(): Promise<GithubRepo[]> {
 
 // TODO: Paginate
 function listStarredRepos(): Promise<GithubRepo[]> {
-	return fetch(`${baseUrl}/user/starred?per_page=50&sort=created`, {
+	return fetch(`${baseUrl}/user/starred?per_page=100&sort=created`, {
 		method: "GET",
 		headers,
 	}).then((res) => res.json())
@@ -45,15 +45,13 @@ function getLastCommitFromRepo(username: string, repoName: string): Promise<Gith
 		.then((commits) => commits[0])
 }
 
-export async function listRepos() {
+export async function listRepos(pageSize = 20) {
 	let repos = (await cache.get("repos")) as GithubRepo[] | null
 
 	if (repos == null) {
 		console.log("Fetching repos from GitHub...")
 
-		repos = await listRepoFromCurrentUser()
-
-		console.log(repos[0])
+		repos = (await listRepoFromCurrentUser()).filter((r) => !r.private && !r.archived && !r.disabled && r.topics?.length > 0)
 
 		console.log("Repo fetched, next is caching")
 
@@ -65,10 +63,10 @@ export async function listRepos() {
 		console.log("Repos fetched from cache")
 	}
 
-	return repos
+	return { repos: repos.slice(0, pageSize), total: repos.length }
 }
 
-export async function listStars() {
+export async function listStars(pageSize = 20) {
 	let stars = (await cache.get("stars")) as GithubRepo[] | null
 
 	if (stars == null) {
@@ -86,7 +84,7 @@ export async function listStars() {
 		console.log("Stars fetched from cache")
 	}
 
-	return stars
+	return { stars: stars.slice(0, pageSize), total: stars.length }
 }
 
 export async function getLastCommit(repoName: string): Promise<GithubCommit> {

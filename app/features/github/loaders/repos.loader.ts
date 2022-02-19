@@ -4,15 +4,18 @@ import { Repo } from "../types/repo"
 
 export interface ReposLoaderPayload {
 	repos: Repo[]
+	total: number
 }
 
-export let loader: LoaderFunction = async () => {
-	let repos = await listRepos()
+export let loader: LoaderFunction = async ({ request }) => {
+	let url = new URL(request.url)
+	let size = url.searchParams.get("s")
+	let sizeNumber = size != null ? parseInt(size) : undefined
 
-	let onlyMainRepos = repos.filter((r) => !r.private && !r.archived && !r.disabled && r.topics?.length > 0)
+	let { repos, total } = await listRepos(sizeNumber)
 
 	let mappedRepos = await Promise.all(
-		onlyMainRepos.map(async (repo) => {
+		repos.map(async (repo) => {
 			return {
 				id: repo.id,
 				name: repo.name,
@@ -31,6 +34,7 @@ export let loader: LoaderFunction = async () => {
 
 	let payload: ReposLoaderPayload = {
 		repos: sortedRepos,
+		total,
 	}
 
 	return payload

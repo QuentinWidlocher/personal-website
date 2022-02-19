@@ -2,16 +2,19 @@ import RepoCard from "../components/repo-card"
 import { ReposLoaderPayload } from "../loaders/repos.loader"
 import { subDays, subMonths, isAfter, isBefore } from "date-fns"
 import { Repo } from "../types/repo"
+import { Link } from "remix"
+import { Plus } from "iconoir-react"
 
 interface ReposPageProps {
 	repos: (Repo & { updatedAt: string })[]
+	total: number
 }
 
 function isBetween(date: Date, start: Date, end: Date): boolean {
 	return isAfter(date, start) && isBefore(date, end)
 }
 
-export default function ReposPage({ repos }: ReposPageProps) {
+export default function ReposPage({ repos, total }: ReposPageProps) {
 	let lastMonth = subMonths(new Date(), 1)
 	let last3Months = subMonths(new Date(), 3)
 
@@ -60,6 +63,17 @@ export default function ReposPage({ repos }: ReposPageProps) {
 								<RepoCard repo={repo} />
 							</li>
 						))}
+						{repos.length < total ? (
+							<li className="text-lg">
+								<Link
+									className="flex h-full min-h-[10rem] items-center justify-center rounded-xl bg-slate-500/10 text-slate-300 backdrop-blur-3xl hover:bg-sky-500/20 hover:text-white"
+									to={`?s=${repos.length + 20}`}
+								>
+									<Plus />
+									See more
+								</Link>
+							</li>
+						) : null}
 					</ul>
 				</>
 			) : null}

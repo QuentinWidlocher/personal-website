@@ -79,7 +79,7 @@ export default function NavBar({}: NavBarProps) {
 				<li className="ml-auto mt-12 sm:mt-5 lg:ml-5">
 					<NavLink prefetch="intent" to="/" className={getNavLinkStyle} aria-label="Home" title="Home" data-tooltip role="tooltip">
 						<Home />
-						<span className="hidden lg:block">Home</span>
+						<span className="hidden lg:block">About me</span>
 					</NavLink>
 				</li>
 				<li className="ml-auto mt-12 sm:mt-5 lg:ml-5">

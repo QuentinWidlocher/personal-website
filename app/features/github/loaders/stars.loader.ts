@@ -4,10 +4,15 @@ import { Repo } from "../types/repo"
 
 export interface StarsLoaderPayload {
 	repos: Repo[]
+	total: number
 }
 
-export let loader: LoaderFunction = async () => {
-	let repos = await listStars()
+export let loader: LoaderFunction = async ({ request }) => {
+	let url = new URL(request.url)
+	let size = url.searchParams.get("s")
+	let sizeNumber = size != null ? parseInt(size) : undefined
+
+	let { stars: repos, total } = await listStars(sizeNumber)
 
 	let mappedRepos: Repo[] = await Promise.all(
 		repos.map(async (repo) => {
@@ -28,6 +33,7 @@ export let loader: LoaderFunction = async () => {
 
 	let payload: StarsLoaderPayload = {
 		repos: mappedRepos,
+		total,
 	}
 
 	return payload
