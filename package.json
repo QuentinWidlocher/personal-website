@@ -2,7 +2,7 @@
   "private": true,
   "name": "quentin-widlocher-personal-website",
   "description": "My personal website",
-  "license": "",
+  "license": "GPL-3.0-or-later",
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
