@@ -34,7 +34,6 @@ const headers = {
 	"Authorization": `token ${process.env.GITHUB_TOKEN}`,
 }
 
-// TODO: Paginate
 function listRepoFromCurrentUser(): Promise<GithubRepo[]> {
 	return fetch(`${baseUrl}/user/repos?per_page=100&sort=pushed`, {
 		method: "GET",
@@ -42,7 +41,6 @@ function listRepoFromCurrentUser(): Promise<GithubRepo[]> {
 	}).then((res) => res.json())
 }
 
-// TODO: Paginate
 function listStarredRepos(): Promise<GithubRepo[]> {
 	return fetch(`${baseUrl}/user/starred?per_page=100&sort=created`, {
 		method: "GET",
@@ -114,3 +112,5 @@ export async function getLastCommit(repoName: string): Promise<GithubCommit> {
 
 	return commit
 }
+
+export async function getArticleList() {}

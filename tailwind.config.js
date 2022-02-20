@@ -9,5 +9,7 @@ module.exports = {
       fontFamily: { 'sans': ['Manrope', ...defaultTheme.fontFamily.sans], },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }

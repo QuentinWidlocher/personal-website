@@ -1,10 +1,10 @@
 import { Link, NavLink } from "remix"
-import { GitHub, Telegram, Twitter, Medium, Home, GitBranch, StarOutline } from "iconoir-react"
+import { GitHub, Telegram, Twitter, Medium, Home, GitBranch, StarOutline, JournalPage } from "iconoir-react"
 
 interface NavBarProps {}
 
 function getNavLinkStyle({ isActive }: { isActive: boolean }) {
-	let baseStyle = `navbar-link flex space-x-5 w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-white/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`
+	let baseStyle = `navbar-link flex space-x-5 w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-slate-500/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`
 	if (isActive) {
 		return `${baseStyle} font-bold border-white active`
 	} else {
@@ -12,9 +12,16 @@ function getNavLinkStyle({ isActive }: { isActive: boolean }) {
 	}
 }
 
+const navLinks: { href: string; label: string; icon: JSX.Element }[] = [
+	{ href: "/", label: "About me", icon: <Home /> },
+	{ href: "/repos", label: "My repositories", icon: <GitBranch /> },
+	{ href: "/stars", label: "My starred repos", icon: <StarOutline /> },
+	{ href: "/blog", label: "My articles", icon: <JournalPage /> },
+]
+
 export default function NavBar({}: NavBarProps) {
 	return (
-		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-800/80 py-10 text-white shadow-lg shadow-slate-800/20 backdrop-blur-md sm:shadow-xl sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-800/50">
+		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-800/80 py-10 text-white shadow-lg shadow-slate-800/20 sm:shadow-xl sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-800/50">
 			<ul className="flex h-full w-full flex-col">
 				<li className="flex flex-col items-center space-x-0 p-2 pb-10 sm:flex-row sm:space-x-5 sm:p-5">
 					<Link className="-m-1 rounded-full p-1" to="/" prefetch="intent">
@@ -76,24 +83,16 @@ export default function NavBar({}: NavBarProps) {
 						</div>
 					</section>
 				</li>
-				<li className="ml-auto mt-12 sm:mt-5 lg:ml-5">
-					<NavLink prefetch="intent" to="/" className={getNavLinkStyle} aria-label="Home" title="Home" data-tooltip role="tooltip">
-						<Home />
-						<span className="hidden lg:block">About me</span>
-					</NavLink>
-				</li>
-				<li className="ml-auto mt-12 sm:mt-5 lg:ml-5">
-					<NavLink prefetch="intent" to="/repos" className={getNavLinkStyle} aria-label="My repositories" title="My repositories" data-tooltip role="tooltip">
-						<GitBranch />
-						<span className="hidden lg:block">My repositories</span>
-					</NavLink>
-				</li>
-				<li className="ml-auto mt-12 sm:mt-5 lg:ml-5">
-					<NavLink prefetch="intent" to="/stars" className={getNavLinkStyle} aria-label="My starred repos" title="My starred repos" data-tooltip role="tooltip">
-						<StarOutline />
-						<span className="hidden lg:block">My starred repos</span>
-					</NavLink>
-				</li>
+
+				{navLinks.map(({ href, label, icon }) => (
+					<li className="ml-auto mt-12 sm:mt-5 lg:ml-5" key={href}>
+						<NavLink prefetch="intent" to={href} className={getNavLinkStyle} aria-label={label} title={label} data-tooltip role="tooltip">
+							{icon}
+							<span className="hidden lg:block">{label}</span>
+						</NavLink>
+					</li>
+				))}
+
 				<li className="mt-auto mb-5 hidden text-center text-slate-400 underline-offset-4 hover:underline lg:block">
 					<a href="https://github.com/QuentinWidlocher/personal-website" target="_blank" rel="noopener" className="rounded p-1">
 						See this website on github
