@@ -1,9 +1,18 @@
 ---
 meta:
-  - title: "Les formulaires avec Remix - Partie 1"
+  title: Les formulaires avec Remix - Partie 1
+  og:title: Les formulaires avec Remix - Partie 1
+  description: Les formulaires avant, après et Remix
+  og:description: Les formulaires avant, après et Remix
 ---
 
-import Tabs from "../../../features/blog/components/tabs"
+import Tabs from "../../../../features/blog/components/tabs"
+
+# {attributes.meta.title}
+
+> {attributes.meta.description}
+
+%%TOC%%
 
 ## Point sur les formulaires
 
@@ -17,7 +26,7 @@ Avec Remix, ~~pas~~ peu de gestion d'état comme on a souvent en React, ce sont 
 
 Prenons par exemple un traitement assez classique d'un champs en Javascript (sans framework) :
 
-<Tabs tabs={['html', 'js']}>
+<Tabs tabs={['Template HTML', 'Code Javascript']}>
 
     ```html
     <form>
@@ -73,14 +82,14 @@ Cette méthode fonctionne et il est possible de l'abstraire un peu afin de simpl
 
 Comment utilisait-on des formulaires à une époque ou Javascript n'était pas aussi répandu ?
 
-> Template HTML (ou PHP, pourquoi pas)
-
-```html
-<form method="post" action="/action-route">
-	<input type="text" name="username" />
-	<button type="submit">Submit</button>
-</form>
-```
+<Tabs tabs={["Template HTML (ou PHP, pourquoi pas)"]}>
+	```html
+	<form method="post" action="/action-route">
+		<input type="text" name="username" />
+		<button type="submit">Submit</button>
+	</form>
+	```
+</Tabs>
 
 Hé bien voilà tout.  
 Ce morceau de code est équivalent à celui de l'autre exemple car c'est tout ce qui concerne la partie front de notre application.
@@ -158,10 +167,11 @@ On peut aussi utiliser le combo `Object.fromEntries()` avec `formData.toEntries(
 Si vous êtes curieux, voilà à quoi ressemble ce qu'on appelle `entries` :
 
 ```javascript
-;[
-	["name", "Quentin"],
-	["email", "quentin@widlocher.com"],
-]
+formData.toEntries() ==
+	[
+		["name", "Quentin"],
+		["email", "quentin@widlocher.com"],
+	]
 ```
 
 C'est un tableau de tuples, où chaque tuple est constitué d'une clé et d'une valeur.
@@ -203,4 +213,4 @@ Cette requête ne rafraîchit donc plus la page, mais Remix s'occupe de récupé
 
 Voilà pour cette petite (ré)vision des formulaire tels qu'on les faisait avant, après et avec Remix.
 
-Prochain chapitre, la validation d'un formulaire avec Remix.
+[Prochain chapitre, la validation d'un formulaire avec Remix.](/blog/les-formulaires-avec-remix-pt-2)

@@ -219,3 +219,13 @@ pre {
 .token.entity {
 	cursor: help;
 }
+
+.prose :not(pre) > code {
+	@apply mx-0.5 rounded bg-slate-500/20 p-1 text-slate-300;
+	break-before: always;
+}
+
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+	content: "";
+}

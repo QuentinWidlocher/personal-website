@@ -4,7 +4,17 @@ import cssuiCore from "css-ui-lib/cssui.css"
 import cssuiTooltip from "css-ui-lib/tooltip/tooltip.css"
 
 export const meta: MetaFunction = () => {
-	return { title: "Quentin Widlocher" }
+	return { 
+		title: "Quentin Widlocher",
+		"viewport" : "width=device-width,initial-scale=1",
+		"theme-color":  "#0EA5E9",
+		"description" : "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
+		"twitter:card":  "summary_large_image",
+		"twitter:site":  "@Lazard_",
+		"twitter:title":  "Quentin Widlocher",
+		"twitter:description":  "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
+		"twitter:image":  "https://quentin.widlocher.com/assets/images/profil.webp",
+	}
 }
 
 export const links: LinksFunction = () => {
@@ -20,14 +30,6 @@ export default function App() {
 		<html className="h-full" lang="en" prefix="og: https://ogp.me/ns#">
 			<head>
 				<meta charSet="utf-8" />
-				<meta name="viewport" content="width=device-width,initial-scale=1" />
-				<meta name="theme-color" content="#0EA5E9" />
-				<meta name="description" content="🇫🇷 French web developer, amateur game developer and a learning enthusiast !" />
-				<meta name="twitter:card" content="summary_large_image" />
-				<meta name="twitter:site" content="@Lazard_" />
-				<meta name="twitter:title" content="Quentin Widlocher" />
-				<meta name="twitter:description" content="🇫🇷 French web developer, amateur game developer and a learning enthusiast !" />
-				<meta name="twitter:image" content="https://quentin.widlocher.com/assets/images/profil.webp" />
 				<meta property="og:title" content="Quentin Widlocher" />
 				<meta property="og:description" content="🇫🇷 French web developer, amateur game developer and a learning enthusiast !" />
 				<meta property="og:url" content="https://quentin.widlocher.com" />

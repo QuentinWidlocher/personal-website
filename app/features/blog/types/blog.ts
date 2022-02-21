@@ -1,6 +1,5 @@
 export interface Article {
-	slug: string
 	title: string
-	createdAt: Date
-	content: string
+	subtitle: string
+	slug: string
 }

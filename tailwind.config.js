@@ -6,7 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: { 'sans': ['Manrope', ...defaultTheme.fontFamily.sans], },
+      fontFamily: {
+        'sans': ['Manrope', ...defaultTheme.fontFamily.sans],
+        'mono': ['JetBrains Mono', ...defaultTheme.fontFamily.mono],
+      },
     },
   },
   plugins: [

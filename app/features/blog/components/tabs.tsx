@@ -13,7 +13,7 @@ export default function Tabs({ tabs, children }: React.PropsWithChildren<CodeTab
 
 	return (
 		<div className="rounded-xl">
-			<nav className="not-prose">
+			<nav className="not-prose lg:-mx-12 xl:-mx-24">
 				<ul className="flex rounded-t-xl bg-slate-900/30">
 					{tabs.map((title, index) => (
 						<li

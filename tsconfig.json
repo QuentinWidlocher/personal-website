@@ -13,8 +13,10 @@
 		"baseUrl": ".",
 		"paths": {
 			"~/*": ["./app/*"],
-			"@components/*": ["./app/components/*", "./app/features/blog/components/*"],
-			"@blog/*": ["./app/features/blog/*"]
+			"@components/*": ["./app/components/*", "./app/features/blog/components/*", "./app/features/github/components/*", "./app/features/home/components/*"],
+			"@blog/*": ["./app/features/blog/*"],
+			"@github/*": ["./app/features/github/*"],
+			"@home/*": ["./app/features/github/*"]
 		},
 
 		// Remix takes care of building everything in `remix build`.
