@@ -1,0 +1,216 @@
+---
+meta:
+  title: Les formulaires avec Remix - Partie 1
+  og:title: Les formulaires avec Remix - Partie 1
+  description: Les formulaires avant, après et Remix
+  og:description: Les formulaires avant, après et Remix
+---
+
+import Tabs from "../../../../features/blog/components/tabs"
+
+# {attributes.meta.title}
+
+> {attributes.meta.description}
+
+%%TOC%%
+
+## Point sur les formulaires
+
+Avec Remix, ce sont les formulaires HTML que l'ont utilisait il y a maintenant plusieurs années en PHP qui reviennent sur le devant de la scene.
+
+Là où de nombreuses librairies/frameworks javascript ont souvent fait le choix de s'ajouter (voire de carrément remplacer) aux champs afin d'en gérer l'état et la validité, Remix lui, a plutôt pour but de s'en servir.
+
+Avec Remix, ~~pas~~ peu de gestion d'état comme on a souvent en React, ce sont les champs HTML qui s'occupent de stocker les données de l'utilisateur.
+
+### Exemple moderne
+
+Prenons par exemple un traitement assez classique d'un champs en Javascript (sans framework) :
+
+<Tabs tabs={['Template HTML', 'Code Javascript']}>
+
+    ```html
+    <form>
+        <input type="text" name="username" />
+        <button type="submit">Submit</button>
+    </form>
+    ```
+
+    ```javascript
+    // On récupère le formulaire
+    // (dans un cas réel, on fera ça avec un #id)
+    let form = document.querySelector("form")
+
+    // On écoute l'envoi
+    form.addEventListener("submit", (e) => {
+        // On empêche le navigateur de gérer l'envoi naturellement
+        e.preventDefault()
+
+        // On tâche de récupérer les données du formulaire nous même
+        let formData = new FormData(form)
+        let formObj = Object.fromEntries(formData.entries())
+
+        // On fait l'envoi nous-même
+        fetch("/action-route", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+                // Ou 'application/x-www-form-urlencoded',
+                // mais le plus souvent on envoi à une API REST
+            }
+            // On s'assure d'envoyer un format reconnu
+            body: JSON.stringify(formObj)
+        }).then(response => {
+            // On transforme la réponse
+            return response.json()
+        }).then(responseObject => {
+            // Et on s'en sert dans notre application
+            doSomething(responseObject)
+
+            // On vide les données inscrites dans le formulaire
+            form.reset()
+        })
+    });
+    ```
+
+</Tabs>
+
+Comme vous pouvez le constater en lisant les commentaire (pas toujours très partiaux), notre boulot de développeur est de réécrire le fonctionnement du navigateur, à la sauce Javascript.
+
+Cette méthode fonctionne et il est possible de l'abstraire un peu afin de simplifier l'envoi et le retour mais c'est toujours assez similaire. Et je ne parle pas encore de la gestion des erreurs.
+
+### Exemple à l'ancienne
+
+Comment utilisait-on des formulaires à une époque ou Javascript n'était pas aussi répandu ?
+
+<Tabs tabs={["Template HTML (ou PHP, pourquoi pas)"]}>
+	```html
+	<form method="post" action="/action-route">
+		<input type="text" name="username" />
+		<button type="submit">Submit</button>
+	</form>
+	```
+</Tabs>
+
+Hé bien voilà tout.  
+Ce morceau de code est équivalent à celui de l'autre exemple car c'est tout ce qui concerne la partie front de notre application.
+
+Aucun code ici, le navigateur s'occupe lui même de l'envoi des données, et de la sérialisation de celles-ci.
+
+Si on change la méthode du formulaire en `get` et qu'on fait un envoi, on peut jeter un coup d’œil à l'URL pour voir quelles sont les données :
+
+`https://example.com/?username=Quentin`
+
+Plutôt pas mal, mais alors pourquoi on s'embête à tout refaire à la main me demanderez vous ?  
+Hé bien il y a un truc qu'on ne peut pas représenter dans ces pages, mais qui pourtant est très important, c'est que la méthode "old school" nécessite un rafraichissement complet de page. 😕
+
+Lorsqu'on appui sur "Submit", le navigateur effectue une requête du type de notre attribut `method` (`post` ou `get` la plupart du temps) à l'URL de notre attribut `action` (la même URL si l'attribut n'est pas défini)
+
+Une fois cette page visitée avec les informations du formulaire, notre serveur va avoir l'occasion de traiter ces données puis de rediriger le client vers une autre page (pour voir le résultat de notre action par exemple).  
+Cette manipulation force donc le navigateur à recharger complètement la page, rendant les applications dites SPA (_Single Page Application_) très peu performantes (voire inutilisables), les script devant se recharger et se ré-exécuter.
+
+Voilà pourquoi aujourd'hui, quand on utilise un framework javascript, on fait les choses jusqu'au bout et on fait nos requêtes en javascript aussi.
+
+## Ensuite Remix
+
+Maintenant, comment tout cela fonctionne avec Remix ?  
+Vous vous en doutez bien, si on viens de comparer un méthode très utilisée avec une autre, c'est que Remix utilise forcément l'autre.
+
+Remix se base donc sur le système de formulaire HTML, et réussi à coupler les avantages de chaque méthodes, à savoir la simplicité des formulaire et la validation de ces derniers sans rafraîchissement de la page.  
+Remix permet en plus de vérifier les types de nos formulaires et de les synchroniser entre la partie serveur et la partie client, ainsi que de facilement récupérer les erreurs du formulaire et de les afficher.
+
+Voilà comment se présente un formulaire très simple avec Remix :
+
+```tsx
+// On commence par déclarer la fonction `action` et on peut
+// même la typer en important le bon type de Remix
+export let action: ActionFunction = async ({request}) => {
+    // On récupère les données du formulaire
+    let formData = await request.formData()
+
+    // Ici, formData est un dictionnaire clé/valeur
+    // Il est possible d'accéder à nos données avec :
+    let name = formData.get('name')
+    console.debug(name) // "Quentin"
+
+    // On peut aussi transformer ces données en objet:
+    let formObj = Object.fromEntries(formData.entries()
+    console.debug(formObj)
+    // { name: "Quentin", email: "quentin@widlocher.com" }
+
+    // Example d'appel à un service de gestion de données
+    return db.user.create(formObj)
+}
+
+// On déclare ensuite la fonction par défaut qui sera notre page
+export default function SimpleFormPage() {
+    return (
+        <form method="post">
+            <label htmlFor="name">Full Name</label>
+            <input type="text" name="name" />
+
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" />
+
+            <button type="submit">Submit</button>
+        </form>
+    )
+}
+```
+
+On déclare donc notre formulaire comme a vu précédemment, et c'est la fonction `action()` qui va s'occuper de traiter les données venant de notre formulaire.
+
+Dans `action()` rien de bien incroyable, on utilise la méthode `.formData()` présente sur l'objet [`Request`](https://developer.mozilla.org/fr/docs/Web/API/Request) pour récupérer nos données.  
+On peut aussi utiliser le combo `Object.fromEntries()` avec `formData.toEntries()` pour transformer les données du formulaire en un objet, ce que je trouve extrêmement pratique, pour ma part je préfère travailler avec des objets que des dictionnaires.
+
+### Parenthèse entries()
+
+Si vous êtes curieux, voilà à quoi ressemble ce qu'on appelle `entries` :
+
+```javascript
+formData.toEntries() ==
+	[
+		["name", "Quentin"],
+		["email", "quentin@widlocher.com"],
+	]
+```
+
+C'est un tableau de tuples, où chaque tuple est constitué d'une clé et d'une valeur.
+
+Facile d'imaginer le rôle de `Object.fromEntries()` du coup.
+
+---
+
+Sauf que si vous essayez ce code de votre coté, vous allez probablement être assez déçus lorsque vous allez cliquer sur Submit : la page se rafraîchit ! 😠
+
+Bon, coup de bol, Remix est de toute façon tellement orienté serveur que rafraîchir la page ce n'est pas la même histoire que si vous utilisiez Angular, ça prend pas trois plombes et ça ne devrait pas casser trop de choses.
+
+Mais quand même, on aimerais éviter que la page se rafraichisse si possible, ça serait plus agréable pour l'utilisateur et ça permettrait de garder le contrôle sur la page avec React, sans perdre les divers état qu'on aurait pu déclarer.
+
+Pour ça, il nous faut changer uniquement deux lettres (et un import) :
+
+```tsx
+export default function SimpleFormPage() {
+	return (
+		<Form method="post">
+			<label htmlFor="name">Full Name</label>
+			<input type="text" name="name" />
+
+			<label htmlFor="email">Email</label>
+			<input type="email" name="email" />
+
+			<button type="submit">Submit</button>
+		</Form>
+	)
+}
+```
+
+Vous avez vu la différence ? On n'utilise plus un `<form>` HTML mais un composant [`<Form>`](https://remix.run/docs/en/v1/api/remix#form) de remix.  
+Ce composant possède globalement les mêmes attributs que son compère HTML, mais s'occupe de contacter notre serveur à l'aide d'une requête `fetch` comme dans notre premier exemple.
+
+Cette requête ne rafraîchit donc plus la page, mais Remix s'occupe de récupérer la réponse du serveur et de le mettre à jour (à l'aide d'une seconde requête dite de revalidation)
+
+---
+
+Voilà pour cette petite (ré)vision des formulaire tels qu'on les faisait avant, après et avec Remix.
+
+[Prochain chapitre, la validation d'un formulaire avec Remix.](/blog/les-formulaires-avec-remix-pt-2)

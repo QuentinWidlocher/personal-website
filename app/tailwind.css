@@ -71,3 +71,161 @@ body [data-tooltip]:hover::before,
 body [data-tooltip]:focus::before {
 	opacity: 1;
 }
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+.code-tabs pre {
+	margin-top: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: theme("colors.slate.500");
+}
+
+.token.punctuation {
+	color: #abb2bf;
+}
+
+.token.selector,
+.token.tag:not(.punctuation):not(.attr-name):not(.attr-value),
+.token.variable,
+.token.parameter,
+.language-javascript .token.plain,
+.language-js .token.plain,
+.language-jsx .token.plain,
+.language-typescript .token.plain,
+.language-ts .token.plain,
+.language-tsx .token.plain,
+.token.literal-property .token.property-access,
+.template-string.interpolation {
+	color: #e06c75;
+}
+
+.token.property,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.attr-name,
+.token.deleted {
+	color: #d19a66;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.inserted {
+	color: #98c379;
+}
+
+.token.entity,
+.token.url,
+.language-css .token.string,
+.token.operator,
+.style .token.string,
+.token.tag.attr-equals {
+	color: #56b6c2;
+}
+
+.token.function {
+	color: #61afef;
+}
+
+.token.constant,
+.token.builtin,
+.token.dom,
+.token.known-class-name,
+.token.class-name {
+	color: #e5c07b;
+}
+
+.token.regex,
+.token.important,
+.token.atrule,
+.token.keyword,
+.template-string.interpolation-punctuation {
+	color: #c678dd;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+
+.token.italic {
+	font-style: italic;
+}
+
+pre {
+	overflow-x: auto;
+}
+
+/**
+ * Inspired by gatsby remark prism - https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/
+ * 1. Make the element just wide enough to fit its content.
+ * 2. Always fill the visible space in .code-highlight.
+ */
+.code-highlight {
+	float: left; /* 1 */
+	min-width: 100%; /* 2 */
+}
+
+.code-line {
+	display: block;
+	padding-left: 16px;
+	padding-right: 16px;
+	margin-left: -16px;
+	margin-right: -16px;
+	border-left-width: 4px;
+	border-left-color: rgba(31, 41, 55, 0); /* Set code block color */
+}
+
+.code-line.inserted {
+	background-color: rgba(16, 185, 129, 0.2); /* Set inserted line (+) color */
+}
+
+.code-line.deleted {
+	background-color: rgba(239, 68, 68, 0.2); /* Set deleted line (-) color */
+}
+
+.highlight-line {
+	@apply bg-sky-500/20;
+	margin-left: -16px;
+	margin-right: -16px;
+	border-left-width: 4px;
+	border-left-color: theme("colors.sky.500"); /* Set highlight accent border color */
+}
+
+.line-number::before {
+	display: inline-block;
+	width: 1rem;
+	text-align: right;
+	margin-right: 16px;
+	margin-left: -8px;
+	color: theme("colors.slate.500");
+	content: attr(line);
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.prose :not(pre) > code {
+	@apply mx-0.5 rounded bg-slate-500/20 p-1 text-slate-300;
+	break-before: always;
+}
+
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+	content: "";
+}
