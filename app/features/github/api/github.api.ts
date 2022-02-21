@@ -1,4 +1,4 @@
-import { GithubCommit, GithubRepo } from "../types/github"
+import { GithubCommit, GithubContent, GithubRepo } from "../types/github"
 
 type Cache = Partial<{
 	repos: GithubRepo[]
@@ -33,26 +33,21 @@ const headers = {
 	"Accept": "application/vnd.github.v3+json",
 	"Authorization": `token ${process.env.GITHUB_TOKEN}`,
 }
+const basicGet = {
+	method: "GET",
+	headers,
+}
 
 function listRepoFromCurrentUser(): Promise<GithubRepo[]> {
-	return fetch(`${baseUrl}/user/repos?per_page=100&sort=pushed`, {
-		method: "GET",
-		headers,
-	}).then((res) => res.json())
+	return fetch(`${baseUrl}/user/repos?per_page=100&sort=pushed`, basicGet).then((res) => res.json())
 }
 
 function listStarredRepos(): Promise<GithubRepo[]> {
-	return fetch(`${baseUrl}/user/starred?per_page=100&sort=created`, {
-		method: "GET",
-		headers,
-	}).then((res) => res.json())
+	return fetch(`${baseUrl}/user/starred?per_page=100&sort=created`, basicGet).then((res) => res.json())
 }
 
 function getLastCommitFromRepo(username: string, repoName: string): Promise<GithubCommit> {
-	return fetch(`${baseUrl}/repos/${username}/${repoName}/commits?per_page=1`, {
-		method: "GET",
-		headers,
-	})
+	return fetch(`${baseUrl}/repos/${username}/${repoName}/commits?per_page=1`, basicGet)
 		.then((res) => res.json())
 		.then((commits) => commits[0])
 }
@@ -113,4 +108,52 @@ export async function getLastCommit(repoName: string): Promise<GithubCommit> {
 	return commit
 }
 
-export async function getArticleList() {}
+export async function getArticleList(username: string, path: string): Promise<GithubContent[]> {
+	// return fetch(`${baseUrl}/repos/${username}/notes/contents${path}`, basicGet).then((res) => res.json())
+	return [
+		{
+			name: "form-validation.pt1.md",
+			path: "remix/form-validation.pt1.md",
+			sha: "53369ed6ae102b231e1e9a5c97fe8b5645b64b73",
+			size: 9202,
+			url: "https://api.github.com/repos/QuentinWidlocher/notes/contents/remix/form-validation.pt1.md?ref=master",
+			html_url: "https://github.com/QuentinWidlocher/notes/blob/master/remix/form-validation.pt1.md",
+			git_url: "https://api.github.com/repos/QuentinWidlocher/notes/git/blobs/53369ed6ae102b231e1e9a5c97fe8b5645b64b73",
+			download_url: "https://raw.githubusercontent.com/QuentinWidlocher/notes/master/remix/form-validation.pt1.md",
+			type: "file",
+			_links: {
+				self: "https://api.github.com/repos/QuentinWidlocher/notes/contents/remix/form-validation.pt1.md?ref=master",
+				git: "https://api.github.com/repos/QuentinWidlocher/notes/git/blobs/53369ed6ae102b231e1e9a5c97fe8b5645b64b73",
+				html: "https://github.com/QuentinWidlocher/notes/blob/master/remix/form-validation.pt1.md",
+			},
+		},
+		{
+			name: "form-validation.pt2.md",
+			path: "remix/form-validation.pt2.md",
+			sha: "785453959ba5f9b5e8d7247dbc52608e4b373444",
+			size: 20106,
+			url: "https://api.github.com/repos/QuentinWidlocher/notes/contents/remix/form-validation.pt2.md?ref=master",
+			html_url: "https://github.com/QuentinWidlocher/notes/blob/master/remix/form-validation.pt2.md",
+			git_url: "https://api.github.com/repos/QuentinWidlocher/notes/git/blobs/785453959ba5f9b5e8d7247dbc52608e4b373444",
+			download_url: "https://raw.githubusercontent.com/QuentinWidlocher/notes/master/remix/form-validation.pt2.md",
+			type: "file",
+			_links: {
+				self: "https://api.github.com/repos/QuentinWidlocher/notes/contents/remix/form-validation.pt2.md?ref=master",
+				git: "https://api.github.com/repos/QuentinWidlocher/notes/git/blobs/785453959ba5f9b5e8d7247dbc52608e4b373444",
+				html: "https://github.com/QuentinWidlocher/notes/blob/master/remix/form-validation.pt2.md",
+			},
+		},
+	]
+}
+
+export async function getArticles() {
+	let list = await getArticleList(process.env.GITHUB_USERNAME!, "/remix")
+	let files = list.filter((f) => f.type === "file")
+
+	return Promise.all(
+		files.map(async (f) => ({
+			name: f.name,
+			content: await fetch(f.download_url).then((res) => res.text()),
+		})),
+	)
+}
