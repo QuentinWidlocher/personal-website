@@ -1,19 +1,20 @@
-import { Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useMatches } from "remix"
+import { Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation, useMatches } from "remix"
 import type { MetaFunction } from "remix"
 import cssuiCore from "css-ui-lib/cssui.css"
 import cssuiTooltip from "css-ui-lib/tooltip/tooltip.css"
+import React from "react"
 
 export const meta: MetaFunction = () => {
-	return { 
-		title: "Quentin Widlocher",
-		"viewport" : "width=device-width,initial-scale=1",
-		"theme-color":  "#0EA5E9",
-		"description" : "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
-		"twitter:card":  "summary_large_image",
-		"twitter:site":  "@Lazard_",
-		"twitter:title":  "Quentin Widlocher",
-		"twitter:description":  "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
-		"twitter:image":  "https://quentin.widlocher.com/assets/images/profil.webp",
+	return {
+		"title": "Quentin Widlocher",
+		"viewport": "width=device-width,initial-scale=1",
+		"theme-color": "#0EA5E9",
+		"description": "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
+		"twitter:card": "summary_large_image",
+		"twitter:site": "@Lazard_",
+		"twitter:title": "Quentin Widlocher",
+		"twitter:description": "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
+		"twitter:image": "https://quentin.widlocher.com/assets/images/profil.webp",
 	}
 }
 
@@ -59,6 +60,7 @@ export default function App() {
 			</head>
 			<body className="h-full">
 				<Outlet />
+				<RouteChangeAnnouncement />
 				<ScrollRestoration />
 				<Scripts />
 				{process.env.NODE_ENV != "development" ? <script src="/sw_launcher.js" /> : null}
@@ -84,3 +86,58 @@ export function CatchBoundary() {
 		</html>
 	)
 }
+
+/**
+ * Provides an alert for screen reader users when the route changes.
+ */
+const RouteChangeAnnouncement = React.memo(() => {
+	let [hydrated, setHydrated] = React.useState(false)
+	let [innerHtml, setInnerHtml] = React.useState("")
+	let location = useLocation()
+
+	React.useEffect(() => {
+		setHydrated(true)
+	}, [])
+
+	let firstRenderRef = React.useRef(true)
+	React.useEffect(() => {
+		// Skip the first render because we don't want an announcement on the
+		// initial page load.
+		if (firstRenderRef.current) {
+			firstRenderRef.current = false
+			return
+		}
+
+		let pageTitle = location.pathname === "/" ? "Home page" : document.title
+		setInnerHtml(`Navigated to ${pageTitle}`)
+	}, [location.pathname])
+
+	// Render nothing on the server. The live region provides no value unless
+	// scripts are loaded and the browser takes over normal routing.
+	if (!hydrated) {
+		return null
+	}
+
+	return (
+		<div
+			aria-live="assertive"
+			aria-atomic
+			id="route-change-region"
+			style={{
+				border: "0",
+				clipPath: "inset(100%)",
+				clip: "rect(0 0 0 0)",
+				height: "1px",
+				margin: "-1px",
+				overflow: "hidden",
+				padding: "0",
+				position: "absolute",
+				width: "1px",
+				whiteSpace: "nowrap",
+				wordWrap: "normal",
+			}}
+		>
+			{innerHtml}
+		</div>
+	)
+})
