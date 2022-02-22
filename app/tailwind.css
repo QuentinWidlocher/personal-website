@@ -19,14 +19,13 @@ body {
 	--tooltip-text-color: white;
 	--tooltip-fontsize: theme("fontSize.sm");
 	--tooltip-radius: theme("borderRadius.DEFAULT");
-
-	z-index: theme("zIndex.20");
 }
 
 .navbar-link[data-tooltip]::after,
 .navbar-link[data-tooltip]::before {
 	transition-duration: theme("transitionDuration.DEFAULT");
 	transition-timing-function: theme("transitionTimingFunction.DEFAULT");
+	z-index: theme("zIndex.20");
 }
 
 /* Offset the links to the right because */
@@ -207,13 +206,13 @@ pre {
 }
 
 .line-number::before {
-	display: inline-block;
 	width: 1rem;
 	text-align: right;
 	margin-right: 16px;
 	margin-left: -8px;
 	color: theme("colors.slate.500");
 	content: attr(line);
+	@apply hidden md:inline-block;
 }
 
 .token.entity {

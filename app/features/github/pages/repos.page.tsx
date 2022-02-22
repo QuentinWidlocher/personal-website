@@ -1,6 +1,5 @@
 import RepoCard from "../components/repo-card"
-import { ReposLoaderPayload } from "../loaders/repos.loader"
-import { subDays, subMonths, isAfter, isBefore } from "date-fns"
+import { subMonths, isAfter, isBefore } from "date-fns"
 import { Repo } from "../types/repo"
 import { Link } from "remix"
 import { Plus } from "iconoir-react"
@@ -25,7 +24,7 @@ export default function ReposPage({ repos, total }: ReposPageProps) {
 	return (
 		<div className="p-5 text-lg sm:p-10 sm:text-2xl lg:p-16 lg:text-4xl">
 			<h1 className="my-5 text-2xl font-bold sm:text-3xl lg:text-5xl">
-				<a target="_blank" rel="noopener" className="underline-offset-4 hover:underline" href="https://github.com/QuentinWidlocher?tab=repositories">
+				<a target="_blank" rel="noopener" className="rounded-xl underline-offset-4 hover:underline" href="https://github.com/QuentinWidlocher?tab=repositories">
 					My repositories
 				</a>
 			</h1>

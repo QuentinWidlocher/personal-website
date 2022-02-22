@@ -1,5 +1,5 @@
 import { Link } from "remix"
-import { GitBranch } from "iconoir-react"
+import { GitBranch, JournalPage } from "iconoir-react"
 
 export default function HomePage() {
 	return (
@@ -33,13 +33,27 @@ export default function HomePage() {
 				</p>
 				<br />
 				<p>I really love the web, UI & UX design and video games.</p>
-				<div className="mt-20 flex flex-col text-xl text-white sm:flex-row">
+				<div className="mt-20 flex flex-col space-y-10 text-xl text-white sm:flex-row sm:space-y-0 sm:space-x-10">
 					<Link
 						to="/repos"
 						prefetch="render"
 						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
 						<GitBranch /> <span>See my work</span>
+					</Link>
+					<Link
+						to="/blog"
+						prefetch="render"
+						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
+					>
+						<JournalPage />
+						<span>
+							Read my{" "}
+							<span className="align-middle" title="french" aria-describedby="french">
+								🇫🇷
+							</span>{" "}
+							articles
+						</span>
 					</Link>
 				</div>
 			</article>

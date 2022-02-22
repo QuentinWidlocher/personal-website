@@ -3,10 +3,11 @@ import blogCss from "@blog/styles/blog.css"
 import { ArrowLeft } from "iconoir-react"
 
 const proseConfig = `
+prose-lg
 prose-a:no-underline prose-a:underline-offset-4 hover:prose-a:underline 
-prose-blockquote:border-slate-300 prose-blockquote:text-slate-300
-prose-pre:rounded-xl prose-pre:bg-slate-900/30 prose-pre:p-5 prose-pre:leading-snug lg:prose-pre:-mx-12 xl:prose-pre:-mx-24
-prose-hr:border-slate-500/20 prose-hr:border-2
+prose-blockquote:border-slate-500 prose-blockquote:text-slate-300
+prose-pre:text-lg prose-pre:rounded-xl prose-pre:bg-slate-900/30 prose-pre:p-5 prose-pre:leading-snug prose-pre:-mx-5 lg:prose-pre:-mx-12 xl:prose-pre:-mx-24
+prose-hr:border-slate-500/20 prose-hr:border-t-4
 md:prose-h1:text-center md:prose-h1:-mx-5 lg:prose-h1:-mx-12 xl:prose-h1:-mx-24
 `
 
@@ -25,7 +26,7 @@ export default function ArticleLayoutRoute() {
 					<ArrowLeft />
 				</Link>
 			</nav>
-			<div className={"blog container prose prose-invert mx-auto w-full p-5 marker:text-slate-500 selection:bg-slate-500/50 " + proseConfig}>
+			<div className={"blog container prose prose-invert mx-auto my-10 w-full p-5 marker:text-slate-500 selection:bg-slate-500/50 " + proseConfig}>
 				<Outlet />
 			</div>
 		</>
