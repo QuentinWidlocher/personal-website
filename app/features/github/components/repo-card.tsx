@@ -42,36 +42,38 @@ const fadingInlineStyle: React.CSSProperties = {
 
 export default function RepoCard({ repo }: RepoCardProps) {
 	return (
-		<Card
-			titleSlot={
-				<>
-					{getIcon(repo)}
-					<h1 className="text-xl">
-						{repo.organization ? <span className="mr-2 text-lg text-slate-400 group-hover:text-sky-200">{repo.organization} /</span> : null}
-						<span className="font-bold">{formatTitle(repo.name)}</span>
-					</h1>
-				</>
-			}
-			subTitleSlot={<>{repo.description}</>}
-		>
-			<div className="flex flex-wrap items-center justify-between">
-				{repo.stars > 0 ? (
+		<a href={repo.url} target="_blank" rel="noopener">
+			<Card
+				titleSlot={
 					<>
-						<div className="mt-5 flex space-x-2 text-base">
-							<StarOutline />
-							<span>{repo.stars}</span>
-						</div>
-						<div className="mx-2" role="separator"></div>
+						{getIcon(repo)}
+						<h1 className="text-xl">
+							{repo.organization ? <span className="mr-2 text-lg text-slate-400 group-hover:text-sky-200">{repo.organization} /</span> : null}
+							<span className="font-bold">{formatTitle(repo.name)}</span>
+						</h1>
 					</>
-				) : null}
-				<ul tabIndex={-1} className="relative mt-5 -mr-5 flex space-x-2 overflow-x-hidden pr-10" style={fadingInlineStyle}>
-					{repo.tags.map((tag) => (
-						<li key={tag} className="whitespace-nowrap rounded border border-slate-500/50 py-1 px-2 text-sm text-slate-400 group-hover:border-sky-500/50 group-hover:text-sky-300">
-							{tag}
-						</li>
-					))}
-				</ul>
-			</div>
-		</Card>
+				}
+				subTitleSlot={<>{repo.description}</>}
+			>
+				<div className="flex flex-wrap items-center justify-between">
+					{repo.stars > 0 ? (
+						<>
+							<div className="mt-5 flex space-x-2 text-base">
+								<StarOutline />
+								<span>{repo.stars}</span>
+							</div>
+							<div className="mx-2" role="separator"></div>
+						</>
+					) : null}
+					<ul tabIndex={-1} className="relative mt-5 -mr-5 flex space-x-2 overflow-x-hidden pr-10" style={fadingInlineStyle}>
+						{repo.tags.map((tag) => (
+							<li key={tag} className="whitespace-nowrap rounded border border-slate-500/50 py-1 px-2 text-sm text-slate-400 group-hover:border-sky-500/50 group-hover:text-sky-300">
+								{tag}
+							</li>
+						))}
+					</ul>
+				</div>
+			</Card>
+		</a>
 	)
 }
