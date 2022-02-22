@@ -20,7 +20,7 @@ export let links: LinksFunction = () => [{ href: blogCss, rel: "stylesheet" }]
 export default function ArticleLayoutRoute() {
 	return (
 		<>
-			<nav className="absolute top-20 hidden rounded-r bg-slate-500/10 p-3 md:block">
+			<nav className="absolute top-20 hidden rounded-r bg-slate-500/10 p-3 print:!hidden md:block">
 				<Link to="/blog" className="text-lg text-slate-300/50" data-tooltip title="Back to the articles">
 					<ArrowLeft />
 				</Link>

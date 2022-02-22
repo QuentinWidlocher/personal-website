@@ -25,7 +25,9 @@ export default function Tabs({ tabs, children }: React.PropsWithChildren<CodeTab
 					))}
 				</ul>
 			</nav>
-			<div className="code-tabs">{(children as any[])[selectedIndex]}</div>
+			{(children as any[]).map((child, i) => (
+				<div className={`code-tabs ${i != selectedIndex ? "sr-only" : "block"}`}>{child}</div>
+			))}
 		</div>
 	)
 }
