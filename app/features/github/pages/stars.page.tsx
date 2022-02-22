@@ -13,7 +13,7 @@ export default function StarsPage({ repos, total }: StarsPageProps) {
 		<div className="p-5 text-lg sm:p-10 sm:text-2xl lg:p-16 lg:text-4xl">
 			<h1 className="my-5 text-2xl font-bold sm:text-3xl lg:text-5xl">
 				<a target="_blank" rel="noopener" className="rounded-xl underline-offset-4 hover:underline" href="https://github.com/QuentinWidlocher?tab=stars">
-					My starred repositories ⭐️
+					My starred repositories <span className="align-middle">⭐️</span>
 				</a>
 			</h1>
 			<p className="mb-10 text-xl text-slate-400">

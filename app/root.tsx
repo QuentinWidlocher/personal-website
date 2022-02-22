@@ -1,4 +1,4 @@
-import { Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation, useMatches } from "remix"
+import { Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from "remix"
 import type { MetaFunction } from "remix"
 import cssuiCore from "css-ui-lib/cssui.css"
 import cssuiTooltip from "css-ui-lib/tooltip/tooltip.css"
@@ -7,7 +7,7 @@ import React from "react"
 export const meta: MetaFunction = () => {
 	return {
 		"title": "Quentin Widlocher",
-		"viewport": "width=device-width,initial-scale=1",
+		"viewport": "width=device-width, initial-scale=1, shrink-to-fit=no",
 		"theme-color": "#0EA5E9",
 		"description": "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
 		"twitter:card": "summary_large_image",
@@ -15,6 +15,13 @@ export const meta: MetaFunction = () => {
 		"twitter:title": "Quentin Widlocher",
 		"twitter:description": "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
 		"twitter:image": "https://quentin.widlocher.com/assets/images/profil.webp",
+		"mobile-web-app-capable": "yes",
+		"apple-mobile-web-app-capable": "yes",
+		"application-name": "Quentin Widlocher",
+		"apple-mobile-web-app-title": "Quentin Widlocher",
+		"msapplication-navbutton-color": "#50463b",
+		"apple-mobile-web-app-status-bar-style": "black-translucent",
+		"msapplication-starturl": "/",
 	}
 }
 
@@ -23,6 +30,7 @@ export const links: LinksFunction = () => {
 		{ rel: "stylesheet", href: cssuiCore },
 		{ rel: "stylesheet", href: cssuiTooltip },
 		{ rel: "stylesheet", href: "/tailwindcss" },
+		{ rel: "manifest", href: "/manifest.json" },
 	]
 }
 
@@ -56,7 +64,6 @@ export default function App() {
 				<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
 				<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
 				<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
-				<link rel="manifest" href="/manifest.json" />
 			</head>
 			<body className="h-full">
 				<Outlet />
