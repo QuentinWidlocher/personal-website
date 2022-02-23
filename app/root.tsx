@@ -1,4 +1,4 @@
-import { Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from "remix"
+import { Links, LinksFunction, LiveReload, LoaderFunction, Meta, Outlet, Scripts, ScrollRestoration, ShouldReloadFunction, useLocation } from "remix"
 import type { MetaFunction } from "remix"
 import cssuiCore from "css-ui-lib/cssui.css"
 import cssuiTooltip from "css-ui-lib/tooltip/tooltip.css"
@@ -32,6 +32,11 @@ export const links: LinksFunction = () => {
 		{ rel: "stylesheet", href: "/tailwindcss" },
 		{ rel: "manifest", href: "/manifest.json" },
 	]
+}
+
+export let loader: LoaderFunction = async ({}) => {
+	console.log("loader")
+	return null
 }
 
 export default function App() {

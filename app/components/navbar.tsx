@@ -1,5 +1,7 @@
-import { Link, NavLink } from "remix"
-import { GitHub, Telegram, Twitter, Medium, Home, GitBranch, StarOutline, JournalPage } from "iconoir-react"
+import { Link, NavLink, useFetcher, useMatches } from "remix"
+import { GitHub, Telegram, Twitter, Medium, Home, GitBranch, StarOutline, JournalPage, ShortPants } from "iconoir-react"
+import { useMatch } from "react-router"
+import { useEffect } from "react"
 
 interface NavBarProps {}
 
@@ -20,6 +22,16 @@ const navLinks: { href: string; label: string; icon: JSX.Element }[] = [
 ]
 
 export default function NavBar({}: NavBarProps) {
+	let matches = useMatches()
+	let fetcher = useFetcher()
+
+	// On each route change, fetch the new stars count
+	useEffect(() => {
+		if (fetcher.type === "init" || fetcher.type === "done") {
+			fetcher.load("/new-stars")
+		}
+	}, [matches])
+
 	return (
 		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-800/80 py-10 text-white shadow-lg shadow-slate-800/20 print:hidden sm:shadow-xl sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-800/50 landscape:my-0 landscape:py-0 landscape:md:-my-5 landscape:md:py-10">
 			<ul className="flex h-full w-full flex-col">
@@ -90,6 +102,7 @@ export default function NavBar({}: NavBarProps) {
 							<NavLink prefetch="intent" to={href} className={getNavLinkStyle} aria-label={label} title={label} data-tooltip role="tooltip">
 								{icon}
 								<span className="hidden lg:block">{label}</span>
+								{href === "/stars" && fetcher.data != null ? <span className="aspect-square rounded-full bg-sky-500 px-2 text-sm font-bold text-sky-800">{fetcher.data}</span> : null}
 							</NavLink>
 						</li>
 					))}

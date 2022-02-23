@@ -1,5 +1,6 @@
-import { LoaderFunction } from "remix"
-import { listStars } from "../api/github.api"
+import { createCookieSessionStorage, json, LoaderFunction } from "remix"
+import { commitSession, getSession } from "~/utils/session"
+import { cache, listStars } from "../api/github.api"
 import { Repo } from "../types/repo"
 
 export interface StarsLoaderPayload {
@@ -8,6 +9,8 @@ export interface StarsLoaderPayload {
 }
 
 export let loader: LoaderFunction = async ({ request }) => {
+	const session = await getSession(request.headers.get("Cookie"))
+
 	let url = new URL(request.url)
 	let size = url.searchParams.get("s")
 	let sizeNumber = size != null ? parseInt(size) : undefined
@@ -36,5 +39,13 @@ export let loader: LoaderFunction = async ({ request }) => {
 		total,
 	}
 
-	return payload
+	// We update the number of stars "seen" by the user
+	session.set("stars", total)
+	session.set("starsHash", cache.starsHash)
+
+	return json(payload, {
+		headers: {
+			"Set-Cookie": await commitSession(session),
+		},
+	})
 }

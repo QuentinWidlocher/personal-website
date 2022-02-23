@@ -1,13 +1,15 @@
 import { GithubCommit, GithubContent, GithubRepo } from "../types/github"
+import hasher from "node-object-hash"
 
 type Cache = Partial<{
 	repos: GithubRepo[]
 	stars: GithubRepo[]
+	starsHash: string
 	[key: `${string}-lastcommit`]: GithubCommit
 	[key: string]: unknown
 }>
 
-let cache: Cache
+export let cache: Cache
 
 declare global {
 	var __cache: Cache | undefined
@@ -19,12 +21,14 @@ if (!global.__cache) {
 
 cache = global.__cache
 
-function setCache<K extends keyof Cache>(key: K, value: Cache[K], timeout: number, callback: () => void) {
+function setCache<K extends keyof Cache>(key: K, value: Cache[K], timeout?: number, callback?: () => void) {
 	cache[key] = value
-	setTimeout(() => {
-		delete cache[key]
-		callback()
-	}, timeout)
+	if (timeout != null && callback != null) {
+		setTimeout(() => {
+			delete cache[key]
+			callback()
+		}, timeout)
+	}
 }
 
 const baseUrl = "https://api.github.com"
@@ -87,6 +91,8 @@ export async function listStars(pageSize = 20) {
 			console.log("Stars cache expired, fetching again")
 			listStars()
 		})
+
+		setCache("starsHash", hasher().hash(stars))
 	} else {
 		console.log("Stars fetched from cache")
 	}
@@ -106,54 +112,4 @@ export async function getLastCommit(repoName: string): Promise<GithubCommit> {
 	}
 
 	return commit
-}
-
-export async function getArticleList(username: string, path: string): Promise<GithubContent[]> {
-	// return fetch(`${baseUrl}/repos/${username}/notes/contents${path}`, basicGet).then((res) => res.json())
-	return [
-		{
-			name: "form-validation.pt1.md",
-			path: "remix/form-validation.pt1.md",
-			sha: "53369ed6ae102b231e1e9a5c97fe8b5645b64b73",
-			size: 9202,
-			url: "https://api.github.com/repos/QuentinWidlocher/notes/contents/remix/form-validation.pt1.md?ref=master",
-			html_url: "https://github.com/QuentinWidlocher/notes/blob/master/remix/form-validation.pt1.md",
-			git_url: "https://api.github.com/repos/QuentinWidlocher/notes/git/blobs/53369ed6ae102b231e1e9a5c97fe8b5645b64b73",
-			download_url: "https://raw.githubusercontent.com/QuentinWidlocher/notes/master/remix/form-validation.pt1.md",
-			type: "file",
-			_links: {
-				self: "https://api.github.com/repos/QuentinWidlocher/notes/contents/remix/form-validation.pt1.md?ref=master",
-				git: "https://api.github.com/repos/QuentinWidlocher/notes/git/blobs/53369ed6ae102b231e1e9a5c97fe8b5645b64b73",
-				html: "https://github.com/QuentinWidlocher/notes/blob/master/remix/form-validation.pt1.md",
-			},
-		},
-		{
-			name: "form-validation.pt2.md",
-			path: "remix/form-validation.pt2.md",
-			sha: "785453959ba5f9b5e8d7247dbc52608e4b373444",
-			size: 20106,
-			url: "https://api.github.com/repos/QuentinWidlocher/notes/contents/remix/form-validation.pt2.md?ref=master",
-			html_url: "https://github.com/QuentinWidlocher/notes/blob/master/remix/form-validation.pt2.md",
-			git_url: "https://api.github.com/repos/QuentinWidlocher/notes/git/blobs/785453959ba5f9b5e8d7247dbc52608e4b373444",
-			download_url: "https://raw.githubusercontent.com/QuentinWidlocher/notes/master/remix/form-validation.pt2.md",
-			type: "file",
-			_links: {
-				self: "https://api.github.com/repos/QuentinWidlocher/notes/contents/remix/form-validation.pt2.md?ref=master",
-				git: "https://api.github.com/repos/QuentinWidlocher/notes/git/blobs/785453959ba5f9b5e8d7247dbc52608e4b373444",
-				html: "https://github.com/QuentinWidlocher/notes/blob/master/remix/form-validation.pt2.md",
-			},
-		},
-	]
-}
-
-export async function getArticles() {
-	let list = await getArticleList(process.env.GITHUB_USERNAME!, "/remix")
-	let files = list.filter((f) => f.type === "file")
-
-	return Promise.all(
-		files.map(async (f) => ({
-			name: f.name,
-			content: await fetch(f.download_url).then((res) => res.text()),
-		})),
-	)
 }
