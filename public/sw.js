@@ -1,3 +1,5 @@
+const version = "1.0.0";
+
 self.addEventListener("fetch", (event) => {
     let url = new URL(event.request.url);
     let method = event.request.method;
@@ -14,7 +16,7 @@ self.addEventListener("fetch", (event) => {
     ) {
         event.respondWith(
             // we will open the assets cache
-            caches.open("assets").then(async (cache) => {
+            caches.open(version).then(async (cache) => {
                 // if the request is cached we will use the cache
                 let cacheResponse = await cache.match(event.request);
                 if (cacheResponse) return cacheResponse;
@@ -29,3 +31,16 @@ self.addEventListener("fetch", (event) => {
         );
     }
 });
+
+self.addEventListener("activate", (event) => {
+    // Remove old caches
+    event.waitUntil(
+        caches.keys().then(keys => {
+            return Promise.all(keys.map((cache) => {
+                if (cache !== version) {
+                    return caches.delete(cache);
+                }
+            }))
+        })
+    )
+})
