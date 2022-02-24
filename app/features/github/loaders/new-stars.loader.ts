@@ -1,6 +1,6 @@
 import { LoaderFunction } from "remix"
 import { getSession } from "~/utils/session"
-import { cache } from "../api/github.api"
+import { githubCache } from "../api/cached-github.api"
 
 /**
  * Compare the current stars count with the hash in the session.
@@ -14,8 +14,8 @@ export let loader: LoaderFunction = async ({ request }) => {
 		let starsHash = await session.get("starsHash")
 		let stars = await session.get("stars")
 
-		if (starsHash != cache!.starsHash && stars < (cache!.stars?.length ?? 0)) {
-			return (cache!.stars?.length ?? 0) - stars
+		if (starsHash != githubCache.starsHash && stars < (githubCache.stars?.value?.length ?? 0)) {
+			return (githubCache.stars?.value?.length ?? 0) - stars
 		}
 	}
 

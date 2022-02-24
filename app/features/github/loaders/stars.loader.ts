@@ -1,6 +1,6 @@
-import { createCookieSessionStorage, json, LoaderFunction } from "remix"
+import { json, LoaderFunction } from "remix"
 import { commitSession, getSession } from "~/utils/session"
-import { cache, listStars } from "../api/github.api"
+import { githubCache, listStars } from "../api/cached-github.api"
 import { Repo } from "../types/repo"
 
 export interface StarsLoaderPayload {
@@ -15,7 +15,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 	let size = url.searchParams.get("s")
 	let sizeNumber = size != null ? parseInt(size) : undefined
 
-	let { stars: repos, total } = await listStars(sizeNumber)
+	let { repos, total } = await listStars(sizeNumber)
 
 	let mappedRepos: Repo[] = await Promise.all(
 		repos.map(async (repo) => {
@@ -41,7 +41,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
 	// We update the number of stars "seen" by the user
 	session.set("stars", total)
-	session.set("starsHash", cache.starsHash)
+	session.set("starsHash", githubCache.starsHash)
 
 	return json(payload, {
 		headers: {
