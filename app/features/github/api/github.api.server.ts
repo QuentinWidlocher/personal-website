@@ -1,4 +1,4 @@
-import { GithubCommit, GithubRepo } from "../types/github"
+import { GithubCommit, GithubContent, GithubRepo } from "../types/github"
 
 const baseUrl = "https://api.github.com"
 const headers = {
@@ -23,4 +23,8 @@ export function getLastCommitFromRepo(username: string, repoName: string): Promi
 	return fetch(`${baseUrl}/repos/${username}/${repoName}/commits?per_page=1`, basicGet)
 		.then((res) => res.json())
 		.then((commits) => commits[0])
+}
+
+export function getFiles(username: string, repoName: string, path: string): Promise<GithubContent[]> {
+	return fetch(`${baseUrl}/repos/${username}/${repoName}/contents/${path}`, basicGet).then((res) => res.json())
 }

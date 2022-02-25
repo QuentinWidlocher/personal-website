@@ -8,7 +8,7 @@ interface RepoCardProps {
 
 export default function ArticleCard({ article }: RepoCardProps) {
 	return (
-		<Link className="block h-full rounded-lg text-base" to={`/blog/articles/${article.slug}`}>
+		<Link className="block h-full rounded-lg text-base" to={`/blog/${article.slug}`}>
 			<Card
 				titleSlot={
 					<h1 className="text-xl">

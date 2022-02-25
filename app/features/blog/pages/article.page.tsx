@@ -1,6 +1,13 @@
-import { Outlet, LinksFunction, Link, HeadersFunction } from "remix"
-import blogCss from "@blog/styles/blog.css"
 import { ArrowLeft } from "iconoir-react"
+import { getMDXComponent } from "mdx-bundler/client"
+import { useMemo } from "react"
+import { Link } from "remix"
+import Tabs from "../components/tabs"
+import { Article } from "../types/blog"
+
+interface ArticlePageProps {
+	article: Article
+}
 
 const proseConfig = `
 prose-lg
@@ -11,14 +18,9 @@ prose-hr:border-slate-500/20 prose-hr:border-t-4
 md:prose-h1:text-center md:prose-h1:-mx-5 lg:prose-h1:-mx-12 xl:prose-h1:-mx-24
 `
 
-export let headers: HeadersFunction = () => ({
-	// Cache for 1h, revalidate for 1d
-	"Cache-Control": "max-age=3600, stale-while-revalidate=86400",
-})
+export default function ArticlePage({ article }: ArticlePageProps) {
+	const Component = useMemo(() => getMDXComponent(article.content), [article.content])
 
-export let links: LinksFunction = () => [{ href: blogCss, rel: "stylesheet" }]
-
-export default function ArticleLayoutRoute() {
 	return (
 		<>
 			<nav className="absolute top-20 hidden rounded-r bg-slate-500/10 p-3 print:!hidden md:block">
@@ -27,7 +29,11 @@ export default function ArticleLayoutRoute() {
 				</Link>
 			</nav>
 			<div className={"blog container prose prose-invert mx-auto my-10 w-full p-5 marker:text-slate-500 selection:bg-slate-500/50 " + proseConfig}>
-				<Outlet />
+				<article>
+					<h1 id="#">{article.title}</h1>
+					<blockquote>{article.subtitle}</blockquote>
+					<Component components={{ Tabs }} />
+				</article>
 			</div>
 		</>
 	)

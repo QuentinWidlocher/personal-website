@@ -22,13 +22,7 @@ module.exports = {
     ]);
 
     return {
-      remarkPlugins: [remarkMdx, remarkGfm],
-      rehypePlugins: [
-        rehypeSlug,
-        [rehypeAutolink, { behavior: "wrap" }],
-        [rehypePrismPlus, { showLineNumbers: true }],
-        [rehypeToc, { placeholder: "%%TOC%%", headings: ["h2", "h3", "h4"] }]
-      ],
+
     };
   },
 };

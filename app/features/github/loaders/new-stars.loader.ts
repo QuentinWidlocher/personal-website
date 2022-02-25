@@ -1,6 +1,6 @@
 import { LoaderFunction } from "remix"
 import { getSession } from "~/utils/session"
-import { githubCache } from "../api/cached-github.api"
+import { githubCache } from "../api/cached-github.api.server"
 
 /**
  * Compare the current stars count with the hash in the session.

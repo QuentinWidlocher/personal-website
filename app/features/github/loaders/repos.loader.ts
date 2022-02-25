@@ -1,5 +1,5 @@
 import { LoaderFunction } from "remix"
-import { getLastCommit, listRepos } from "../api/cached-github.api"
+import { getLastCommit, listRepos } from "../api/cached-github.api.server"
 import { Repo } from "../types/repo"
 
 export interface ReposLoaderPayload {

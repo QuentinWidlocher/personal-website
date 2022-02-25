@@ -1,6 +1,6 @@
 import { json, LoaderFunction } from "remix"
 import { commitSession, getSession } from "~/utils/session"
-import { githubCache, listStars } from "../api/cached-github.api"
+import { githubCache, listStars } from "../api/cached-github.api.server"
 import { Repo } from "../types/repo"
 
 export interface StarsLoaderPayload {

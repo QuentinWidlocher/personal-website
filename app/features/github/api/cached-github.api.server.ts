@@ -1,6 +1,8 @@
 import hasher from "node-object-hash"
+import { Article } from "~/features/blog/types/blog"
+import { getFullArticle } from "~/features/blog/utils/blog.utils.server"
 import { GithubCommit, GithubRepo } from "../types/github"
-import { listRepoFromCurrentUser, listStarredRepos, getLastCommitFromRepo } from "./github.api"
+import { listRepoFromCurrentUser, listStarredRepos, getLastCommitFromRepo, getFiles } from "./github.api.server"
 
 type CachedValue<T> = {
 	value: T | undefined
@@ -51,16 +53,21 @@ function getReposSlice(repos: GithubRepo[], pageSize: number): { repos: GithubRe
 /**
  * Implements a `stale-while-validating`-style cache where a stale info is returned while a fresh one is being cached
  */
-async function getCachedOrFreshData<K extends keyof Cache, Value = NonNullable<Cache[K]>["value"]>(cacheKey: keyof Cache, getFreshData: () => Promise<Value>): Promise<Value> {
+async function getCachedOrFreshData<K extends keyof Cache, Value = NonNullable<Cache[K]>["value"]>(
+	cacheKey: keyof Cache,
+	getFreshData: () => Promise<Value>,
+	cacheT = cacheTime,
+	staleWhileRevalidateT = staleWhileRevalidateTime,
+): Promise<Value> {
 	let cached = githubCache[cacheKey] as CachedValue<Value> | undefined
 	let result: Value
 
-	if (cached && cached.value && cached.setAt + cacheTime > Date.now()) {
+	if (cached && cached.value && cached.setAt + cacheT > Date.now()) {
 		console.log(`Using cached ${cacheKey}`)
 		// If the cache is still good, return it
 		result = cached.value
-	} else if (cached && cached.value && cached.setAt + staleWhileRevalidateTime > Date.now()) {
-		// Else if the cache is not good but the staleWhileRevalidateTime is not over,
+	} else if (cached && cached.value && cached.setAt + staleWhileRevalidateT > Date.now()) {
+		// Else if the cache is not good but the staleWhileRevalidateT is not over,
 		// return the cache and updates it in the background
 		getFreshData().then((freshData) => {
 			console.log(`Updating ${cacheKey}`)
@@ -97,5 +104,18 @@ export async function listStars(pageSize = 20): Promise<ReturnType<typeof getRep
 
 export async function getLastCommit(repoName: string): Promise<GithubCommit> {
 	let result = await getCachedOrFreshData(`${repoName}-lastcommit`, () => getLastCommitFromRepo(process.env.GITHUB_USERNAME!, repoName))
+	return result
+}
+
+export async function getBlogArticles(repoName: string, path: string): Promise<Article[]> {
+	// Cache only for 5m to see more recent changes
+	let result = await getCachedOrFreshData(
+		`article-${repoName}/${path}`,
+		async () => {
+			let files = await getFiles(process.env.GITHUB_USERNAME!, repoName, path)
+			return Promise.all(files.map(getFullArticle))
+		},
+		1000 * 60 * 5,
+	)
 	return result
 }
