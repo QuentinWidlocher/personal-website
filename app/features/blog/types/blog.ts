@@ -4,4 +4,8 @@ export interface Article {
 	slug: string
 	createdAt?: Date
 	content: string
+	cover?: {
+		src: string
+		alt?: string
+	}
 }

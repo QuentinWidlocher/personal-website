@@ -23,11 +23,27 @@ export default function ArticlePage({ article }: ArticlePageProps) {
 
 	return (
 		<>
-			<nav className="absolute top-20 hidden rounded-r bg-slate-500/10 p-3 print:!hidden md:block">
+			<nav className="absolute top-[33vh] mt-5 hidden rounded-r bg-slate-500/10 p-3 print:!hidden md:block">
 				<Link to="/blog" className="text-lg text-slate-300/50" data-tooltip title="Back to the articles">
 					<ArrowLeft />
 				</Link>
 			</nav>
+			{article.cover?.src ? (
+				<img
+					className="h-[33vh] w-full object-cover shadow-xl"
+					src={article.cover.src}
+					srcSet={`
+						${article.cover.src}?w=1440&auto=compress&cs=tinysrgb 1440w,
+						${article.cover.src}?w=1920&auto=compress&cs=tinysrgb 1920w,
+						${article.cover.src}?w=1536&auto=compress&cs=tinysrgb 1536w,
+						${article.cover.src}?w=1280&auto=compress&cs=tinysrgb 1280w,
+						${article.cover.src}?w=1024&auto=compress&cs=tinysrgb 1024w,
+						${article.cover.src}?w=768&auto=compress&cs=tinysrgb 768w,
+						${article.cover.src}?w=640&auto=compress&cs=tinysrgb 640w
+					`}
+					alt={article.cover.alt ?? "Unrelated image, for decoration purpose"}
+				/>
+			) : null}
 			<div className={"blog container prose prose-invert mx-auto my-10 w-full p-5 marker:text-slate-500 selection:bg-slate-500/50 " + proseConfig}>
 				<article>
 					<h1 id="#">{article.title}</h1>

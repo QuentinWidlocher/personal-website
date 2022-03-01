@@ -13,9 +13,17 @@ export let links: LinksFunction = () => [{ href: blogCss, rel: "stylesheet" }]
 
 export let meta: MetaFunction = ({ data }) => ({
 	"title": `${data.title} - Quentin Widlocher`,
-	"description": data.subtitle,
 	"og:title": `${data.title} - Quentin Widlocher`,
+	"twitter:title": `${data.title} - Quentin Widlocher`,
+
+	"description": data.subtitle,
 	"og:description": data.subtitle,
+	"twitter:description": data.subtitle,
+
+	"og:image": data.cover?.src,
+	"twitter:image": data.cover?.src,
+
+	"og:image:alt": data.cover?.alt,
 })
 
 export let loader: LoaderFunction = async ({ params }) => {

@@ -102,9 +102,8 @@ export async function listStars(pageSize = 20): Promise<ReturnType<typeof getRep
 	return getReposSlice(result, pageSize)
 }
 
-export async function getLastCommit(repoName: string): Promise<GithubCommit> {
-	let result = await getCachedOrFreshData(`${repoName}-lastcommit`, () => getLastCommitFromRepo(process.env.GITHUB_USERNAME!, repoName))
-	return result
+export function getLastCommit(repoName: string): Promise<GithubCommit> {
+	return getCachedOrFreshData(`${repoName}-lastcommit`, getLastCommitFromRepo)
 }
 
 export async function getBlogArticles(repoName: string, path: string): Promise<Article[]> {
@@ -112,7 +111,7 @@ export async function getBlogArticles(repoName: string, path: string): Promise<A
 	let result = await getCachedOrFreshData(
 		`article-${repoName}/${path}`,
 		async () => {
-			let files = await getFiles(process.env.GITHUB_USERNAME!, repoName, path)
+			let files = await getFiles()
 			return Promise.all(files.map(getFullArticle))
 		},
 		1000 * 60 * 5,

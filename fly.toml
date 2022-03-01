@@ -9,6 +9,9 @@ processes = []
 [env]
   GITHUB_CACHE_MS = "3600000"
   GITHUB_USERNAME = "QuentinWidlocher"
+  GITHUB_ARTICLES_REPO = "notes"
+  GITHUB_ARTICLES_PATH = "blog"
+  GITHUB_ARTICLES_BRANCH = "master"
 
 [experimental]
   allowed_public_ports = []

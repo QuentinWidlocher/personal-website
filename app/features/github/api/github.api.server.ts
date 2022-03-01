@@ -19,12 +19,15 @@ export function listStarredRepos(): Promise<GithubRepo[]> {
 	return fetch(`${baseUrl}/user/starred?per_page=100&sort=created`, basicGet).then((res) => res.json())
 }
 
-export function getLastCommitFromRepo(username: string, repoName: string): Promise<GithubCommit> {
-	return fetch(`${baseUrl}/repos/${username}/${repoName}/commits?per_page=1`, basicGet)
+export function getLastCommitFromRepo(): Promise<GithubCommit> {
+	return fetch(`${baseUrl}/repos/${process.env.GITHUB_USERNAME}/${process.env.GITHUB_ARTICLES_REPO}/commits?per_page=1`, basicGet)
 		.then((res) => res.json())
 		.then((commits) => commits[0])
 }
 
-export function getFiles(username: string, repoName: string, path: string): Promise<GithubContent[]> {
-	return fetch(`${baseUrl}/repos/${username}/${repoName}/contents/${path}`, basicGet).then((res) => res.json())
+export function getFiles(): Promise<GithubContent[]> {
+	return fetch(
+		`${baseUrl}/repos/${process.env.GITHUB_USERNAME}/${process.env.GITHUB_ARTICLES_REPO}/contents/${process.env.GITHUB_ARTICLES_PATH}?ref=${process.env.GITHUB_ARTICLES_BRANCH}`,
+		basicGet,
+	).then((res) => res.json())
 }
