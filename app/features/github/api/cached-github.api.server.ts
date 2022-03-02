@@ -103,7 +103,7 @@ export async function listStars(pageSize = 20): Promise<ReturnType<typeof getRep
 }
 
 export function getLastCommit(repoName: string): Promise<GithubCommit> {
-	return getCachedOrFreshData(`${repoName}-lastcommit`, getLastCommitFromRepo)
+	return getCachedOrFreshData(`${repoName}-lastcommit`, () => getLastCommitFromRepo(repoName))
 }
 
 export async function getBlogArticles(repoName: string, path: string): Promise<Article[]> {
