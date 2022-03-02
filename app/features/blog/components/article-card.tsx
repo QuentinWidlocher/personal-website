@@ -11,7 +11,7 @@ export default function ArticleCard({ article }: RepoCardProps) {
 	return (
 		<Link className="block h-full rounded-lg text-base" to={`/blog/${article.slug}`}>
 			<Card
-				imgSlot={<ArticleImage article={article} srcSetMode="card" className="w-full" />}
+				imgSlot={<ArticleImage article={article} srcSetMode="card" className="h-full w-full" />}
 				titleSlot={
 					<h1 className="text-xl">
 						<span className="font-bold">{article.title}</span>
