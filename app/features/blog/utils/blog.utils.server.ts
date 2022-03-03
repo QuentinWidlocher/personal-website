@@ -40,5 +40,6 @@ export async function getFullArticle(file: GithubContent): Promise<Article> {
 		createdAt: mdx.frontmatter.createdAt ? new Date(mdx.frontmatter.createdAt) : undefined,
 		content: mdx.code,
 		cover: mdx.frontmatter.cover,
+		series: mdx.frontmatter.series,
 	}
 }

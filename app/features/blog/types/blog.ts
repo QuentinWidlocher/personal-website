@@ -8,4 +8,5 @@ export interface Article {
 		src: string
 		alt?: string
 	}
+	series?: string
 }

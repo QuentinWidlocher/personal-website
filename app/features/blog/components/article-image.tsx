@@ -43,7 +43,7 @@ function getSrcSetCard(src: string) {
 `
 }
 
-// These are computed base on the screen size / the number of columns on the screen
+// These are computed based on the screen size / the number of columns on the screen
 const sizesCard = `
     (min-width: 1440px) 512px,
     (min-width: 1920px) 360px,

@@ -106,12 +106,13 @@ export function getLastCommit(repoName: string): Promise<GithubCommit> {
 	return getCachedOrFreshData(`${repoName}-lastcommit`, () => getLastCommitFromRepo(repoName))
 }
 
-export async function getBlogArticles(repoName: string, path: string): Promise<Article[]> {
+export async function getBlogArticles(): Promise<Article[]> {
 	// Cache only for 5m to see more recent changes
 	let result = await getCachedOrFreshData(
-		`article-${repoName}/${path}`,
+		`article-${process.env.GITHUB_ARTICLES_REPO}/${process.env.GITHUB_ARTICLES_PATH}`,
 		async () => {
-			let files = await getFiles()
+			let files = (await getFiles()) ?? []
+			console.debug("files", files)
 			return Promise.all(files.map(getFullArticle))
 		},
 		1000 * 60 * 5,

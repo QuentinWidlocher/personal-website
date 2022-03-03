@@ -1,11 +1,8 @@
 import { HeadersFunction, LoaderFunction, useLoaderData } from "remix"
+import { ArticleListLoaderPayload } from "~/features/blog/loaders/article-list.loader"
 import BlogListPage from "~/features/blog/pages/list.page"
 import { Article } from "~/features/blog/types/blog"
-import { getBlogArticles } from "~/features/github/api/cached-github.api.server"
-
-export let loader: LoaderFunction = async () => {
-	return getBlogArticles("notes", "blog")
-}
+export { loader } from "~/features/blog/loaders/article-list.loader"
 
 export let headers: HeadersFunction = () => ({
 	// Cache for 5m, CDN Cache for 1h, revalidate for 1d
@@ -13,6 +10,6 @@ export let headers: HeadersFunction = () => ({
 })
 
 export default function BlogListRoute() {
-	let articles = useLoaderData<Article[]>()
-	return <BlogListPage articles={articles} />
+	let { groups } = useLoaderData<ArticleListLoaderPayload>()
+	return <BlogListPage articleGroups={groups} />
 }

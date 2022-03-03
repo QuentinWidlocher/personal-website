@@ -9,7 +9,7 @@ interface RepoCardProps {
 
 export default function ArticleCard({ article }: RepoCardProps) {
 	return (
-		<Link className="block h-full rounded-lg text-base" to={`/blog/${article.slug}`}>
+		<Link className="block h-full text-base" to={`/blog/${article.slug}`}>
 			<Card
 				imgSlot={<ArticleImage article={article} srcSetMode="card" className="h-full w-full" />}
 				titleSlot={
