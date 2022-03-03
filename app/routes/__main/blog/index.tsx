@@ -1,7 +1,7 @@
-import { HeadersFunction, LoaderFunction, useLoaderData } from "remix"
+import { HeadersFunction, useLoaderData } from "remix"
 import { ArticleListLoaderPayload } from "~/features/blog/loaders/article-list.loader"
 import BlogListPage from "~/features/blog/pages/list.page"
-import { Article } from "~/features/blog/types/blog"
+
 export { loader } from "~/features/blog/loaders/article-list.loader"
 
 export let headers: HeadersFunction = () => ({

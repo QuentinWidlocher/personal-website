@@ -10,9 +10,36 @@ export interface GroupedArticles {
 	[k: string]: Article[]
 }
 
+function getLastArticle(max: number, article: Article) {
+	return Math.max(max, article.createdAt ? new Date(article.createdAt).getTime() : 0)
+}
+
+function sortByDate(a: Article, b: Article) {
+	if (a.createdAt && b.createdAt) {
+		if (a.series == "other") {
+			return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+		} else {
+			return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+		}
+	} else {
+		return 0
+	}
+}
+
 export default function BlogListPage({ articleGroups }: BlogListPageProps) {
-	console.debug("articleGroups", articleGroups)
-	let groupNames = Object.keys(articleGroups ?? {})
+	let groupNames = Object.keys(articleGroups ?? {}).sort((a, b) => {
+		// Others are always at the end
+		if (a === "other") return 1
+		if (b === "other") return -1
+
+		let groupA = articleGroups[a]
+		let groupB = articleGroups[b]
+
+		let lastUpdatedInA = groupA.reduce(getLastArticle, 0)
+		let lastUpdatedInB = groupB.reduce(getLastArticle, 0)
+
+		return lastUpdatedInB - lastUpdatedInA
+	})
 
 	return (
 		<div className="not-prose p-5 text-lg sm:p-10 sm:text-2xl lg:p-16 lg:text-4xl">
@@ -25,8 +52,8 @@ export default function BlogListPage({ articleGroups }: BlogListPageProps) {
 			{groupNames.map((groupName) => (
 				<>
 					<h2 className="mb-3">{groupName == "other" ? "Others" : groupName}</h2>
-					<ul className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-						{articleGroups[groupName].map((article) => (
+					<ul className="mb-10 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+						{articleGroups[groupName].sort(sortByDate).map((article) => (
 							<li key={article.slug}>
 								<ArticleCard article={article} />
 							</li>
