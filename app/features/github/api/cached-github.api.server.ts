@@ -89,7 +89,7 @@ async function getCachedOrFreshData<K extends keyof Cache, Value = NonNullable<C
 
 export async function listRepos(pageSize = 20): Promise<ReturnType<typeof getReposSlice>> {
 	let result = await getCachedOrFreshData("repos", listFilteredRepos)
-	return getReposSlice(result, pageSize)
+	return getReposSlice(result ?? [], pageSize)
 }
 
 export async function listStars(pageSize = 20): Promise<ReturnType<typeof getReposSlice>> {
@@ -99,7 +99,7 @@ export async function listStars(pageSize = 20): Promise<ReturnType<typeof getRep
 			return freshStars
 		}),
 	)
-	return getReposSlice(result, pageSize)
+	return getReposSlice(result ?? [], pageSize)
 }
 
 export function getLastCommit(repoName: string): Promise<GithubCommit> {
@@ -112,7 +112,6 @@ export async function getBlogArticles(): Promise<Article[]> {
 		`article-${process.env.GITHUB_ARTICLES_REPO}/${process.env.GITHUB_ARTICLES_PATH}`,
 		async () => {
 			let files = (await getFiles()) ?? []
-			console.debug("files", files)
 			return Promise.all(files.map(getFullArticle))
 		},
 		1000 * 60 * 5,

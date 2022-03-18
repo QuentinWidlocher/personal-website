@@ -1,8 +1,7 @@
 import { renderToString } from "react-dom/server"
 import { RemixServer } from "remix"
 import type { EntryContext } from "remix"
-import dotenv from "dotenv"
-
+import * as dotenv from "dotenv"
 dotenv.config()
 
 export default function handleRequest(request: Request, responseStatusCode: number, responseHeaders: Headers, remixContext: EntryContext) {

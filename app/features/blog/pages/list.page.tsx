@@ -51,7 +51,7 @@ export default function BlogListPage({ articleGroups }: BlogListPageProps) {
 			</h2>
 			{groupNames.map((groupName) => (
 				<>
-					<h2 className="mb-3">{groupName == "other" ? "Others" : groupName}</h2>
+					<h2 className="mb-5">{groupName == "other" ? "Others" : groupName}</h2>
 					<ul className="mb-10 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
 						{articleGroups[groupName].sort(sortByDate).map((article) => (
 							<li key={article.slug}>

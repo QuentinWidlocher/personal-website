@@ -1,5 +1,5 @@
 {
-	"include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+	"include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "server.ts"],
 	"compilerOptions": {
 		"lib": ["DOM", "DOM.Iterable", "ES2019"],
 		"isolatedModules": true,
@@ -8,9 +8,9 @@
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"target": "ES2019",
-		"module": "esnext",
 		"strict": true,
 		"baseUrl": ".",
+		"module": "esnext",
 		"paths": {
 			"~/*": ["./app/*"],
 			"@components/*": ["./app/components/*", "./app/features/blog/components/*", "./app/features/github/components/*", "./app/features/home/components/*"],
