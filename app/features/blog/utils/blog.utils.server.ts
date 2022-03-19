@@ -41,5 +41,6 @@ export async function getFullArticle(file: GithubContent): Promise<Article> {
 		content: mdx.code,
 		cover: mdx.frontmatter.cover,
 		series: mdx.frontmatter.series,
+		lang: mdx.frontmatter.lang,
 	}
 }

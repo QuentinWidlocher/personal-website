@@ -9,4 +9,5 @@ export interface Article {
 		alt?: string
 	}
 	series?: string
+	lang: "en" | "fr"
 }

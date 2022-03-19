@@ -47,13 +47,7 @@ export default function HomePage() {
 						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
 						<JournalPage />
-						<span>
-							Read my{" "}
-							<span className="align-middle" title="french" aria-describedby="french">
-								🇫🇷
-							</span>{" "}
-							articles
-						</span>
+						<span>Read my articles</span>
 					</Link>
 				</div>
 			</article>

@@ -76,7 +76,7 @@ export default function App() {
 				<ScrollRestoration />
 				<Scripts />
 				{process.env.NODE_ENV != "development" ? <script src="/sw_launcher.js" /> : null}
-				{process.env.NODE_ENV === "development" ? <LiveReload /> : null}
+				{process.env.NODE_ENV == "development" ? <LiveReload /> : null}
 			</body>
 		</html>
 	)

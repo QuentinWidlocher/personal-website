@@ -47,7 +47,7 @@ export default function BlogListPage({ articleGroups }: BlogListPageProps) {
 				My blog articles <span className="align-middle">📰</span>
 			</h1>
 			<h2 className="mb-10 text-xl text-slate-400">
-				Here you can find the things I write. <br /> Almost always going to be in french though.
+				Here you can find the things I write. <br /> Almost always going to be about web dev.
 			</h2>
 			{groupNames.map((groupName) => (
 				<>
