@@ -1,6 +1,6 @@
 import { Link, NavLink, useFetcher, useMatches } from "remix"
 import { GitHub, Telegram, Twitter, Medium, Home, GitBranch, StarOutline, JournalPage, ShortPants } from "iconoir-react"
-import { useMatch } from "react-router"
+import { version } from "../../package.json"
 import { useEffect } from "react"
 
 interface NavBarProps {}
@@ -109,7 +109,7 @@ export default function NavBar({}: NavBarProps) {
 				</ul>
 
 				<li className="mt-auto mb-5 hidden text-center text-slate-400 underline-offset-4 hover:underline lg:block">
-					<a href="https://github.com/QuentinWidlocher/personal-website" target="_blank" rel="noopener" className="rounded p-1">
+					<a data-tooltip role="tooltip" title={`Version ${version}`} href="https://github.com/QuentinWidlocher/personal-website" target="_blank" rel="noopener" className="rounded p-1">
 						See this website on github
 					</a>
 				</li>

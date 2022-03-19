@@ -3,6 +3,7 @@
   "name": "quentin-widlocher-personal-website",
   "description": "My personal website",
   "license": "GPL-3.0-or-later",
+  "version": "1.0.3",
   "scripts": {
     "build": "remix build",
     "postinstall": "remix setup node",
