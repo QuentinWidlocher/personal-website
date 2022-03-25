@@ -11,10 +11,10 @@ export let loader: LoaderFunction = async ({ request }) => {
 	const session = await getSession(request.headers.get("Cookie"))
 
 	if (session.has("starsHash") && session.has("stars")) {
-		let starsHash = await session.get("starsHash")
-		let stars = await session.get("stars")
+		let starsHash = session.get("starsHash")
+		let stars = session.get("stars")
 
-		if (starsHash != githubCache.starsHash && stars < (githubCache.stars?.value?.length ?? 0)) {
+		if (starsHash != githubCache.starsHash?.value && stars < (githubCache.stars?.value?.length ?? 0)) {
 			return (githubCache.stars?.value?.length ?? 0) - stars
 		}
 	}

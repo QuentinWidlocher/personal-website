@@ -6,7 +6,7 @@ import { useEffect } from "react"
 interface NavBarProps {}
 
 function getNavLinkStyle({ isActive }: { isActive: boolean }) {
-	let baseStyle = `navbar-link flex space-x-5 w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-slate-500/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`
+	let baseStyle = `navbar-link flex w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-slate-500/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`
 	if (isActive) {
 		return `${baseStyle} font-bold border-white active`
 	} else {
@@ -101,8 +101,10 @@ export default function NavBar({}: NavBarProps) {
 						<li className="ml-auto sm:mt-5 lg:ml-5" key={href}>
 							<NavLink prefetch="intent" to={href} className={getNavLinkStyle} aria-label={label} title={label} data-tooltip role="tooltip">
 								{icon}
-								<span className="hidden lg:block">{label}</span>
-								{href === "/stars" && fetcher.data != null ? <span className="aspect-square rounded-full bg-sky-500 px-2 text-sm font-bold text-sky-800">{fetcher.data}</span> : null}
+								<span className="ml-5 hidden lg:block">{label}</span>
+								{href === "/stars" && fetcher.data != null ? (
+									<span className="-ml-3 mb-2 aspect-square rounded-full bg-sky-500 px-1 pt-[2px] text-xs font-bold text-white lg:mb-0 lg:ml-5 lg:px-2 lg:text-sm">{fetcher.data}</span>
+								) : null}
 							</NavLink>
 						</li>
 					))}

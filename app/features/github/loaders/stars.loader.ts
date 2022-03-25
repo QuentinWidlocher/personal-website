@@ -41,7 +41,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
 	// We update the number of stars "seen" by the user
 	session.set("stars", total)
-	session.set("starsHash", githubCache.starsHash)
+	session.set("starsHash", githubCache.starsHash?.value)
 
 	return json(payload, {
 		headers: {
