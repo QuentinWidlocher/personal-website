@@ -23,8 +23,8 @@ export let meta: MetaFunction = ({ data }) => {
 			"og:description": data.subtitle,
 			"twitter:description": data.subtitle,
 
-			"og:image": data.cover?.src,
-			"twitter:image": data.cover?.src,
+			"og:image": data.cover?.src ? `${data.cover.src}?w=1024&auto=compress&cs=tinysrgb` : undefined,
+			"twitter:image": data.cover?.src ? `${data.cover.src}?w=1024&auto=compress&cs=tinysrgb` : undefined,,
 
 			"og:image:alt": data.cover?.alt,
 		}

@@ -1,4 +1,4 @@
-const version = "1.0.3";
+const version = "1.0.4";
 
 self.addEventListener("fetch", (event) => {
     let url = new URL(event.request.url);
@@ -11,7 +11,6 @@ self.addEventListener("fetch", (event) => {
     if (
         url.pathname.startsWith("/assets/") ||
         url.pathname.startsWith("/build/") ||
-        url.pathname.startsWith("/tailwindcss") ||
         url.hostname.includes('fonts.gstatic.com')
     ) {
         event.respondWith(
