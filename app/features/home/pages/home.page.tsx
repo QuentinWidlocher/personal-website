@@ -18,17 +18,10 @@ export default function HomePage() {
 					<Link role="tooltip" data-tooltip title="See my starred repos" to="/stars" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
 						learn new things all the time
 					</Link>{" "}
-					and I also happen to {/* TODO: Change this to a link to the blog */}
-					<a
-						role="tooltip"
-						data-tooltip
-						title="See my Medium blog page"
-						target="_blank"
-						href="https://medium.com/@QuentinWidlocher"
-						className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline"
-					>
+					and I also happen to{" "}
+					<Link data-tooltip title="Read my articles" to="/blog" prefetch="render" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
 						teach some people too
-					</a>
+					</Link>
 					.
 				</p>
 				<br />
