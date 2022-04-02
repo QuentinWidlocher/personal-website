@@ -2,6 +2,7 @@ import * as dotenv from "dotenv"
 dotenv.config()
 
 import express from "express"
+import chokidar from "chokidar"
 import compression from "compression"
 import morgan from "morgan"
 import { createRequestHandler } from "@remix-run/express"
@@ -34,14 +35,42 @@ app.all(
 
 const port = process.env.PORT ?? 3000
 
-app.listen(port, () => {
-	console.log(`Express server listening on port ${port}`)
+async function run(fetchData = true) {
+	return app.listen(port, () => {
+		console.log(`Express server listening on port ${port}`)
 
-	listRepos().then(({ repos }) => {
-		repos.forEach((repo) => {
-			getLastCommit(repo.name)
+		if (fetchData) {
+			listRepos().then(({ repos }) => {
+				repos.forEach((repo) => {
+					getLastCommit(repo.name)
+				})
+			})
+			listStars()
+			getBlogArticles()
+		}
+	})
+}
+
+async function start() {
+	let server = await run()
+
+	chokidar.watch("./").on("change", async (file) => {
+		console.log(`${file} changed, restarting server`)
+		console.log("--------------------------------------")
+		server.close().on("close", async () => {
+			try {
+				server = await run(false)
+			} catch (error) {
+				if (isError(error) && error.code != "EADDRINUSE") {
+					console.error(error)
+				}
+			}
 		})
 	})
-	listStars()
-	getBlogArticles()
-})
+}
+
+start()
+
+function isError(error: any): error is NodeJS.ErrnoException {
+	return error instanceof Error
+}

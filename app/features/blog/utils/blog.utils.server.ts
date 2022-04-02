@@ -24,7 +24,7 @@ export async function getFullArticle(file: GithubContent): Promise<Article> {
 			options.rehypePlugins = [
 				...(options.rehypePlugins ?? []),
 				rehypeSlug,
-				[rehypeAutolink, { behavior: "wrap" }],
+				[rehypeAutolink, { behavior: "wrap", properties: { className: "!no-underline hover:!underline" } }],
 				[rehypePrismPlus, { showLineNumbers: true }],
 				[rehypeToc, { headings: ["h2", "h3", "h4"] }],
 			]

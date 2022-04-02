@@ -1,4 +1,4 @@
-const version = "1.0.5";
+const version = "1.0.6";
 
 self.addEventListener("fetch", (event) => {
     let url = new URL(event.request.url);

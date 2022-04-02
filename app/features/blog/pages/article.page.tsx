@@ -12,7 +12,7 @@ interface ArticlePageProps {
 
 const proseConfig = `
 prose-lg
-prose-a:no-underline prose-a:underline-offset-4 hover:prose-a:underline 
+prose-a:underline-offset-4
 prose-blockquote:border-slate-500 prose-blockquote:text-slate-300
 prose-pre:text-lg prose-pre:rounded-xl prose-pre:bg-slate-900/30 prose-pre:p-5 prose-pre:leading-snug prose-pre:-mx-5 lg:prose-pre:-mx-12 xl:prose-pre:-mx-24
 prose-hr:border-slate-500/20 prose-hr:border-t-4
