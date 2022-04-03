@@ -36,7 +36,18 @@ export default function StarsPage({ repos, total }: StarsPageProps) {
 							See more
 						</Link>
 					</li>
-				) : null}
+				) : (
+					<li className="text-lg">
+						<a
+							target="_blank"
+							href={"https://github.com/QuentinWidlocher?tab=stars"}
+							className="flex h-full min-h-[10rem] items-center justify-center rounded-xl bg-slate-500/10 text-slate-300 backdrop-blur-3xl hover:bg-sky-500/20 hover:text-white"
+						>
+							<Plus />
+							See EVEN more on github
+						</a>
+					</li>
+				)}
 			</ul>
 		</div>
 	)
