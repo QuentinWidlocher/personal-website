@@ -3,6 +3,7 @@ import { Article } from "~/features/blog/types/blog"
 import { getFullArticle } from "~/features/blog/utils/blog.utils.server"
 import { GithubCommit, GithubRepo } from "../types/github"
 import { listRepoFromCurrentUser, listStarredRepos, getLastCommitFromRepo, getFiles } from "./github.api.server"
+import { captureException } from "@sentry/node"
 
 type CachedValue<T> = {
 	value: T | undefined
@@ -112,7 +113,16 @@ export async function getBlogArticles(): Promise<Article[]> {
 		`article-${process.env.GITHUB_ARTICLES_REPO}/${process.env.GITHUB_ARTICLES_PATH}`,
 		async () => {
 			let files = (await getFiles()) ?? []
-			return Promise.all(files.map(getFullArticle))
+			if (!Array.isArray(files)) {
+				captureException(new Error("The github API returned something that was not an array"), {
+					contexts: {
+						files,
+					},
+				})
+				return []
+			} else {
+				return Promise.all(files.map(getFullArticle))
+			}
 		},
 		1000 * 60 * 5,
 	)

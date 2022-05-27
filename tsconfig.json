@@ -1,25 +1,30 @@
 {
-	"include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "server.ts"],
-	"compilerOptions": {
-		"lib": ["DOM", "DOM.Iterable", "ES2019"],
-		"isolatedModules": true,
-		"esModuleInterop": true,
-		"jsx": "react-jsx",
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"target": "ES2019",
-		"strict": true,
-		"baseUrl": ".",
-		"module": "esnext",
-		"paths": {
-			"~/*": ["./app/*"],
-			"@components/*": ["./app/components/*", "./app/features/blog/components/*", "./app/features/github/components/*", "./app/features/home/components/*"],
-			"@blog/*": ["./app/features/blog/*"],
-			"@github/*": ["./app/features/github/*"],
-			"@home/*": ["./app/features/github/*"]
-		},
-
-		// Remix takes care of building everything in `remix build`.
-		"noEmit": true
-	}
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "server.ts"],
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "ES2019",
+    "strict": true,
+    "baseUrl": ".",
+    "module": "esnext",
+    "paths": {
+      "~/*": ["./app/*"],
+      "@components/*": [
+        "./app/components/*",
+        "./app/features/blog/components/*",
+        "./app/features/github/components/*",
+        "./app/features/home/components/*"
+      ],
+      "@blog/*": ["./app/features/blog/*"],
+      "@github/*": ["./app/features/github/*"],
+      "@home/*": ["./app/features/github/*"]
+    },
+    "noEmit": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true
+  }
 }
