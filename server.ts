@@ -45,17 +45,6 @@ app.use("/build", express.static("public/build", { immutable: true, maxAge: "1y"
 // Everything else (like favicon.ico) is cached for a day.
 app.use("/", express.static("public", { maxAge: "1d" }))
 
-app.use(
-	morgan("tiny", {
-		stream: {
-			write: (str) => {
-				Sentry.captureMessage(str)
-			},
-		},
-		skip: (req) => req.url.includes("new-stars"),
-	}),
-)
-
 app.use(morgan("dev"))
 
 app.all(
