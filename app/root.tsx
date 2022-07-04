@@ -75,8 +75,17 @@ export default function App() {
 				<RouteChangeAnnouncement />
 				<ScrollRestoration />
 				<Scripts />
-				{process.env.NODE_ENV != "development" ? <script src="/sw_launcher.js" /> : null}
-				{process.env.NODE_ENV == "development" ? <LiveReload /> : null}
+				{process.env.NODE_ENV != "development" ? (
+					<>
+						<script src="/sw_launcher.js" />
+						<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+						<noscript>
+							<img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerPolicy="no-referrer-when-downgrade" />
+						</noscript>
+					</>
+				) : (
+					<LiveReload />
+				)}
 			</body>
 		</html>
 	)
