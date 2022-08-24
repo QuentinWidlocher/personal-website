@@ -44,6 +44,7 @@ export default function RepoCard({ repo }: RepoCardProps) {
 	return (
 		<a href={repo.url} target="_blank" rel="noopener">
 			<Card
+				centered
 				titleSlot={
 					<>
 						{getIcon(repo)}

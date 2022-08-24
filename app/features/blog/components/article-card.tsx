@@ -13,7 +13,7 @@ export default function ArticleCard({ article }: RepoCardProps) {
 			<Card
 				imgSlot={
 					<div className="relative h-full w-full">
-						<ArticleImage article={article} srcSetMode="card" className="h-full w-full" />
+						<ArticleImage article={article} srcSetMode="card" className="h-full w-full aspect-[1.5]" />
 						<span className="absolute top-0 right-0 m-4 drop-shadow-outline filter">{article.lang == "en" ? "🇺🇸" : "🇫🇷"}</span>
 					</div>
 				}

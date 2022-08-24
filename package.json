@@ -3,12 +3,12 @@
   "name": "quentin-widlocher-personal-website",
   "description": "My personal website",
   "license": "GPL-3.0-or-later",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "scripts": {
     "build": "remix build",
     "postinstall": "remix setup node",
     "deploy": "fly deploy --remote-only",
-    "dev": "NODE_ENV=development yarn build && yarn start",
+    "dev": "NODE_ENV=development pnpm build && pnpm start",
     "start": "node ./build/index.js"
   },
   "dependencies": {

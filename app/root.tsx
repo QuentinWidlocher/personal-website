@@ -1,4 +1,4 @@
-import { Links, LinksFunction, LiveReload, LoaderFunction, Meta, Outlet, Scripts, ScrollRestoration, ShouldReloadFunction, useLocation } from "remix"
+import { Link, Links, LinksFunction, LiveReload, LoaderFunction, Meta, Outlet, Scripts, ScrollRestoration, ShouldReloadFunction, useLocation } from "remix"
 import type { MetaFunction } from "remix"
 import cssuiCore from "css-ui-lib/cssui.css"
 import cssuiTooltip from "css-ui-lib/tooltip/tooltip.css"
@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
 		"theme-color": "#0EA5E9",
 		"description": "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
 		"twitter:card": "summary_large_image",
-		"twitter:site": "@Lazard_",
+		"twitter:site": "@QuentinWdl",
 		"twitter:title": "Quentin Widlocher",
 		"twitter:description": "🇫🇷 French web developer, amateur game developer and a learning enthusiast !",
 		"twitter:image": "https://quentin.widlocher.com/assets/images/profil.webp",
@@ -19,8 +19,10 @@ export const meta: MetaFunction = () => {
 		"apple-mobile-web-app-capable": "yes",
 		"application-name": "Quentin Widlocher",
 		"apple-mobile-web-app-title": "Quentin Widlocher",
-		"msapplication-navbutton-color": "#50463b",
 		"apple-mobile-web-app-status-bar-style": "black-translucent",
+		"msapplication-navbutton-color": "#50463b",
+		"msapplication-TileColor": "#2d89ef",
+		"msapplication-config": "/assets/icons/browserconfig.xml",
 		"msapplication-starturl": "/",
 	}
 }
@@ -57,10 +59,12 @@ export default function App() {
 				<meta name="robots" content="index,follow" />
 				<Meta />
 				<Links />
+				<link rel="mask-icon" href="/assets/icons/safari-pinned-tab.svg" color="#5bbad5" />
+				<link rel="shortcut icon" href="/assets/icons/favicon.ico" />
 				<link rel="canonical" href="https://quentin.widlocher.com" />
 				<script type="application/ld+json">
 					{
-						'{"@context":"https://schema.org","@type":"Person","name":"Quentin Widlocher","url":"https://quentin.widlocher.com","sameAs":["https://github.com/QuentinWidlocher","https://twitter.com/Lazard_","https://www.linkedin.com/in/quentin-widlocher/", "https://t.me/lazard_channel", "https://medium.com/@QuentinWidlocher"]}'
+						'{"@context":"https://schema.org","@type":"Person","name":"Quentin Widlocher","url":"https://quentin.widlocher.com","sameAs":["https://github.com/QuentinWidlocher","https://twitter.com/QuentinWdl","https://www.linkedin.com/in/quentin-widlocher/", "https://t.me/QuentinWidlocher", "https://medium.com/@QuentinWidlocher", "https://ko-fi.com/quentinwidlocher"]}'
 					}
 				</script>
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -100,7 +104,8 @@ export function CatchBoundary() {
 			</head>
 			<body>
 				<div className="flex h-screen w-screen flex-col items-center justify-center bg-slate-800">
-					<h1 className="text-4xl text-white">Oops, this is still WIP sorry 🚧</h1>
+					<h1 className="text-4xl text-white">Oops something bad happened 🙊</h1>
+					<Link to="/">Go back</Link>
 				</div>
 				<Scripts />
 			</body>
