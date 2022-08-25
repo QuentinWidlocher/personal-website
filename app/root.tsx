@@ -1,7 +1,8 @@
-import { Link, Links, LinksFunction, LiveReload, LoaderFunction, Meta, Outlet, Scripts, ScrollRestoration, ShouldReloadFunction, useLocation } from "remix"
+import { Link, Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from "remix"
 import type { MetaFunction } from "remix"
 import cssuiCore from "css-ui-lib/cssui.css"
 import cssuiTooltip from "css-ui-lib/tooltip/tooltip.css"
+import style from "./style.css"
 import React from "react"
 
 export const meta: MetaFunction = () => {
@@ -32,13 +33,9 @@ export const links: LinksFunction = () => {
 		{ rel: "stylesheet", href: cssuiCore },
 		{ rel: "stylesheet", href: cssuiTooltip },
 		{ rel: "stylesheet", href: "/tailwindcss" },
+		{ rel: "stylesheet", href: style },
 		{ rel: "manifest", href: "/manifest.json" },
 	]
-}
-
-export let loader: LoaderFunction = async ({}) => {
-	console.log("loader")
-	return null
 }
 
 export default function App() {
@@ -69,7 +66,6 @@ export default function App() {
 				</script>
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-				<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
 				<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
 				<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
 				<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
@@ -81,7 +77,7 @@ export default function App() {
 				<Scripts />
 				{process.env.NODE_ENV != "development" ? (
 					<>
-						<script src="/sw_launcher.js" />
+						<script async defer src="/sw_launcher.js" />
 						<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 						<noscript>
 							<img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerPolicy="no-referrer-when-downgrade" />
@@ -105,7 +101,9 @@ export function CatchBoundary() {
 			<body>
 				<div className="flex h-screen w-screen flex-col items-center justify-center bg-slate-800">
 					<h1 className="text-4xl text-white">Oops something bad happened 🙊</h1>
-					<Link to="/">Go back</Link>
+					<Link className="text-xl underline text-white mt-5" to="/">
+						Go back
+					</Link>
 				</div>
 				<Scripts />
 			</body>

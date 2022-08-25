@@ -60,11 +60,11 @@ const port = process.env.PORT ?? 3000
 app.listen(port, () => {
 	console.log(`Express server listening on port ${port}`)
 
-	// listRepos().then(({ repos }) => {
-	// 	repos.forEach((repo) => {
-	// 		getLastCommit(repo.name)
-	// 	})
-	// })
-	// listStars()
-	// getBlogArticles()
+	listRepos().then(({ repos }) => {
+		repos.forEach((repo) => {
+			getLastCommit(repo.name)
+		})
+	})
+	listStars()
+	getBlogArticles()
 })

@@ -11,7 +11,6 @@ export let headers: HeadersFunction = () => ({
 
 export let links: LinksFunction = () => [{ href: blogCss, rel: "stylesheet" }]
 
-// @ts-expect-error typescript doesn't like the : in meta tags
 export let meta: MetaFunction = ({ data }) => {
 	if (data != null) {
 		return {
