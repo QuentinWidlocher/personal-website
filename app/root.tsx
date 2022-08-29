@@ -78,9 +78,9 @@ export default function App() {
 				{process.env.NODE_ENV != "development" ? (
 					<>
 						<script async defer src="/sw_launcher.js" />
-						<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+						<script async defer src="https://sa.quentin.widlocher.com/latest.js"></script>
 						<noscript>
-							<img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerPolicy="no-referrer-when-downgrade" />
+							<img src="https://sa.quentin.widlocher.com/noscript.gif" alt="" referrerPolicy="no-referrer-when-downgrade" />
 						</noscript>
 					</>
 				) : (

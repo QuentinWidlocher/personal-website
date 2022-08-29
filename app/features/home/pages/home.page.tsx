@@ -7,6 +7,9 @@ export default function HomePage() {
 	let incrementCheatCode = () => setCheatCodeClick((i) => i + 1)
 	let cheatCodeValidated = () => cheatCodeClick > 5
 
+	if (cheatCodeClick == 6) {
+	}
+
 	return (
 		<div className="p-5 text-lg sm:p-10 sm:text-xl lg:p-20 lg:text-2xl">
 			<div className="flex flex-col sm:flex-row items-center sm:space-x-5 md:space-x-10 space-y-5">

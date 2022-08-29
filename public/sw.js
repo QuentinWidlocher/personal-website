@@ -11,8 +11,7 @@ self.addEventListener("fetch", (event) => {
     if (
         url.pathname.startsWith("/assets/") ||
         url.pathname.startsWith("/build/") ||
-        url.pathname.startsWith("/tailwindcss") ||
-        url.hostname.includes('fonts.gstatic.com')
+        url.pathname.startsWith("/tailwindcss")
     ) {
         event.respondWith(
             // we will open the assets cache
