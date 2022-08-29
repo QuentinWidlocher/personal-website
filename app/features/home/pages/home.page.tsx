@@ -1,21 +1,36 @@
 import { Link } from "remix"
 import { GitBranch, JournalPage } from "iconoir-react"
+import { useState } from "react"
 
 export default function HomePage() {
+	let [cheatCodeClick, setCheatCodeClick] = useState(1)
+	let incrementCheatCode = () => setCheatCodeClick((i) => i + 1)
+	let cheatCodeValidated = () => cheatCodeClick > 5
+
 	return (
 		<div className="p-5 text-lg sm:p-10 sm:text-xl lg:p-20 lg:text-2xl">
 			<div className="flex flex-col sm:flex-row items-center sm:space-x-5 md:space-x-10 space-y-5">
-				<img src="/assets/images/profil-lg.webp" alt="A photo of Quentin's face" className="w-64 h-64 aspect-square rounded-full" />
+				<img
+					src={cheatCodeValidated() ? "/assets/images/secret.jpg" : "/assets/images/profil-lg.webp"}
+					alt={"A photo of Quentin's face" + (cheatCodeValidated() ? " with an ugly moustache" : "")}
+					className="w-64 h-64 aspect-square rounded-full object-cover"
+				/>
 				<div>
 					<h2 className="text-2xl leading-relaxed sm:text-3xl lg:text-5xl">Hi there !</h2>
 					<h3 className="text-2xl leading-relaxed sm:text-4xl lg:text-6xl">
-						I'm <strong>Quentin Widlocher</strong>
+						I'm <strong>{cheatCodeValidated() ? "Kant1 Wildocher" : "Quentin Widlocher"}</strong>
 					</h3>
 				</div>
 			</div>
 
 			<article className="mt-10 leading-relaxed text-slate-300 lg:mt-20">
-				<p>I'm a 🇫🇷 french web developer, an amateur game developer and a learning enthusiast !</p>
+				<p>
+					I'm a{" "}
+					<button disabled={cheatCodeValidated()} className={cheatCodeValidated() ? "" : "transform active:translate-y-0.5"} onClick={() => incrementCheatCode()}>
+						🇫🇷
+					</button>{" "}
+					french web developer, an amateur game developer and a learning enthusiast !
+				</p>
 				<br />
 				<p>
 					I'm very passionate about development and especially open source.

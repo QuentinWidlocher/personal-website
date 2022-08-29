@@ -8,7 +8,7 @@
     "build": "remix build",
     "postinstall": "remix setup node",
     "deploy": "fly deploy --remote-only",
-    "dev": "NODE_ENV=development pnpm build && pnpm start",
+    "dev": "remix dev",
     "start": "node ./build/index.js"
   },
   "dependencies": {
