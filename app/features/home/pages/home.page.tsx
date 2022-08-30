@@ -8,8 +8,7 @@ export default function HomePage() {
 	let cheatCodeValidated = () => cheatCodeClick > 5
 
 	if (cheatCodeClick == 6) {
-		// @ts-ignore
-		sa_event?.("cheatcode")
+		sa_event("cheatcode")
 	}
 
 	return (

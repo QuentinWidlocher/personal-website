@@ -14,6 +14,10 @@ import * as Tracing from "@sentry/tracing"
 
 const app = express()
 
+declare global {
+	function sa_event(event: string): void
+}
+
 Sentry.init({
 	dsn: "https://0b8697b0081945299d63a84ade7d378b@o1264580.ingest.sentry.io/6447672",
 	integrations: [
