@@ -10,14 +10,23 @@ import { githubCache } from "../api/cached-github.api.server"
 export let loader: LoaderFunction = async ({ request }) => {
 	const session = await getSession(request.headers.get("Cookie"))
 
-	if (session.has("starsHash") && session.has("stars")) {
-		let starsHash = session.get("starsHash")
-		let stars = session.get("stars")
+	let payload = { newStars: false, newRepos: false }
 
-		if (starsHash != githubCache.starsHash?.value && stars < (githubCache.stars?.value?.length ?? 0)) {
-			return (githubCache.stars?.value?.length ?? 0) - stars
+	if (session.has("starsHash")) {
+		let starsHash = session.get("starsHash")
+
+		if (starsHash != githubCache.starsHash?.value) {
+			payload.newStars = true
 		}
 	}
 
-	return null
+	if (session.has("reposHash")) {
+		let reposHash = session.get("reposHash")
+
+		if (reposHash != githubCache.reposHash?.value) {
+			payload.newRepos = true
+		}
+	}
+
+	return payload
 }

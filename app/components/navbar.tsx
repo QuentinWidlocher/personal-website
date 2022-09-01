@@ -6,7 +6,7 @@ import { useEffect } from "react"
 interface NavBarProps {}
 
 function getNavLinkStyle({ isActive }: { isActive: boolean }) {
-	let baseStyle = `navbar-link flex w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-slate-500/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`
+	let baseStyle = `navbar-link relative flex w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-slate-500/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`
 	if (isActive) {
 		return `${baseStyle} font-bold border-white active`
 	} else {
@@ -22,15 +22,15 @@ const navLinks: { href: string; label: string; icon: JSX.Element }[] = [
 ]
 
 export default function NavBar({}: NavBarProps) {
-	// let matches = useMatches()
+	let matches = useMatches()
 	let fetcher = useFetcher()
 
-	// // On each route change, fetch the new stars count
-	// useEffect(() => {
-	// 	if (fetcher.type === "init" || fetcher.type === "done") {
-	// 		fetcher.load("/new-stars")
-	// 	}
-	// }, [matches])
+	// On each route change, fetch the new stars count
+	useEffect(() => {
+		if (fetcher.type === "init" || fetcher.type === "done") {
+			fetcher.load("/new-stars")
+		}
+	}, [matches])
 
 	return (
 		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-800/80 py-10 text-white shadow-lg shadow-slate-800/20 print:hidden sm:shadow-xl sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-800/50 landscape:my-0 landscape:py-0 landscape:md:-my-5 landscape:md:py-10">
@@ -122,8 +122,8 @@ export default function NavBar({}: NavBarProps) {
 								<NavLink prefetch="intent" to={href} className={getNavLinkStyle} aria-label={label} title={label} data-tooltip role="tooltip">
 									{icon}
 									<span className="ml-5 hidden lg:block">{label}</span>
-									{href === "/stars" && fetcher.data != null ? (
-										<span className="-ml-3 mb-2 aspect-square rounded-full bg-sky-500 px-1 pt-[2px] text-xs font-bold text-white lg:mb-0 lg:ml-5 lg:px-2 lg:text-sm">{fetcher.data}</span>
+									{(href === "/stars" && fetcher.data?.newStars) || (href === "/repos" && fetcher.data?.newRepos) ? (
+										<span className="aspect-square rounded-full absolute bg-sky-500 w-2 h-2 left-7 top-1 sm:left-10 sm:top-3"></span>
 									) : null}
 								</NavLink>
 							</li>
