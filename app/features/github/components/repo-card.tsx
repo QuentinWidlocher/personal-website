@@ -35,7 +35,7 @@ function formatTitle(title: string) {
 	return titleCase(title.replace(/\-/g, " "))
 }
 
-// This piece of magical css is used to fade a div in its last 20%
+// This piece of magical css is used to fade a div in its last 25%
 const fadingInlineStyle: React.CSSProperties = {
 	WebkitMaskImage: "-webkit-gradient(linear, left center, right center, from(rgba(0,0,0,1)), color-stop(0.75, rgba(0,0,0,1)), to(rgba(0,0,0,0)))",
 }
