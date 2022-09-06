@@ -27,18 +27,18 @@ export default function HomePage() {
 				</div>
 			</div>
 
-			<article className="mt-10 leading-relaxed text-slate-300 lg:mt-20">
+			<article className="mt-10 leading-relaxed text-slate-300 lg:mt-20 xl:w-2/3">
 				<p>
 					I'm a{" "}
 					<button disabled={cheatCodeValidated()} className={cheatCodeValidated() ? "" : "transform active:translate-y-0.5"} onClick={() => incrementCheatCode()}>
 						🇫🇷
 					</button>{" "}
-					french web developer, an amateur game developer and a learning enthusiast !
+					french <strong>web developer</strong>, an amateur game developer and a learning enthusiast !
 				</p>
 				<br />
 				<p>
 					I'm very passionate about development and especially open source.
-					<br /> I love to{" "}
+					<br /> I'm always working on a new personal projet and I love to{" "}
 					<Link role="tooltip" data-tooltip title="See my starred repos" to="/stars" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
 						learn new things all the time
 					</Link>{" "}
@@ -50,22 +50,27 @@ export default function HomePage() {
 				</p>
 				<br />
 				<p>I really love the web, UI & UX design and video games.</p>
-				<div className="mt-20 flex flex-col space-y-10 text-xl text-white sm:flex-row sm:space-y-0 sm:space-x-10">
-					<Link
-						to="/repos"
-						prefetch="intent"
+				<br />
+				<p className="border-l-4 pl-4 -ml-4 border-sky-500">
+					❗ I'm looking for a <strong>full-remote</strong> job as a web developper (<strong>front-end</strong> if possible) to work on <strong>modern tech stacks</strong> <br />
+					(React, Solid, Tailwind, Typescript etc.) <br /> <br />
+					Take a look at my resume if you're interested !
+				</p>
+				<div className="my-10 flex flex-col space-y-10 text-xl text-white sm:flex-row sm:space-y-0 sm:space-x-10">
+					<a
+						href="/CV-2022-EN.pdf"
+						target="_blank"
 						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
-						<GitBranch /> <span>See my work</span>
-					</Link>
-					<Link
-						to="/blog"
-						prefetch="intent"
+						<span>🇺🇸 In English</span>
+					</a>
+					<a
+						href="/CV-2022-FR.pdf"
+						target="_blank"
 						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
-						<JournalPage />
-						<span>Read my articles</span>
-					</Link>
+						<span>🇫🇷 In French</span>
+					</a>
 				</div>
 			</article>
 		</div>

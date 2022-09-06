@@ -36,7 +36,7 @@ export default function NavBar({}: NavBarProps) {
 		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-800/80 py-10 text-white shadow-lg shadow-slate-800/20 print:hidden sm:shadow-xl sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-800/50 landscape:my-0 landscape:py-0 landscape:md:-my-5 landscape:md:py-10">
 			<ul className="flex h-full w-full flex-col">
 				<li className="flex flex-col items-center space-x-0 p-2 pb-10 sm:flex-row sm:space-x-5 sm:p-5 landscape:hidden landscape:md:flex">
-					<NavLink className={({ isActive }) => (isActive ? "hidden transition-all" : "-m-1 rounded-full p-1 transition-all")} to="/" prefetch="intent">
+					<NavLink className={({ isActive }) => (isActive ? "opacity-0 landscape:md:hidden" : "-m-1 rounded-full p-1")} to="/" prefetch="intent">
 						<img src="/assets/images/profil-sm.webp" alt="A photo of Quentin's face" className="mb-5 aspect-square h-8 w-8 rounded-full sm:mb-0 sm:h-16 sm:w-16" />
 					</NavLink>
 					<section className="flex flex-col space-y-2">
