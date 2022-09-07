@@ -2,7 +2,8 @@ import { Link, Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRe
 import type { MetaFunction } from "remix"
 import cssuiCore from "css-ui-lib/cssui.css"
 import cssuiTooltip from "css-ui-lib/tooltip/tooltip.css"
-import style from "./style.css"
+import styleUrl from "./style.css"
+import fontsUrl from "./fonts.css"
 import React from "react"
 
 export const meta: MetaFunction = () => {
@@ -32,8 +33,8 @@ export const links: LinksFunction = () => {
 	return [
 		{ rel: "stylesheet", href: cssuiCore },
 		{ rel: "stylesheet", href: cssuiTooltip },
-		{ rel: "stylesheet", href: "/tailwindcss" },
-		{ rel: "stylesheet", href: style },
+		{ rel: "stylesheet", href: fontsUrl },
+		{ rel: "stylesheet", href: styleUrl },
 		{ rel: "manifest", href: "/manifest.json" },
 	]
 }

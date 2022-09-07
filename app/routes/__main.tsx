@@ -10,7 +10,7 @@ export default function Index() {
 					<Outlet />
 				</section>
 			</main>
-			<div className="fixed top-0 -z-10 min-h-screen w-screen bg-blue-900 bg-[url('/assets/images/gradient-background.webp')] bg-cover bg-center backdrop-blur-3xl"></div>
+			<div className="fixed top-0 -z-10 min-h-screen w-screen bg-blue-500 bg-[url('/assets/images/gradient-background.webp')] bg-cover bg-center backdrop-blur-3xl"></div>
 		</>
 	)
 }

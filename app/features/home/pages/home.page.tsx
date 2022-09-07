@@ -53,23 +53,32 @@ export default function HomePage() {
 				<br />
 				<p className="border-l-4 pl-4 -ml-4 border-sky-500">
 					❗ I'm looking for a <strong>full-remote</strong> job as a web developper (<strong>front-end</strong> if possible) to work on <strong>modern tech stacks</strong> <br />
-					(React, Solid, Tailwind, Typescript etc.) <br /> <br />
+					(React, Solid, Vue, Svelte, Tailwind, Typescript etc.) <br /> <br />
 					Take a look at my resume if you're interested !
 				</p>
-				<div className="my-10 flex flex-col space-y-10 text-xl text-white sm:flex-row sm:space-y-0 sm:space-x-10">
+				<div className="my-10 flex flex-col space-y-10 text-xl text-white md:flex-row md:space-y-0 md:space-x-10">
 					<a
 						href="/CV-2022-EN.pdf"
 						target="_blank"
-						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
+						className="flex justify-center transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
-						<span>🇺🇸 In English</span>
+						<span>🇺🇸</span>
+						<span>In English</span>
 					</a>
 					<a
 						href="/CV-2022-FR.pdf"
 						target="_blank"
-						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
+						className="flex justify-center transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
-						<span>🇫🇷 In French</span>
+						<span>🇫🇷</span>
+						<span>In French</span>
+					</a>
+					<a
+						href="mailto:quentin@widlocher.com?subject=[Job%20Offer]%20"
+						className="flex justify-center transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
+					>
+						<span>📨</span>
+						<span>Contact me</span>
 					</a>
 				</div>
 			</article>

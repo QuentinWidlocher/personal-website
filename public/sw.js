@@ -10,8 +10,7 @@ self.addEventListener("fetch", (event) => {
     // If the request is for the favicons, fonts, or the built files (which are hashed in the name)
     if (
         url.pathname.startsWith("/assets/") ||
-        url.pathname.startsWith("/build/") ||
-        url.pathname.startsWith("/tailwindcss")
+        url.pathname.startsWith("/build/")
     ) {
         event.respondWith(
             // we will open the assets cache
