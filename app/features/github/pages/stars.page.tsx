@@ -16,7 +16,7 @@ export default function StarsPage({ repos, total }: StarsPageProps) {
 					My starred repositories <span className="align-middle">⭐️</span>
 				</a>
 			</h1>
-			<p className="mb-10 text-xl text-slate-400">
+			<p className="mb-10 text-xl text-slate-600 dark:text-slate-400">
 				I spent a lot of my free time looking around to find cool new stuff to try and learn. <br /> <br />
 				Here you can check out the list of the nice things I've starred on github.
 			</p>
@@ -29,7 +29,7 @@ export default function StarsPage({ repos, total }: StarsPageProps) {
 				{repos.length < total ? (
 					<li className="text-lg">
 						<Link
-							className="flex h-full min-h-[10rem] items-center justify-center rounded-xl bg-slate-500/10 text-slate-300 backdrop-blur-3xl hover:bg-sky-500/20 hover:text-white"
+							className="flex h-full min-h-[10rem] items-center justify-center rounded-xl dark:bg-slate-500/10 bg-slate-500/20 text-slate-100 dark:text-slate-300 backdrop-blur-3xl hover:bg-sky-500/20 hover:text-white"
 							to={`?s=${repos.length + 20}`}
 						>
 							<Plus />
@@ -41,7 +41,7 @@ export default function StarsPage({ repos, total }: StarsPageProps) {
 						<a
 							target="_blank"
 							href={"https://github.com/QuentinWidlocher?tab=stars"}
-							className="flex h-full min-h-[10rem] items-center justify-center rounded-xl bg-slate-500/10 text-slate-300 backdrop-blur-3xl hover:bg-sky-500/20 hover:text-white"
+							className="flex h-full min-h-[10rem] items-center justify-center rounded-xl dark:bg-slate-500/10 bg-slate-500/20 text-slate-100 dark:text-slate-300 backdrop-blur-3xl hover:bg-sky-500/20 hover:text-white"
 						>
 							<Plus />
 							See EVEN more on github

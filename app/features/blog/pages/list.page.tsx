@@ -46,7 +46,7 @@ export default function BlogListPage({ articleGroups }: BlogListPageProps) {
 			<h1 className="my-5 text-2xl font-bold sm:text-3xl lg:text-5xl">
 				My blog articles <span className="align-middle">📰</span>
 			</h1>
-			<h2 className="mb-10 text-xl text-slate-400">Here you can find the things I write.</h2>
+			<h2 className="mb-10 text-xl text-slate-600 dark:text-slate-400">Here you can find the things I write.</h2>
 			{groupNames.map((groupName) => (
 				<>
 					<h2 className="mb-5">{groupName == "other" ? "Others" : groupName}</h2>

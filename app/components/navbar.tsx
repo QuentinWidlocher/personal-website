@@ -6,11 +6,11 @@ import { useEffect } from "react"
 interface NavBarProps {}
 
 function getNavLinkStyle({ isActive }: { isActive: boolean }) {
-	let baseStyle = `navbar-link relative flex w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-slate-500/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`
+	let baseStyle = `navbar-link relative flex w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-sky-500/10 dark:hover:bg-slate-500/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`
 	if (isActive) {
-		return `${baseStyle} font-bold border-white active`
+		return `${baseStyle} font-bold text-sky-900 dark:text-white border-slate-800 border-sky-700 dark:border-white bg-sky-500/20 dark:bg-none active`
 	} else {
-		return `${baseStyle} text-slate-400 hover:text-white border-transparent`
+		return `${baseStyle} text-slate-700 dark:text-slate-400 hover:text-sky-900 dark:hover:text-white border-transparent`
 	}
 }
 
@@ -33,7 +33,7 @@ export default function NavBar({}: NavBarProps) {
 	}, [matches])
 
 	return (
-		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-800/80 py-10 text-white shadow-lg shadow-slate-800/20 print:hidden sm:shadow-xl sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-800/50 landscape:my-0 landscape:py-0 landscape:md:-my-5 landscape:md:py-10">
+		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-300/60 dark:bg-slate-800/80 py-10 text-slate-800 dark:text-white shadow-lg shadow-slate-200/20 dark:shadow-slate-800/20 print:hidden sm:shadow-xl sm:shadow-slate-200/30 dark:sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-200/20 dark:lg:shadow-slate-800/50 landscape:my-0 landscape:py-0 landscape:md:-my-5 landscape:md:py-10">
 			<ul className="flex h-full w-full flex-col">
 				<li className="flex flex-col items-center space-x-0 p-2 pb-10 sm:flex-row sm:space-x-5 sm:p-5 landscape:hidden landscape:md:flex">
 					<NavLink className={({ isActive }) => (isActive ? "opacity-0 landscape:md:hidden" : "-m-1 rounded-full p-1")} to="/" prefetch="intent">
@@ -43,7 +43,7 @@ export default function NavBar({}: NavBarProps) {
 						<Link to="/" prefetch="intent" className="hidden rounded lg:block">
 							<h1 className="text-lg font-bold underline-offset-4 hover:underline">Quentin Widlocher</h1>
 						</Link>
-						<div className="flex flex-col justify-around space-y-3 lg:flex-row lg:space-y-0">
+						<div className="text-slate-700 dark:text-slate-400 flex flex-col justify-around space-y-3 lg:flex-row lg:space-y-0">
 							<a
 								title="My Github page"
 								aria-label="Link to my Github page"
@@ -52,7 +52,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 text-slate-400 transition-colors hover:text-white"
+								className="navbar-link rounded p-1 transition-colors hover:text-white"
 								onClick={() => sa_event("out_github")}
 							>
 								<GitHub />
@@ -65,7 +65,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 text-slate-400 transition-colors hover:text-blue-500"
+								className="navbar-link rounded p-1 transition-colors hover:text-blue-500"
 								onClick={() => sa_event("out_telegram")}
 							>
 								<Telegram />
@@ -78,7 +78,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 text-slate-400 transition-colors  hover:text-sky-500"
+								className="navbar-link rounded p-1 transition-colors  hover:text-sky-500"
 								onClick={() => sa_event("out_twitter")}
 							>
 								<Twitter />
@@ -91,7 +91,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 text-slate-400 transition-colors  hover:text-cyan-500"
+								className="navbar-link rounded p-1 transition-colors  hover:text-cyan-500"
 								onClick={() => sa_event("out_linkedin")}
 							>
 								<LinkedIn />
@@ -104,7 +104,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 text-slate-400 transition-colors  hover:text-red-400"
+								className="navbar-link rounded p-1 transition-colors  hover:text-red-400"
 								onClick={() => sa_event("out_kofi")}
 							>
 								<svg fill="currentColor" width="1.85em" xmlns="http://www.w3.org/2000/svg" viewBox="0 2 24 18">
@@ -132,7 +132,15 @@ export default function NavBar({}: NavBarProps) {
 				</li>
 
 				<li className="mt-auto mb-5 hidden text-center text-slate-400 underline-offset-4 hover:underline lg:block">
-					<a data-tooltip role="tooltip" title={`Version ${version}`} href="https://github.com/QuentinWidlocher/personal-website" target="_blank" rel="noopener" className="rounded p-1">
+					<a
+						data-tooltip
+						role="tooltip"
+						title={`Version ${version}`}
+						href="https://github.com/QuentinWidlocher/personal-website"
+						target="_blank"
+						rel="noopener"
+						className="rounded p-1 text-slate-300 dark:text-slate-500"
+					>
 						See this website on github
 					</a>
 				</li>

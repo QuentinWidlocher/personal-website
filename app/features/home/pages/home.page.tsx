@@ -27,7 +27,7 @@ export default function HomePage() {
 				</div>
 			</div>
 
-			<article className="mt-10 leading-relaxed text-slate-300 lg:mt-20 xl:w-2/3">
+			<article className="mt-10 leading-relaxed text-slate-600 dark:text-slate-300 lg:mt-20 xl:w-2/3">
 				<p>
 					I'm a{" "}
 					<button disabled={cheatCodeValidated()} className={cheatCodeValidated() ? "" : "transform active:translate-y-0.5"} onClick={() => incrementCheatCode()}>
@@ -39,11 +39,11 @@ export default function HomePage() {
 				<p>
 					I'm very passionate about development and especially open source.
 					<br /> I'm always working on a new personal projet and I love to{" "}
-					<Link role="tooltip" data-tooltip title="See my starred repos" to="/stars" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
+					<Link role="tooltip" data-tooltip title="See my starred repos" to="/stars" className="-m-1 rounded p-1 font-semibold text-black dark:text-white underline-offset-4 hover:underline">
 						learn new things all the time
 					</Link>{" "}
 					and I also happen to{" "}
-					<Link data-tooltip title="Read my articles" to="/blog" prefetch="intent" className="-m-1 rounded p-1 font-semibold text-white underline-offset-4 hover:underline">
+					<Link data-tooltip title="Read my articles" to="/blog" prefetch="intent" className="-m-1 rounded p-1 font-semibold text-black dark:text-white underline-offset-4 hover:underline">
 						teach some people too
 					</Link>
 					.
@@ -60,7 +60,7 @@ export default function HomePage() {
 					<a
 						href="/CV-2022-EN.pdf"
 						target="_blank"
-						className="flex justify-center transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
+						className="flex justify-center transform space-x-5 rounded-lg bg-sky-700/50 dark:bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
 						<span>🇺🇸</span>
 						<span>In English</span>
@@ -68,14 +68,14 @@ export default function HomePage() {
 					<a
 						href="/CV-2022-FR.pdf"
 						target="_blank"
-						className="flex justify-center transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
+						className="flex justify-center transform space-x-5 rounded-lg bg-sky-700/50 dark:bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
 						<span>🇫🇷</span>
 						<span>In French</span>
 					</a>
 					<a
 						href="mailto:quentin@widlocher.com?subject=[Job%20Offer]%20"
-						className="flex justify-center transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
+						className="flex justify-center transform space-x-5 rounded-lg bg-sky-700/50 dark:bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
 						<span>📨</span>
 						<span>Contact me</span>
