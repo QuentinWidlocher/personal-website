@@ -1,5 +1,6 @@
-import { LoaderFunction } from "remix"
-import { getLastCommit, listRepos } from "../api/cached-github.api.server"
+import { json, LoaderFunction } from "remix"
+import { commitSession, getSession } from "~/utils/session"
+import { getLastCommit, githubCache, listRepos } from "../api/cached-github.api.server"
 import { Repo } from "../types/repo"
 
 export interface ReposLoaderPayload {
@@ -30,6 +31,9 @@ export let loader: LoaderFunction = async ({ request }) => {
 		}),
 	)
 
+	const session = await getSession(request.headers.get("Cookie"))
+	session.set("reposHash", githubCache.reposHash?.value)
+
 	let sortedRepos = mappedRepos.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
 
 	let payload: ReposLoaderPayload = {
@@ -37,5 +41,9 @@ export let loader: LoaderFunction = async ({ request }) => {
 		total,
 	}
 
-	return payload
+	return json(payload, {
+		headers: {
+			"Set-Cookie": await commitSession(session),
+		},
+	})
 }

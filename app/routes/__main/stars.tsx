@@ -33,7 +33,6 @@ export async function loader({ request }: LoaderArgs) {
 
 	// We update the number of stars "seen" by the user
 	session.set("starsHash", githubCache.starsHash?.value)
-	session.set("reposHash", githubCache.reposHash?.value)
 
 	return json(
 		{
