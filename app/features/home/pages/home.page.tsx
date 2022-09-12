@@ -1,6 +1,6 @@
-import { Link } from "remix"
-import { GitBranch, JournalPage } from "iconoir-react"
+import { Mail, PageStar } from "iconoir-react"
 import { useState } from "react"
+import { Link } from "remix"
 
 export default function HomePage() {
 	let [cheatCodeClick, setCheatCodeClick] = useState(1)
@@ -58,26 +58,18 @@ export default function HomePage() {
 				</p>
 				<div className="my-10 flex flex-col space-y-10 text-xl text-white md:flex-row md:space-y-0 md:space-x-10">
 					<a
-						href="/CV-2022-EN.pdf"
+						href="/resume"
 						target="_blank"
 						className="flex justify-center transform space-x-5 rounded-lg bg-sky-700/50 dark:bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
-						<span>🇺🇸</span>
-						<span>In English</span>
-					</a>
-					<a
-						href="/CV-2022-FR.pdf"
-						target="_blank"
-						className="flex justify-center transform space-x-5 rounded-lg bg-sky-700/50 dark:bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
-					>
-						<span>🇫🇷</span>
-						<span>In French</span>
+						<PageStar />
+						<span>See my resume</span>
 					</a>
 					<a
 						href="mailto:quentin@widlocher.com?subject=[Job%20Offer]%20"
 						className="flex justify-center transform space-x-5 rounded-lg bg-sky-700/50 dark:bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
 					>
-						<span>📨</span>
+						<Mail />
 						<span>Contact me</span>
 					</a>
 				</div>
