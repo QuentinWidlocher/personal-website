@@ -1,4 +1,6 @@
 import blogCss from "@blog/styles/blog.css"
+import mermaid from "mermaid"
+import { useEffect } from "react"
 import { HeadersFunction, Link, LinksFunction, LoaderFunction, MetaFunction, useLoaderData } from "remix"
 import ArticlePage from "~/features/blog/pages/article.page"
 import { Article } from "~/features/blog/types/blog"
@@ -47,10 +49,30 @@ export let loader: LoaderFunction = async ({ params }) => {
 
 export default function ArticleRoute() {
 	let article = useLoaderData<Article>()
+
+	useEffect(() => {
+		mermaid.initialize({ startOnLoad: true, darkMode: true })
+	}, [])
+
 	return <ArticlePage article={article} />
 }
 
-export function ErrorBoundary() {
+export function CatchBoundary(e: any) {
+	console.error(e)
+	return (
+		<div className="grid h-full w-full">
+			<div className="m-auto flex flex-col">
+				<h1 className="text-4xl font-bold">This article does not exists</h1>
+				<Link className="mx-auto mt-5 underline underline-offset-4" to="/blog" prefetch="render">
+					Go back to the articles
+				</Link>
+			</div>
+		</div>
+	)
+}
+
+export function ErrorBoundary(e: any) {
+	console.error(e)
 	return (
 		<div className="grid h-full w-full">
 			<div className="m-auto flex flex-col">

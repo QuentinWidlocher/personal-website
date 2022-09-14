@@ -9,4 +9,9 @@ module.exports = {
   serverBuildDirectory: "build",
   devServerPort: 8002,
   ignoredRouteFiles: [".*"],
+<<<<<<< Updated upstream
 };
+=======
+  serverDependenciesToBundle: ['mermaid']
+};
+>>>>>>> Stashed changes
