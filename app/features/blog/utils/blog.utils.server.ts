@@ -9,7 +9,6 @@ const rehypePlugins = Promise.all([
 	import("rehype-autolink-headings").then((mod) => mod.default),
 	import("rehype-prism-plus").then((mod) => mod.default),
 	import("@atomictech/rehype-toc").then((mod) => mod.default),
-	import("mdx-mermaid").then((mod) => mod.default),
 ])
 
 export async function getFullArticle(file: GithubContent): Promise<Article> {
@@ -43,5 +42,6 @@ export async function getFullArticle(file: GithubContent): Promise<Article> {
 		cover: mdx.frontmatter.cover,
 		series: mdx.frontmatter.series,
 		lang: mdx.frontmatter.lang,
+		withMermaid: mdx.frontmatter.withMermaid ?? false,
 	}
 }

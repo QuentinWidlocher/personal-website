@@ -10,4 +10,5 @@ export interface Article {
 	}
 	series?: string
 	lang: "en" | "fr"
+	withMermaid: boolean
 }

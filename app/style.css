@@ -2487,6 +2487,45 @@ pre {
   content: "";
 }
 
+@-webkit-keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+.mermaid:not([data-processed="true"]) {
+  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border-radius: 0.25rem;
+  background-color: rgb(100 116 139 / 0.2);
+  color: transparent;
+}
+
+.mermaid {
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .mermaid {
+    margin-left: -3rem;
+    margin-right: -3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .mermaid {
+    margin-left: -6rem;
+    margin-right: -6rem;
+  }
+}
+
 .marker\:text-slate-500 *::marker {
   color: rgb(100 116 139 );
 }

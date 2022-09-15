@@ -7,7 +7,7 @@ import Tabs from "../components/tabs"
 import { Article } from "../types/blog"
 
 interface ArticlePageProps {
-	article: Article
+	article: Omit<Article, "createdAt">
 }
 
 const proseConfig = `

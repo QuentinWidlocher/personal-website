@@ -1,3 +1,4 @@
+import { usePrefersColorScheme } from "@anatoliygatt/use-prefers-color-scheme"
 import blogCss from "@blog/styles/blog.css"
 import mermaid from "mermaid"
 import { useEffect } from "react"
@@ -38,7 +39,7 @@ export let meta: MetaFunction = ({ data }) => {
 
 export let loader: LoaderFunction = async ({ params }) => {
 	let articles = await getBlogArticles()
-	let article = articles.find((article) => article.slug === params.slug)
+	let article = articles.find((article) => article.slug == params.slug)
 
 	if (article == null) {
 		throw new Error(`Article not found: ${params.slug}`)
@@ -50,9 +51,17 @@ export let loader: LoaderFunction = async ({ params }) => {
 export default function ArticleRoute() {
 	let article = useLoaderData<Article>()
 
-	useEffect(() => {
-		mermaid.initialize({ startOnLoad: true, darkMode: true })
-	}, [])
+	if (article.withMermaid) {
+		const preferredColorScheme = usePrefersColorScheme()
+
+		useEffect(() => {
+			mermaid.initialize({
+				startOnLoad: true,
+				theme: preferredColorScheme as typeof mermaid.mermaidAPI.Theme[keyof typeof mermaid.mermaidAPI.Theme],
+			})
+			console.log("memaid initialized")
+		}, [preferredColorScheme])
+	}
 
 	return <ArticlePage article={article} />
 }
@@ -62,7 +71,7 @@ export function CatchBoundary(e: any) {
 	return (
 		<div className="grid h-full w-full">
 			<div className="m-auto flex flex-col">
-				<h1 className="text-4xl font-bold">This article does not exists</h1>
+				<h1 className="text-4xl font-bold">{e.message}</h1>
 				<Link className="mx-auto mt-5 underline underline-offset-4" to="/blog" prefetch="render">
 					Go back to the articles
 				</Link>
