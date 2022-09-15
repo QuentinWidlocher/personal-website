@@ -88,11 +88,11 @@ body [data-tooltip]:focus::before {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-	color: theme("colors.slate.500");
+	@apply text-[#696c77] dark:text-slate-500;
 }
 
 .token.punctuation {
-	color: #abb2bf;
+	@apply text-[#383a42] dark:text-[#abb2bf];
 }
 
 .token.selector,
@@ -107,7 +107,7 @@ body [data-tooltip]:focus::before {
 .language-tsx .token.plain,
 .token.literal-property .token.property-access,
 .template-string.interpolation {
-	color: #e06c75;
+	@apply text-[#e45649] dark:text-[#e06c75];
 }
 
 .token.property,
@@ -117,14 +117,14 @@ body [data-tooltip]:focus::before {
 .token.symbol,
 .token.attr-name,
 .token.deleted {
-	color: #d19a66;
+	@apply text-[#986801] dark:text-[#d19a66];
 }
 
 .token.string,
 .token.char,
 .token.attr-value,
 .token.inserted {
-	color: #98c379;
+	@apply text-[#50a14f] dark:text-[#98c379];
 }
 
 .token.entity,
@@ -133,11 +133,11 @@ body [data-tooltip]:focus::before {
 .token.operator,
 .style .token.string,
 .token.tag.attr-equals {
-	color: #56b6c2;
+	@apply text-[#0184bc] dark:text-[#56b6c2];
 }
 
 .token.function {
-	color: #61afef;
+	@apply text-[#4078f2] dark:text-[#61afef];
 }
 
 .token.constant,
@@ -145,7 +145,7 @@ body [data-tooltip]:focus::before {
 .token.dom,
 .token.known-class-name,
 .token.class-name {
-	color: #e5c07b;
+	@apply text-[#c18401] dark:text-[#e5c07b];
 }
 
 .token.regex,
@@ -153,7 +153,7 @@ body [data-tooltip]:focus::before {
 .token.atrule,
 .token.keyword,
 .template-string.interpolation-punctuation {
-	color: #c678dd;
+	@apply text-[#a626a4] dark:text-[#c678dd];
 }
 
 .token.important,
@@ -180,6 +180,7 @@ pre {
 }
 
 .code-line {
+	@apply text-[#383a42] dark:text-[#abb2bf];
 	display: block;
 	padding-left: 16px;
 	padding-right: 16px;
@@ -210,9 +211,8 @@ pre {
 	text-align: right;
 	margin-right: 16px;
 	margin-left: -8px;
-	color: theme("colors.slate.500");
 	content: attr(line);
-	@apply hidden md:inline-block;
+	@apply hidden md:inline-block text-[#696c77] dark:text-slate-500;
 }
 
 .token.entity {
@@ -220,7 +220,7 @@ pre {
 }
 
 .prose :not(pre) > code {
-	@apply mx-0.5 rounded bg-slate-500/20 p-1 text-slate-300;
+	@apply mx-0.5 rounded p-1 bg-sky-600/40 text-white dark:bg-slate-500/20 dark:text-slate-300;
 	break-before: always;
 }
 

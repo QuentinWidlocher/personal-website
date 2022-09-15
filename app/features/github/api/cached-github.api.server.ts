@@ -12,6 +12,7 @@ type CachedValue<T> = {
 
 type Cache = Partial<{
 	repos: CachedValue<GithubRepo[]>
+	reposHash: CachedValue<string>
 	stars: CachedValue<GithubRepo[]>
 	starsHash: CachedValue<string>
 	[key: `${string}-lastcommit`]: CachedValue<GithubCommit>
@@ -89,7 +90,12 @@ async function getCachedOrFreshData<K extends keyof Cache, Value = NonNullable<C
 }
 
 export async function listRepos(pageSize = 20): Promise<ReturnType<typeof getReposSlice>> {
-	let result = await getCachedOrFreshData("repos", listFilteredRepos)
+	let result = await getCachedOrFreshData("repos", () =>
+		listFilteredRepos().then((freshRepos) => {
+			setCache("reposHash", hasher().hash(freshRepos))
+			return freshRepos
+		}),
+	)
 	return getReposSlice(result ?? [], pageSize)
 }
 

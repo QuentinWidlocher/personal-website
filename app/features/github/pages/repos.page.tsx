@@ -28,7 +28,7 @@ export default function ReposPage({ repos, total }: ReposPageProps) {
 					My repositories
 				</a>
 			</h1>
-			<p className="mb-10 text-xl text-slate-400">Not everything is here, only my main open source projects and courses.</p>
+			<p className="mb-10 text-xl text-slate-600 dark:text-slate-400">Not everything is here, only my main open source projects and courses.</p>
 			{lastMonthRepos.length > 0 ? (
 				<>
 					<h3 className="ml-2 mb-3 text-xl">Worked on recently</h3>

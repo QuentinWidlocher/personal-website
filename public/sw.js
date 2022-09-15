@@ -1,4 +1,4 @@
-const version = "1.0.10";
+const version = "1.0.13";
 
 self.addEventListener("fetch", (event) => {
     let url = new URL(event.request.url);
@@ -10,8 +10,7 @@ self.addEventListener("fetch", (event) => {
     // If the request is for the favicons, fonts, or the built files (which are hashed in the name)
     if (
         url.pathname.startsWith("/assets/") ||
-        url.pathname.startsWith("/build/") ||
-        url.pathname.startsWith("/tailwindcss")
+        url.pathname.startsWith("/build/")
     ) {
         event.respondWith(
             // we will open the assets cache
