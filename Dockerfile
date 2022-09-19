@@ -22,7 +22,7 @@ WORKDIR /app
 
 COPY --from=deps /app/node_modules /app/node_modules
 ADD package.json ./
-RUN npm prune --production
+RUN npm prune --production --force
 
 # Build the app
 FROM base as build
