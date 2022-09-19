@@ -12,7 +12,7 @@ RUN mkdir /app
 WORKDIR /app
 
 ADD package.json ./
-RUN npm install --production=false --package-lock=false
+RUN npm install --production=false --package-lock=false --force
 
 # Setup production node_modules
 FROM base as production-deps
