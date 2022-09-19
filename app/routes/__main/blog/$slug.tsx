@@ -51,18 +51,6 @@ export let loader: LoaderFunction = async ({ params }) => {
 export default function ArticleRoute() {
 	let article = useLoaderData<Article>()
 
-	if (article.withMermaid) {
-		const preferredColorScheme = usePrefersColorScheme()
-
-		useEffect(() => {
-			mermaid.initialize({
-				startOnLoad: true,
-				theme: preferredColorScheme as typeof mermaid.mermaidAPI.Theme[keyof typeof mermaid.mermaidAPI.Theme],
-			})
-			console.log("memaid initialized")
-		}, [preferredColorScheme])
-	}
-
 	return <ArticlePage article={article} />
 }
 

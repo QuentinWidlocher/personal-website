@@ -1,4 +1,4 @@
-import { Mail, PageStar } from "iconoir-react"
+import { GitBranch, JournalPage, Mail, PageStar } from "iconoir-react"
 import { useState } from "react"
 import { Link } from "remix"
 
@@ -51,12 +51,22 @@ export default function HomePage() {
 				<br />
 				<p>I really love the web, UI & UX design and video games.</p>
 				<br />
-				<p className="border-l-4 pl-4 -ml-4 border-sky-500">
-					❗ I'm looking for a <strong>full-remote</strong> job as a web developper (<strong>front-end</strong> if possible) to work on <strong>modern tech stacks</strong> <br />
-					(React, Solid, Vue, Svelte, Tailwind, Typescript etc.) <br /> <br />
-					Take a look at my resume if you're interested !
-				</p>
 				<div className="my-10 flex flex-col space-y-10 text-xl text-white md:flex-row md:space-y-0 md:space-x-10">
+					<Link
+						to="/repos"
+						prefetch="intent"
+						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
+					>
+						<GitBranch /> <span>See my work</span>
+					</Link>
+					<Link
+						to="/blog"
+						prefetch="intent"
+						className="flex transform space-x-5 rounded-lg bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
+					>
+						<JournalPage />
+						<span>Read my articles</span>
+					</Link>
 					<a
 						href="/resume"
 						target="_blank"
@@ -64,13 +74,6 @@ export default function HomePage() {
 					>
 						<PageStar />
 						<span>See my resume</span>
-					</a>
-					<a
-						href="mailto:quentin@widlocher.com?subject=[Job%20Offer]%20"
-						className="flex justify-center transform space-x-5 rounded-lg bg-sky-700/50 dark:bg-slate-500/20 py-4 px-5 text-lg transition-transform hover:bg-gradient-to-tr hover:from-sky-500/50 hover:to-sky-400/60 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-px"
-					>
-						<Mail />
-						<span>Contact me</span>
 					</a>
 				</div>
 			</article>

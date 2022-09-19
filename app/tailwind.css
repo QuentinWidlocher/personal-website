@@ -228,11 +228,3 @@ pre {
 .prose :not(pre) > code::after {
 	content: "";
 }
-
-.mermaid:not([data-processed="true"]) {
-	@apply bg-slate-500/20 rounded text-transparent animate-pulse;
-}
-
-.mermaid {
-	@apply -mx-5 lg:-mx-12 xl:-mx-24;
-}

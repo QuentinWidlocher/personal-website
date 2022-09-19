@@ -29,8 +29,8 @@ function sortByDate(a: Article, b: Article) {
 export default function BlogListPage({ articleGroups }: BlogListPageProps) {
 	let groupNames = Object.keys(articleGroups ?? {}).sort((a, b) => {
 		// Others are always at the end
-		if (a === "other") return 1
-		if (b === "other") return -1
+		if (a === "other") return -1
+		if (b === "other") return 1
 
 		let groupA = articleGroups[a]
 		let groupB = articleGroups[b]

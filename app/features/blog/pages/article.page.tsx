@@ -1,8 +1,10 @@
 import { ArrowLeft } from "iconoir-react"
 import { getMDXComponent } from "mdx-bundler/client"
+import React, { ReactNode } from "react"
 import { useMemo } from "react"
 import { Link } from "remix"
 import ArticleImage from "../components/article-image"
+import Mermaid, { MermaidConfig } from "../components/mermaid"
 import Tabs from "../components/tabs"
 import { Article } from "../types/blog"
 
@@ -21,6 +23,11 @@ md:prose-h1:text-center md:prose-h1:-mx-5 lg:prose-h1:-mx-12 xl:prose-h1:-mx-24
 
 export default function ArticlePage({ article }: ArticlePageProps) {
 	const Component = useMemo(() => getMDXComponent(article.content), [article.content])
+	let Config: ({ children }: { children?: ReactNode }) => JSX.Element = ({ children }) => <>{children}</>
+
+	if (article.withMermaid) {
+		Config = MermaidConfig
+	}
 
 	return (
 		<>
@@ -34,7 +41,9 @@ export default function ArticlePage({ article }: ArticlePageProps) {
 				<article>
 					<h1 id="#">{article.title}</h1>
 					<blockquote>{article.subtitle}</blockquote>
-					<Component components={{ Tabs }} />
+					<Config>
+						<Component components={{ Tabs, Mermaid }} />
+					</Config>
 				</article>
 			</div>
 		</>
