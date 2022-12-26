@@ -1,9 +1,12 @@
 import { Link, NavLink, useFetcher, useMatches } from "remix"
-import { GitHub, Telegram, Twitter, LinkedIn, Home, GitBranch, StarOutline, JournalPage } from "iconoir-react"
+import { GitHub, Telegram, Twitter, LinkedIn, Home, GitBranch, StarOutline, JournalPage, SunLight, HalfMoon } from "iconoir-react"
 import { version } from "../../package.json"
 import { useEffect } from "react"
 
-interface NavBarProps {}
+interface NavBarProps {
+	theme: "light" | "dark"
+	toggleTheme: (theme: "light" | "dark") => void
+}
 
 function getNavLinkStyle({ isActive }: { isActive: boolean }) {
 	let baseStyle = `navbar-link relative flex w-full py-2 sm:py-4 px-2 sm:px-5 rounded-l-xl hover:bg-sky-500/10 dark:hover:bg-slate-500/10 transition-colors border-r-2 after:inline-block before:inline-block lg:after:!hidden lg:before:!hidden`
@@ -21,7 +24,7 @@ const navLinks: { href: string; label: string; icon: JSX.Element }[] = [
 	{ href: "/blog", label: "My articles", icon: <JournalPage /> },
 ]
 
-export default function NavBar({}: NavBarProps) {
+export default function NavBar({ theme, toggleTheme }: NavBarProps) {
 	let matches = useMatches()
 	let fetcher = useFetcher()
 
@@ -33,17 +36,17 @@ export default function NavBar({}: NavBarProps) {
 	}, [matches])
 
 	return (
-		<nav className="sticky top-0 -my-5 flex w-full justify-center bg-slate-300/60 dark:bg-slate-800/80 py-10 text-slate-800 dark:text-white shadow-lg shadow-slate-200/20 dark:shadow-slate-800/20 print:hidden sm:shadow-xl sm:shadow-slate-200/30 dark:sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-200/20 dark:lg:shadow-slate-800/50 landscape:my-0 landscape:py-0 landscape:md:-my-5 landscape:md:py-10">
-			<ul className="flex h-full w-full flex-col">
-				<li className="flex flex-col items-center space-x-0 p-2 pb-10 sm:flex-row sm:space-x-5 sm:p-5 landscape:hidden landscape:md:flex">
+		<nav className="sticky top-0 flex justify-center w-full py-10 -my-5 shadow-lg bg-slate-300/60 dark:bg-slate-800/80 text-slate-800 dark:text-white shadow-slate-200/20 dark:shadow-slate-800/20 print:hidden sm:shadow-xl sm:shadow-slate-200/30 dark:sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-200/20 dark:lg:shadow-slate-800/50 landscape:my-0 landscape:py-0 landscape:md:-my-5 landscape:md:py-10">
+			<ul className="flex flex-col w-full h-full">
+				<li className="flex flex-col items-center p-2 pb-10 space-x-0 sm:flex-row sm:space-x-5 sm:p-5 landscape:hidden landscape:md:flex">
 					<NavLink className={({ isActive }) => (isActive ? "opacity-0 landscape:md:hidden" : "-m-1 rounded-full p-1")} to="/" prefetch="intent">
-						<img src="/assets/images/profil-sm.webp" alt="A photo of Quentin's face" className="mb-5 aspect-square h-8 w-8 rounded-full sm:mb-0 sm:h-16 sm:w-16" />
+						<img src="/assets/images/profil-sm.webp" alt="A photo of Quentin's face" className="w-8 h-8 mb-5 rounded-full aspect-square sm:mb-0 sm:h-16 sm:w-16" />
 					</NavLink>
 					<section className="flex flex-col space-y-2">
 						<Link to="/" prefetch="intent" className="hidden rounded lg:block">
 							<h1 className="text-lg font-bold underline-offset-4 hover:underline">Quentin Widlocher</h1>
 						</Link>
-						<div className="text-slate-700 dark:text-slate-400 flex flex-col justify-around space-y-3 lg:flex-row lg:space-y-0">
+						<div className="flex flex-col justify-around space-y-3 text-slate-700 dark:text-slate-400 lg:flex-row lg:space-y-0">
 							<a
 								title="My Github page"
 								aria-label="Link to my Github page"
@@ -52,7 +55,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 transition-colors hover:text-white"
+								className="p-1 transition-colors rounded navbar-link hover:text-white"
 								onClick={() => sa_event("out_github")}
 							>
 								<GitHub />
@@ -65,7 +68,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 transition-colors hover:text-blue-500"
+								className="p-1 transition-colors rounded navbar-link hover:text-blue-500"
 								onClick={() => sa_event("out_telegram")}
 							>
 								<Telegram />
@@ -78,7 +81,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 transition-colors  hover:text-sky-500"
+								className="p-1 transition-colors rounded navbar-link hover:text-sky-500"
 								onClick={() => sa_event("out_twitter")}
 							>
 								<Twitter />
@@ -91,7 +94,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 transition-colors  hover:text-cyan-500"
+								className="p-1 transition-colors rounded navbar-link hover:text-cyan-500"
 								onClick={() => sa_event("out_linkedin")}
 							>
 								<LinkedIn />
@@ -104,7 +107,7 @@ export default function NavBar({}: NavBarProps) {
 								rel="noopener"
 								data-tooltip
 								role="tooltip"
-								className="navbar-link rounded p-1 transition-colors  hover:text-red-400"
+								className="p-1 transition-colors rounded navbar-link hover:text-red-400"
 								onClick={() => sa_event("out_kofi")}
 							>
 								<svg fill="currentColor" width="1.85em" xmlns="http://www.w3.org/2000/svg" viewBox="0 2 24 18">
@@ -121,9 +124,9 @@ export default function NavBar({}: NavBarProps) {
 							<li className="ml-auto sm:mt-5 lg:ml-5" key={href}>
 								<NavLink prefetch="intent" to={href} className={getNavLinkStyle} aria-label={label} title={label} data-tooltip role="tooltip">
 									{icon}
-									<span className="ml-5 hidden lg:block">{label}</span>
+									<span className="hidden ml-5 lg:block">{label}</span>
 									{(href === "/stars" && fetcher.data?.newStars) || (href === "/repos" && fetcher.data?.newRepos) ? (
-										<span className="aspect-square rounded-full absolute bg-sky-500 w-2 h-2 left-7 top-1 sm:left-10 sm:top-3"></span>
+										<span className="absolute w-2 h-2 rounded-full aspect-square bg-sky-500 left-7 top-1 sm:left-10 sm:top-3"></span>
 									) : null}
 								</NavLink>
 							</li>
@@ -131,7 +134,17 @@ export default function NavBar({}: NavBarProps) {
 					</ul>
 				</li>
 
-				<li className="mt-auto mb-5 hidden text-center text-slate-400 underline-offset-4 hover:underline lg:block">
+				<li className="flex mt-auto mb-5 place-content-around text-slate-400 underline-offset-4">
+					<button
+						data-tooltip
+						role="tooltip"
+						title={`To ${theme == "dark" ? "light" : "dark"}`}
+						type="button"
+						className="text-slate-700 dark:text-slate-500 hover:text-sky-400 dark:hover:text-sky-500"
+						onClick={() => toggleTheme(theme == "dark" ? "light" : "dark")}
+					>
+						{theme == "dark" ? <SunLight /> : <HalfMoon />}
+					</button>
 					<a
 						data-tooltip
 						role="tooltip"
@@ -139,7 +152,7 @@ export default function NavBar({}: NavBarProps) {
 						href="https://github.com/QuentinWidlocher/personal-website"
 						target="_blank"
 						rel="noopener"
-						className="rounded p-1 text-slate-300 dark:text-slate-500"
+						className="hidden rounded hover:underline lg:block first:p-1 text-slate-700 dark:text-slate-500"
 					>
 						See this website on github
 					</a>
