@@ -26,7 +26,7 @@ export async function loader({ request }: LoaderArgs) {
 				tags: repo.topics ?? [],
 				isFork: repo.fork,
 				isTemplate: repo.is_template,
-				updatedAt: await getLastCommit(repo.name).then((c) => (console.log(c) || c ? new Date(c.commit.author.date) : new Date())),
+				updatedAt: await getLastCommit(repo.name).then((c) => (c ? new Date(c.commit.author.date) : new Date())),
 			}
 		}),
 	)

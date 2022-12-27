@@ -51,7 +51,7 @@ export default function HomePage() {
 				<br />
 				<p>I really love the web, UI & UX design and video games.</p>
 				<br />
-				<div className="flex flex-col my-10 space-y-10 text-xl text-white md:flex-row md:space-y-0 md:space-x-10">
+				<div className="flex flex-col my-10 space-y-10 text-xl text-white lg:-mr-10 md:flex-row md:space-y-0 md:space-x-5">
 					<Link
 						to="/repos"
 						prefetch="intent"
