@@ -12,8 +12,6 @@ type MermaidProps = {
 export function MermaidConfig({ children }: { children?: React.ReactNode }) {
 	const preferredColorScheme = usePrefersColorScheme()
 
-	console.log("preferredColorScheme", preferredColorScheme)
-
 	mermaid.initialize({
 		startOnLoad: false,
 		theme: preferredColorScheme as mermaidAPI.Theme,
@@ -38,7 +36,7 @@ export default function Mermaid({ graph, name }: MermaidProps) {
 	}, [])
 
 	if (!processed) {
-		return <div className="-mx-5 lg:-mx-12 xl:-mx-24 bg-slate-500/20 h-80 rounded-lg text-transparent animate-pulse" ref={ref} />
+		return <div className="-mx-5 text-transparent rounded-lg lg:-mx-12 xl:-mx-24 bg-slate-500/20 h-80 animate-pulse" ref={ref} />
 	} else {
 		return <div className="-mx-5 lg:-mx-12 xl:-mx-24" ref={ref} />
 	}
