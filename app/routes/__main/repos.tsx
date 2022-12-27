@@ -1,4 +1,5 @@
-import { HeadersFunction, MetaFunction, useLoaderData } from "remix"
+import { HeadersFunction, MetaFunction } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
 import ReposPage from "~/features/github/pages/repos.page"
 import { Repo } from "~/features/github/types/repo"
 

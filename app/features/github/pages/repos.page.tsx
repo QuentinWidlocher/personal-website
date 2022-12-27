@@ -1,8 +1,8 @@
 import RepoCard from "../components/repo-card"
 import { subMonths, isAfter, isBefore } from "date-fns"
 import { Repo } from "../types/repo"
-import { Link } from "remix"
 import { Plus } from "iconoir-react"
+import { Link } from "@remix-run/react"
 
 interface ReposPageProps {
 	repos: (Repo & { updatedAt: string })[]
@@ -31,7 +31,7 @@ export default function ReposPage({ repos, total }: ReposPageProps) {
 			<p className="mb-10 text-xl text-slate-600 dark:text-slate-400">Not everything is here, only my main open source projects and courses.</p>
 			{lastMonthRepos.length > 0 ? (
 				<>
-					<h3 className="ml-2 mb-3 text-xl">Worked on recently</h3>
+					<h3 className="mb-3 ml-2 text-xl">Worked on recently</h3>
 					<ul className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
 						{lastMonthRepos.map((repo) => (
 							<li key={repo.id}>
@@ -43,7 +43,7 @@ export default function ReposPage({ repos, total }: ReposPageProps) {
 			) : null}
 			{last3MonthsRepos.length > 0 ? (
 				<>
-					<h3 className="ml-2 mt-5 mb-3 text-xl">Last projects</h3>
+					<h3 className="mt-5 mb-3 ml-2 text-xl">Last projects</h3>
 					<ul className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
 						{last3MonthsRepos.map((repo) => (
 							<li key={repo.id}>
@@ -55,7 +55,7 @@ export default function ReposPage({ repos, total }: ReposPageProps) {
 			) : null}
 			{olderRepos.length > 0 ? (
 				<>
-					<h3 className="ml-2 mt-5 mb-3 text-xl">Older projects</h3>
+					<h3 className="mt-5 mb-3 ml-2 text-xl">Older projects</h3>
 					<ul className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
 						{olderRepos.map((repo) => (
 							<li key={repo.id}>

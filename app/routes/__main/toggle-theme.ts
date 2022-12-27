@@ -1,4 +1,4 @@
-import { json, LoaderArgs } from "remix"
+import { json, LoaderArgs } from "@remix-run/node"
 import { getSession, commitSession } from "~/utils/session"
 
 export async function action({ request }: LoaderArgs) {

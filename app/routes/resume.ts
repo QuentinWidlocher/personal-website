@@ -1,4 +1,4 @@
-import { LoaderArgs, redirect } from "remix"
+import { LoaderArgs, redirect } from "@remix-run/node"
 import { getAcceptablePreferedLangFromHeader } from "~/utils/accept-language"
 
 export async function loader({ request }: LoaderArgs) {

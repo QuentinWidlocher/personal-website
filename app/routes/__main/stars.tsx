@@ -1,9 +1,9 @@
-import { HeadersFunction, LoaderArgs, MetaFunction, useLoaderData } from "remix"
 import StarsPage from "~/features/github/pages/stars.page"
-import { json } from "remix"
 import { commitSession, getSession } from "~/utils/session"
 import { listStars, githubCache } from "~/features/github/api/cached-github.api.server"
 import { Repo } from "~/features/github/types/repo"
+import { LoaderArgs, HeadersFunction, MetaFunction, json } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
 
 export async function loader({ request }: LoaderArgs) {
 	const session = await getSession(request.headers.get("Cookie"))

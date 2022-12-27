@@ -1,10 +1,11 @@
+import { Link } from "@remix-run/react"
 import { Plus } from "iconoir-react"
-import { Link } from "remix"
+import { Serialized } from "~/utils/types"
 import RepoCard from "../components/repo-card"
 import { Repo } from "../types/repo"
 
 interface StarsPageProps {
-	repos: Repo[]
+	repos: Serialized<Repo>[]
 	total: number
 }
 

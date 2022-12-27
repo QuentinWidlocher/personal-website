@@ -1,6 +1,6 @@
-import { GitBranch, JournalPage, Mail, PageStar } from "iconoir-react"
+import { Link } from "@remix-run/react"
+import { GitBranch, JournalPage, PageStar } from "iconoir-react"
 import { useState } from "react"
-import { Link } from "remix"
 
 export default function HomePage() {
 	let [cheatCodeClick, setCheatCodeClick] = useState(1)

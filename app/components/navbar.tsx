@@ -1,7 +1,7 @@
-import { Link, NavLink, useFetcher, useMatches } from "remix"
 import { GitHub, Telegram, Twitter, LinkedIn, Home, GitBranch, StarOutline, JournalPage, SunLight, HalfMoon } from "iconoir-react"
 import { version } from "../../package.json"
 import { useEffect } from "react"
+import { useMatches, useFetcher, NavLink, Link } from "@remix-run/react"
 
 interface NavBarProps {
 	theme: "light" | "dark"
@@ -38,7 +38,7 @@ export default function NavBar({ theme, toggleTheme }: NavBarProps) {
 	return (
 		<nav className="sticky top-0 flex justify-center w-full py-10 -my-5 shadow-lg bg-slate-300/60 dark:bg-slate-800/80 text-slate-800 dark:text-white shadow-slate-200/20 dark:shadow-slate-800/20 print:hidden sm:shadow-xl sm:shadow-slate-200/30 dark:sm:shadow-slate-800/30 lg:shadow-2xl lg:shadow-slate-200/20 dark:lg:shadow-slate-800/50 landscape:my-0 landscape:py-0 landscape:md:-my-5 landscape:md:py-10">
 			<ul className="flex flex-col w-full h-full">
-				<li className="flex flex-col items-center p-2 pb-10 space-x-0 sm:flex-row sm:space-x-5 sm:p-5 landscape:hidden landscape:md:flex">
+				<li className="flex flex-col items-center p-2 pb-10 space-x-0 sm:flex-row sm:space-x-5 sm:p-5 landscape:md:flex">
 					<NavLink className={({ isActive }) => (isActive ? "opacity-0 landscape:md:hidden" : "-m-1 rounded-full p-1")} to="/" prefetch="intent">
 						<img src="/assets/images/profil-sm.webp" alt="A photo of Quentin's face" className="w-8 h-8 mb-5 rounded-full aspect-square sm:mb-0 sm:h-16 sm:w-16" />
 					</NavLink>

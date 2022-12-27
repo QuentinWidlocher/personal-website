@@ -1,10 +1,11 @@
-import { Link, Links, LinksFunction, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from "remix"
-import type { MetaFunction } from "remix"
 import cssuiCore from "css-ui-lib/cssui.css"
 import cssuiTooltip from "css-ui-lib/tooltip/tooltip.css"
 import styleUrl from "./style.css"
 import fontsUrl from "./fonts.css"
 import React from "react"
+import { MetaFunction, LinksFunction } from "@remix-run/node"
+import { Meta, Links, Outlet, ScrollRestoration, Scripts, LiveReload, useLocation } from "@remix-run/react"
+import { Link } from "iconoir-react"
 
 export const meta: MetaFunction = () => {
 	return {
@@ -100,9 +101,9 @@ export function CatchBoundary() {
 				<Links />
 			</head>
 			<body>
-				<div className="flex h-screen w-screen flex-col items-center justify-center bg-slate-800">
+				<div className="flex flex-col items-center justify-center w-screen h-screen bg-slate-800">
 					<h1 className="text-4xl text-white">Oops something bad happened 🙊</h1>
-					<Link className="text-xl underline text-white mt-5" to="/">
+					<Link className="mt-5 text-xl text-white underline" to="/">
 						Go back
 					</Link>
 				</div>

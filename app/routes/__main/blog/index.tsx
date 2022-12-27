@@ -1,4 +1,5 @@
-import { HeadersFunction, useLoaderData } from "remix"
+import { HeadersFunction } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
 import { ArticleListLoaderPayload } from "~/features/blog/loaders/article-list.loader"
 import BlogListPage from "~/features/blog/pages/list.page"
 

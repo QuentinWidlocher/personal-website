@@ -1,4 +1,4 @@
-import { LoaderFunction } from "remix"
+import { LoaderArgs } from "@remix-run/node"
 import { getSession } from "~/utils/session"
 import { githubCache } from "../api/cached-github.api.server"
 
@@ -7,7 +7,7 @@ import { githubCache } from "../api/cached-github.api.server"
  * If the hash is different, the stars have changed.
  * We return the number of new stars.
  */
-export let loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
 	const session = await getSession(request.headers.get("Cookie"))
 
 	let payload = { newStars: false, newRepos: false }

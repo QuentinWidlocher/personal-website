@@ -1,4 +1,4 @@
-import { ShouldReloadFunction } from "remix"
+import { ShouldReloadFunction } from "@remix-run/react"
 
 export { loader } from "../../features/github/loaders/new-stars.loader"
 

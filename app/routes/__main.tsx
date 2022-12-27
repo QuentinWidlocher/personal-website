@@ -1,5 +1,5 @@
+import { useLoaderData, useFetcher, Outlet } from "@remix-run/react"
 import { json, LoaderArgs } from "@remix-run/server-runtime"
-import { useLoaderData, Outlet, useFetcher } from "remix"
 import NavBar from "~/components/navbar"
 import { commitSession, getSession } from "~/utils/session"
 

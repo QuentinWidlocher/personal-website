@@ -1,4 +1,4 @@
-import { json, LoaderFunction } from "remix"
+import { json, LoaderArgs } from "@remix-run/node"
 import { commitSession, getSession } from "~/utils/session"
 import { getLastCommit, githubCache, listRepos } from "../api/cached-github.api.server"
 import { Repo } from "../types/repo"
@@ -8,7 +8,7 @@ export interface ReposLoaderPayload {
 	total: number
 }
 
-export let loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
 	let url = new URL(request.url)
 	let size = url.searchParams.get("s")
 	let sizeNumber = size != null ? parseInt(size) : undefined
@@ -26,7 +26,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 				tags: repo.topics ?? [],
 				isFork: repo.fork,
 				isTemplate: repo.is_template,
-				updatedAt: await getLastCommit(repo.name).then((c) => new Date(c.commit.author.date)),
+				updatedAt: await getLastCommit(repo.name).then((c) => (console.log(c) || c ? new Date(c.commit.author.date) : new Date())),
 			}
 		}),
 	)

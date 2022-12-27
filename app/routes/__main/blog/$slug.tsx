@@ -1,8 +1,6 @@
-import { usePrefersColorScheme } from "@anatoliygatt/use-prefers-color-scheme"
 import blogCss from "@blog/styles/blog.css"
-import mermaid from "mermaid"
-import { useEffect } from "react"
-import { HeadersFunction, Link, LinksFunction, LoaderFunction, MetaFunction, useLoaderData } from "remix"
+import { HeadersFunction, LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node"
+import { Link, useLoaderData } from "@remix-run/react"
 import ArticlePage from "~/features/blog/pages/article.page"
 import { Article } from "~/features/blog/types/blog"
 import { getBlogArticles } from "~/features/github/api/cached-github.api.server"
@@ -37,7 +35,7 @@ export let meta: MetaFunction = ({ data }) => {
 	}
 }
 
-export let loader: LoaderFunction = async ({ params }) => {
+export async function loader({ params }: LoaderArgs) {
 	let articles = await getBlogArticles()
 	let article = articles.find((article) => article.slug == params.slug)
 
@@ -57,8 +55,8 @@ export default function ArticleRoute() {
 export function CatchBoundary(e: any) {
 	console.error(e)
 	return (
-		<div className="grid h-full w-full">
-			<div className="m-auto flex flex-col">
+		<div className="grid w-full h-full">
+			<div className="flex flex-col m-auto">
 				<h1 className="text-4xl font-bold">{e.message}</h1>
 				<Link className="mx-auto mt-5 underline underline-offset-4" to="/blog" prefetch="render">
 					Go back to the articles
@@ -71,8 +69,8 @@ export function CatchBoundary(e: any) {
 export function ErrorBoundary(e: any) {
 	console.error(e)
 	return (
-		<div className="grid h-full w-full">
-			<div className="m-auto flex flex-col">
+		<div className="grid w-full h-full">
+			<div className="flex flex-col m-auto">
 				<h1 className="text-4xl font-bold">This article does not exists</h1>
 				<Link className="mx-auto mt-5 underline underline-offset-4" to="/blog" prefetch="render">
 					Go back to the articles

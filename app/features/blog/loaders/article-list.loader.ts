@@ -1,12 +1,16 @@
-import { LoaderFunction } from "remix"
 import { getBlogArticles } from "~/features/github/api/cached-github.api.server"
-import { GroupedArticles } from "../pages/list.page"
+import { Article } from "../types/blog"
+
+export interface GroupedArticles {
+	other: Article[]
+	[k: string]: Article[]
+}
 
 export interface ArticleListLoaderPayload {
 	groups: GroupedArticles
 }
 
-export let loader: LoaderFunction = async () => {
+export async function loader() {
 	let articles = await getBlogArticles()
 
 	let groups: GroupedArticles = articles.reduce((acc, article) => {

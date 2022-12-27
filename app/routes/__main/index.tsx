@@ -1,4 +1,4 @@
-import { HeadersFunction } from "remix"
+import { HeadersFunction } from "@remix-run/node"
 import HomePage from "~/features/home/pages/home.page"
 
 export let headers: HeadersFunction = () => ({
