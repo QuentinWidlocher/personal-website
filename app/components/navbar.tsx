@@ -139,10 +139,13 @@ export default function NavBar({ theme, toggleTheme }: NavBarProps) {
 					<button
 						data-tooltip
 						role="tooltip"
-						title={`To ${nextTheme(theme)}`}
+						title={`Switch to ${nextTheme(theme)} theme`}
 						type="button"
-						className="text-slate-700 dark:text-slate-500 hover:text-sky-400 dark:hover:text-sky-500"
-						onClick={() => toggleTheme()}
+						className="rounded navbar-link text-slate-700 dark:text-slate-500 hover:text-sky-400 dark:hover:text-sky-500"
+						onClick={(e) => {
+							toggleTheme()
+							e.currentTarget.blur()
+						}}
 					>
 						{themeIcons[theme]}
 					</button>

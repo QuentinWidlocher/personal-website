@@ -3,6 +3,7 @@ import { ArrowLeft } from "iconoir-react"
 import { getMDXComponent } from "mdx-bundler/client"
 import { ReactNode } from "react"
 import { useMemo } from "react"
+import { Theme } from "~/utils/theme"
 import ArticleImage from "../components/article-image"
 import Mermaid, { MermaidConfig } from "../components/mermaid"
 import Tabs from "../components/tabs"
@@ -10,6 +11,7 @@ import { Article } from "../types/blog"
 
 interface ArticlePageProps {
 	article: Omit<Article, "createdAt">
+	theme?: Theme
 }
 
 const proseConfig = `
@@ -21,12 +23,12 @@ prose-hr:border-slate-500/20 prose-hr:border-t-4
 md:prose-h1:text-center md:prose-h1:-mx-5 lg:prose-h1:-mx-12 xl:prose-h1:-mx-24
 `
 
-export default function ArticlePage({ article }: ArticlePageProps) {
+export default function ArticlePage({ article, theme }: ArticlePageProps) {
 	const Component = useMemo(() => getMDXComponent(article.content), [article.content])
-	let Config: ({ children }: { children?: ReactNode }) => JSX.Element = ({ children }) => <>{children}</>
+	let Config: ({ children, theme }: { children?: ReactNode; theme?: Theme }) => JSX.Element = ({ children }) => <>{children}</>
 
 	if (article.withMermaid) {
-		Config = MermaidConfig
+		Config = ({ children }: { children?: ReactNode }) => MermaidConfig({ children, theme })
 	}
 
 	return (

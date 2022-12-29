@@ -1,9 +1,12 @@
 import blogCss from "@blog/styles/blog.css"
 import { HeadersFunction, LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
+import { useRouteData } from "remix-utils"
 import ArticlePage from "~/features/blog/pages/article.page"
 import { Article } from "~/features/blog/types/blog"
 import { getBlogArticles } from "~/features/github/api/cached-github.api.server"
+import { loader as themeLoader } from "~/routes/__main"
+import { Theme } from "~/utils/theme"
 
 export let headers: HeadersFunction = () => ({
 	// Cache for 5m, CDN Cache for 5m, revalidate for 1w
@@ -48,8 +51,9 @@ export async function loader({ params }: LoaderArgs) {
 
 export default function ArticleRoute() {
 	let article = useLoaderData<Article>()
+	let themeData = useRouteData<{ theme: Theme }>("routes/__main")
 
-	return <ArticlePage article={article} />
+	return <ArticlePage article={article} theme={themeData?.theme} />
 }
 
 export function CatchBoundary(e: any) {

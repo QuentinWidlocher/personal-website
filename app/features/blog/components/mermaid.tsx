@@ -1,23 +1,55 @@
-import { usePrefersColorScheme } from "@anatoliygatt/use-prefers-color-scheme"
 import mermaid from "mermaid"
 import mermaidAPI from "mermaid/mermaidAPI"
 import React from "react"
 import { useEffect, useId, useRef, useState } from "react"
+import { Theme } from "~/utils/theme"
 
 type MermaidProps = {
 	graph: string
 	name?: string
 }
 
-export function MermaidConfig({ children }: { children?: React.ReactNode }) {
-	const preferredColorScheme = usePrefersColorScheme()
+function useColorScheme(storedTheme: Theme = "dark") {
+	let [theme, setTheme] = useState<Theme>(storedTheme == "system" ? "dark" : storedTheme)
+
+	console.log("useColorScheme", storedTheme, theme)
+
+	function onPreferenceChange(e: MediaQueryListEvent) {
+		console.log("onPreferenceChange", storedTheme, e.matches ? "dark" : "light")
+		if (storedTheme == "system") {
+			setTheme(e.matches ? "dark" : "light")
+		}
+	}
+
+	useEffect(() => {
+		let event = window.matchMedia("(prefers-color-scheme: dark)")
+		event.addEventListener("change", onPreferenceChange)
+		return () => {
+			event.removeEventListener("change", onPreferenceChange)
+		}
+	})
+
+	useEffect(() => {
+		if (storedTheme == "system") {
+			setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+		} else {
+			setTheme(storedTheme)
+		}
+	}, [storedTheme, theme])
+
+	return theme
+}
+
+export function MermaidConfig({ children, theme }: { children?: React.ReactNode; theme?: Theme }) {
+	const colorScheme = useColorScheme(theme)
 
 	mermaid.initialize({
 		startOnLoad: false,
-		theme: preferredColorScheme as mermaidAPI.Theme,
+		theme: colorScheme as mermaidAPI.Theme,
 	})
+	useEffect(() => {}, [colorScheme])
 
-	return <React.Fragment key={preferredColorScheme}>{children ?? null}</React.Fragment>
+	return <React.Fragment key={colorScheme}>{children ?? null}</React.Fragment>
 }
 
 export default function Mermaid({ graph, name }: MermaidProps) {
