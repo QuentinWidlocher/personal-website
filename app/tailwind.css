@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--primary-color: theme("colors.slate.400");
+}
+
 body {
 	/* I promise I tried my best to make every action visible */
 	-webkit-tap-highlight-color: transparent;

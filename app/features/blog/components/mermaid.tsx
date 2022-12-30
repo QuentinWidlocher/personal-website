@@ -2,54 +2,32 @@ import mermaid from "mermaid"
 import mermaidAPI from "mermaid/mermaidAPI"
 import React from "react"
 import { useEffect, useId, useRef, useState } from "react"
-import { Theme } from "~/utils/theme"
+import { Theme, useColorScheme } from "~/utils/theme"
 
 type MermaidProps = {
 	graph: string
 	name?: string
 }
 
-function useColorScheme(storedTheme: Theme = "dark") {
-	let [theme, setTheme] = useState<Theme>(storedTheme == "system" ? "dark" : storedTheme)
-
-	console.log("useColorScheme", storedTheme, theme)
-
-	function onPreferenceChange(e: MediaQueryListEvent) {
-		console.log("onPreferenceChange", storedTheme, e.matches ? "dark" : "light")
-		if (storedTheme == "system") {
-			setTheme(e.matches ? "dark" : "light")
-		}
-	}
-
-	useEffect(() => {
-		let event = window.matchMedia("(prefers-color-scheme: dark)")
-		event.addEventListener("change", onPreferenceChange)
-		return () => {
-			event.removeEventListener("change", onPreferenceChange)
-		}
-	})
-
-	useEffect(() => {
-		if (storedTheme == "system") {
-			setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
-		} else {
-			setTheme(storedTheme)
-		}
-	}, [storedTheme, theme])
-
-	return theme
-}
-
 export function MermaidConfig({ children, theme }: { children?: React.ReactNode; theme?: Theme }) {
 	const colorScheme = useColorScheme(theme)
+	const dark = colorScheme == "dark"
 
 	mermaid.initialize({
 		startOnLoad: false,
-		theme: colorScheme as mermaidAPI.Theme,
+		theme: "base" as mermaidAPI.Theme,
+		themeVariables: {
+			darkMode: dark,
+			primaryColor: dark ? "#475569" : "#e2e8f0",
+			primaryBorderColor: dark ? "#475569" : "#e2e8f0",
+			noteBkgColor: dark ? "#0ea5e944" : "#0ea5e944",
+			noteTextColor: dark ? "#0ea5e9" : "#0284c7",
+			noteBorderColor: dark ? "#00000000" : "#00000000",
+			secondaryColor: dark ? "#0ea5e9" : "#0ea5e9",
+		},
 	})
-	useEffect(() => {}, [colorScheme])
 
-	return <React.Fragment key={colorScheme}>{children ?? null}</React.Fragment>
+	return <React.Fragment key={colorScheme as string}>{children ?? null}</React.Fragment>
 }
 
 export default function Mermaid({ graph, name }: MermaidProps) {
