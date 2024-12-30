@@ -5,43 +5,43 @@ import { Article } from "../types/blog"
 const remarkPlugins = Promise.all([import("remark-mdx").then((mod) => mod.default), import("remark-gfm").then((mod) => mod.default)])
 
 const rehypePlugins = Promise.all([
-	import("rehype-slug").then((mod) => mod.default),
-	import("rehype-autolink-headings").then((mod) => mod.default),
-	import("rehype-prism-plus").then((mod) => mod.default),
-	import("@atomictech/rehype-toc").then((mod) => mod.default),
+  import("rehype-slug").then((mod) => mod.default),
+  import("rehype-autolink-headings").then((mod) => mod.default),
+  import("rehype-prism-plus").then((mod) => mod.default),
+  import("@atomictech/rehype-toc").then((mod) => mod.default),
 ])
 
 export async function getFullArticle(file: GithubContent): Promise<Article> {
-	let content = await fetch(file.download_url).then((res) => res.text())
+  let content = await fetch(file.download_url).then((res) => res.text())
 
-	let [remarkMdx, remarkGfm] = await remarkPlugins
-	let [rehypeSlug, rehypeAutolink, rehypePrismPlus, rehypeToc] = await rehypePlugins
+  let [remarkMdx, remarkGfm] = await remarkPlugins
+  let [rehypeSlug, rehypeAutolink, rehypePrismPlus, rehypeToc] = await rehypePlugins
 
-	let mdx = await bundleMDX({
-		source: content,
-		xdmOptions(options, frontmatter) {
-			options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkMdx, remarkGfm]
-			options.rehypePlugins = [
-				...(options.rehypePlugins ?? []),
-				rehypeSlug,
-				[rehypeAutolink, { behavior: "wrap", properties: { className: "!no-underline hover:!underline" } }],
-				[rehypePrismPlus, { showLineNumbers: true }],
-				[rehypeToc, { headings: ["h2", "h3", "h4"] }],
-			]
+  let mdx = await bundleMDX({
+    source: content,
+    mdxOptions(options, frontmatter) {
+      options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkMdx, remarkGfm]
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        rehypeSlug,
+        [rehypeAutolink, { behavior: "wrap", properties: { className: "!no-underline hover:!underline" } }],
+        [rehypePrismPlus, { showLineNumbers: true }],
+        [rehypeToc, { headings: ["h2", "h3", "h4"] }],
+      ]
 
-			return options
-		},
-	})
+      return options
+    },
+  })
 
-	return {
-		slug: file.name.replace(/\.mdx?$/, ""),
-		title: mdx.frontmatter.title,
-		subtitle: mdx.frontmatter.subtitle,
-		createdAt: mdx.frontmatter.createdAt ? new Date(mdx.frontmatter.createdAt) : undefined,
-		content: mdx.code,
-		cover: mdx.frontmatter.cover,
-		series: mdx.frontmatter.series,
-		lang: mdx.frontmatter.lang,
-		withMermaid: mdx.frontmatter.withMermaid ?? false,
-	}
+  return {
+    slug: file.name.replace(/\.mdx?$/, ""),
+    title: mdx.frontmatter.title,
+    subtitle: mdx.frontmatter.subtitle,
+    createdAt: mdx.frontmatter.createdAt ? new Date(mdx.frontmatter.createdAt) : undefined,
+    content: mdx.code,
+    cover: mdx.frontmatter.cover,
+    series: mdx.frontmatter.series,
+    lang: mdx.frontmatter.lang,
+    withMermaid: mdx.frontmatter.withMermaid ?? false,
+  }
 }

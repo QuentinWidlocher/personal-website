@@ -22,7 +22,7 @@ export function MermaidConfig({ children, theme }: { children?: React.ReactNode;
 			primaryBorderColor: dark ? "#475569" : "#e2e8f0",
 			noteBkgColor: dark ? "#0ea5e944" : "#0ea5e944",
 			noteTextColor: dark ? "#0ea5e9" : "#0284c7",
-			noteBorderColor: dark ? "#00000000" : "#00000000",
+			noteBorderColor: dark ? "#FFFFFF00" : "#FFFFFF00",
 			secondaryColor: dark ? "#0ea5e9" : "#0ea5e9",
 		},
 	})

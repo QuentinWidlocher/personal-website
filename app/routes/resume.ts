@@ -1,7 +1,7 @@
-import { LoaderArgs, redirect } from "@remix-run/node"
+import { LoaderFunctionArgs, redirect } from "@remix-run/node"
 import { getAcceptablePreferedLangFromHeader } from "~/utils/accept-language"
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
 	let lang = getAcceptablePreferedLangFromHeader(request, "en")
 
 	if (lang == "fr") {
